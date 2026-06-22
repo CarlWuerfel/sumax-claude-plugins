@@ -47,6 +47,12 @@ def _session() -> str:
 
 def _headers() -> dict:
     h = {"Content-Type": "application/json", "X-Caller": _caller()}
+    # Schmaler Context-Store-Token (Default-Weg für Mitarbeiter) — gibt NUR Zugriff
+    # auf die Schublade, nicht auf den restlichen Gateway.
+    tok = os.environ.get("SUMAX_CONTEXT_TOKEN", "")
+    if tok:
+        h["X-Context-Token"] = tok
+    # Optionaler Master-CF-Service-Token (nur intern/Server-zu-Server, NICHT an MA geben).
     cid = os.environ.get("CF_ACCESS_CLIENT_ID", "")
     if cid:
         h["CF-Access-Client-Id"] = cid
