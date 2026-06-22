@@ -33,25 +33,31 @@ SUMAX-Gateway.
 
 #### Konfiguration
 
-Ihr braucht genau **eine** Zeile in eurer `~/.zshrc` — den Context-Token (bekommt ihr
-von Carl):
+Ihr braucht den Context-Token (bekommt ihr von Carl). Der **einfachste, shell-
+unabhängige Weg** (egal ob zsh, bash oder fish) — in `~/.claude/settings.json`
+ein `env`-Feld eintragen:
 
+```json
+{
+  "env": {
+    "SUMAX_CONTEXT_TOKEN": "DER_TOKEN_VON_CARL"
+  }
+}
 ```
-export SUMAX_CONTEXT_TOKEN="…"
-```
 
-Danach `source ~/.zshrc` oder Terminal neu öffnen. Das war's — der Rest hat sinnvolle
-Defaults.
+Falls die Datei schon Inhalt hat, fügt das `env`-Feld einfach hinzu (gültiges JSON
+beachten — Komma nicht vergessen). **Am bequemsten:** sagt eurem Claude Code direkt
+„Trag SUMAX_CONTEXT_TOKEN=… in meine ~/.claude/settings.json env-Sektion ein", dann
+macht er es selbst. Danach Claude Code neu starten — **kein Terminal-Gefummel nötig**.
 
-| Variable | Zweck | Default |
-|----------|-------|---------|
-| `SUMAX_CONTEXT_TOKEN` | Zugangs-Token (**nur** für die Schublade) | — (Pflicht) |
-| `SUMAX_GATEWAY_URL` | Adresse des Context-Store | `https://context-store.sumax.dev` |
-| `SUMAX_CONTEXT_CALLER` | Name in der Ablage (zur Isolation) | `user@host` |
+(Alternativ geht auch eine `export SUMAX_CONTEXT_TOKEN="…"`-Zeile in eurer Shell-Config
+— `~/.zshrc` für zsh, `~/.bash_profile` für bash. Dann aber Terminal neu öffnen und
+Claude Code von dort starten.)
 
 Der Token gibt **ausschließlich** Zugriff auf die Context-Schublade (Ablegen/Suchen) —
-nicht auf andere SUMAX-Dienste, keine KI-Aufrufe, keine Kundendaten. Er steht aus
-Sicherheitsgründen nicht hier im Repo.
+nicht auf andere SUMAX-Dienste, keine KI-Aufrufe, keine Kundendaten. Weitere optionale
+Variablen: `SUMAX_GATEWAY_URL` (Default `https://context-store.sumax.dev`),
+`SUMAX_CONTEXT_CALLER` (Default `user@host`).
 
 ## Neues Plugin hinzufügen
 
