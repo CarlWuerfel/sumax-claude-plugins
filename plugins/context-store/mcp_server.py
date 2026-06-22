@@ -11,11 +11,12 @@ jedem python3 auf jeder Mitarbeiter-Maschine, ohne Installation. Kommuniziert pe
 newline-delimited JSON-RPC 2.0 über stdin/stdout (MCP-stdio-Transport).
 
 Konfiguration über Umgebungsvariablen (vom Plugin/der Shell gesetzt):
-  SUMAX_GATEWAY_URL        Default https://sumax-microservices.sumax.dev
-  CF_ACCESS_CLIENT_ID      Cloudflare-Service-Token (für externen Zugang)
-  CF_ACCESS_CLIENT_SECRET
+  SUMAX_CONTEXT_TOKEN      Schmaler Zugangs-Token (NUR Schublade) — Pflicht von extern
+  SUMAX_GATEWAY_URL        Default https://context-store.sumax.dev (nur /api/context/*)
   SUMAX_CONTEXT_CALLER     Name dieses Nutzers/Tools (Default: user@host)
   SUMAX_CONTEXT_SESSION    Session-ID (Default: "default")
+  CF_ACCESS_CLIENT_ID      Master-CF-Service-Token (NUR intern, nicht an MA geben)
+  CF_ACCESS_CLIENT_SECRET
 """
 import getpass
 import json
