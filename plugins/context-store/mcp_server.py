@@ -28,7 +28,7 @@ import urllib.error
 import urllib.request
 
 PROTOCOL_VERSION = "2024-11-05"
-GATEWAY = os.environ.get("SUMAX_GATEWAY_URL", "https://sumax-microservices.sumax.dev").rstrip("/")
+GATEWAY = os.environ.get("SUMAX_GATEWAY_URL", "https://context-store.sumax.dev").rstrip("/")
 TIMEOUT = 15
 
 
