@@ -33,21 +33,25 @@ SUMAX-Gateway.
 
 #### Konfiguration
 
-Der MCP-Server liest seine Einstellungen aus Umgebungsvariablen. Setzt sie pro
-Maschine (z.B. in `~/.zshrc`):
+Ihr braucht genau **eine** Zeile in eurer `~/.zshrc` — den Context-Token (bekommt ihr
+von Carl):
+
+```
+export SUMAX_CONTEXT_TOKEN="…"
+```
+
+Danach `source ~/.zshrc` oder Terminal neu öffnen. Das war's — der Rest hat sinnvolle
+Defaults.
 
 | Variable | Zweck | Default |
 |----------|-------|---------|
-| `SUMAX_GATEWAY_URL` | Gateway-Adresse | `https://sumax-microservices.sumax.dev` |
-| `CF_ACCESS_CLIENT_ID` | Cloudflare-Service-Token (für externen Zugang) | — |
-| `CF_ACCESS_CLIENT_SECRET` | dito | — |
+| `SUMAX_CONTEXT_TOKEN` | Zugangs-Token (**nur** für die Schublade) | — (Pflicht) |
+| `SUMAX_GATEWAY_URL` | Adresse des Context-Store | `https://context-store.sumax.dev` |
 | `SUMAX_CONTEXT_CALLER` | Name in der Ablage (zur Isolation) | `user@host` |
 
-- **Im Büro / Tailscale:** `SUMAX_GATEWAY_URL=http://mac-mini-von-sumax.tail61b1.ts.net:8080`, kein CF-Token nötig.
-- **Extern (Homeoffice):** Default-URL behalten + CF-Service-Token setzen (bei Carl erfragen).
-
-Die CF-Service-Token sind **nicht** im Repo hinterlegt (Sicherheit) — sie kommen
-aus eurer lokalen `.env` / Shell-Konfiguration.
+Der Token gibt **ausschließlich** Zugriff auf die Context-Schublade (Ablegen/Suchen) —
+nicht auf andere SUMAX-Dienste, keine KI-Aufrufe, keine Kundendaten. Er steht aus
+Sicherheitsgründen nicht hier im Repo.
 
 ## Neues Plugin hinzufügen
 
