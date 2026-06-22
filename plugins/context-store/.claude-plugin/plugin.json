@@ -1,0 +1,16 @@
+{
+  "name": "context-store",
+  "version": "1.0.0",
+  "description": "SUMAX Context-Schublade: große Tool-Dumps (Ahrefs, Crawls, Logs) aus dem Context-Fenster auslagern und per Volltextsuche gezielt zurückholen. Spart Tokens in interaktiven Sessions. Spricht den SUMAX-Gateway an.",
+  "author": {
+    "name": "SUMAX / Reknova GmbH"
+  },
+  "keywords": ["context-window", "fts5", "bm25", "seo", "ahrefs", "sumax"],
+  "mcpServers": {
+    "sumax-context-store": {
+      "command": "python3",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp_server.py"]
+    }
+  },
+  "skills": "./skills/"
+}

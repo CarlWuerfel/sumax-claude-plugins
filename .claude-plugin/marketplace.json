@@ -1,0 +1,24 @@
+{
+  "name": "sumax",
+  "owner": {
+    "name": "SUMAX / Reknova GmbH",
+    "email": "c.wuerfel@sumax.de"
+  },
+  "metadata": {
+    "description": "Interne Claude-Code-Plugins von SUMAX",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "context-store",
+      "source": "./plugins/context-store",
+      "description": "Große Tool-Dumps (Ahrefs, Crawls, Logs) aus dem Context-Fenster auslagern und per Volltextsuche gezielt zurückholen — spart Tokens in interaktiven Sessions.",
+      "version": "1.0.0",
+      "author": {
+        "name": "SUMAX / Reknova GmbH"
+      },
+      "category": "productivity",
+      "keywords": ["context-window", "fts5", "bm25", "seo", "ahrefs", "sumax"]
+    }
+  ]
+}
