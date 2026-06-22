@@ -47,7 +47,9 @@ def _session() -> str:
 
 
 def _headers() -> dict:
-    h = {"Content-Type": "application/json", "X-Caller": _caller()}
+    # Eigener User-Agent: Cloudflare blockt die Standard-Signatur von python-urllib
+    # (error 1010). Ein benannter UA kommt sauber durch.
+    h = {"Content-Type": "application/json", "User-Agent": "sumax-context-store/1.0", "X-Caller": _caller()}
     # Schmaler Context-Store-Token (Default-Weg für Mitarbeiter) — gibt NUR Zugriff
     # auf die Schublade, nicht auf den restlichen Gateway.
     tok = os.environ.get("SUMAX_CONTEXT_TOKEN", "")
