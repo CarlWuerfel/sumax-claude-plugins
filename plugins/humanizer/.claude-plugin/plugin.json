@@ -1,0 +1,11 @@
+{
+  "name": "humanizer",
+  "version": "2.8.0",
+  "description": "Entfernt KI-Schreibmuster aus Texten und macht sie natürlicher und menschlicher. Basiert auf Wikipedias \"Signs of AI writing\". Erkennt/korrigiert u.a. Bedeutungs-Aufblähung, Werbe-Floskeln, Partizip-Anhängsel, vage Quellen, Em-Dash-Übermaß, Dreierregel, KI-Vokabular, Passiv und Füllphrasen. Läuft komplett lokal — kein Gateway, kein API-Token nötig.",
+  "author": {
+    "name": "blader/humanizer (MIT)",
+    "url": "https://github.com/blader/humanizer"
+  },
+  "keywords": ["anti-ai-slop", "humanizer", "writing", "de-slop", "editing", "sumax"],
+  "skills": "./skills/"
+}
