@@ -19,6 +19,17 @@
       },
       "category": "productivity",
       "keywords": ["context-window", "fts5", "bm25", "seo", "ahrefs", "sumax"]
+    },
+    {
+      "name": "humanizer",
+      "source": "./plugins/humanizer",
+      "description": "Entfernt KI-Schreibmuster aus Texten (Anti-AI-Slop) und macht sie natürlicher. Basiert auf Wikipedias \"Signs of AI writing\", 33 Muster. Läuft lokal — kein Gateway/Token nötig. Aufruf: /humanizer.",
+      "version": "2.8.0",
+      "author": {
+        "name": "blader/humanizer (MIT)"
+      },
+      "category": "productivity",
+      "keywords": ["anti-ai-slop", "humanizer", "writing", "de-slop", "editing", "sumax"]
     }
   ]
 }
