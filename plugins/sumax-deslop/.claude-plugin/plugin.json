@@ -1,0 +1,10 @@
+{
+  "name": "sumax-deslop",
+  "version": "1.0.0",
+  "description": "Anti-Claude-Modus: sorgt dafür, dass Texte, Websites, Präsentationen, PDFs, E-Mails und Code nicht als KI-/Claude-generiert erkennbar sind. Master-Skill mit 7 Referenz-Dateien (deutsches + englisches Schreiben, Web/UI-Design, Decks, Dokumente, Code/Repo, Arbeitsprozess), destilliert aus 25+ Quellen (hallmark, avoid-ai-design, anti-ai-slop, claude-design-skill, humanizer, WP:AICATCH, deutsche KI-Text-Forschung). Drei Modi: Erzeugen, Audit, Rewrite. Läuft komplett lokal — kein Gateway, kein API-Token nötig.",
+  "author": {
+    "name": "SUMAX / Reknova GmbH"
+  },
+  "keywords": ["anti-ai-slop", "anti-claude", "deslop", "design", "writing", "slides", "humanizer", "sumax"],
+  "skills": "./skills/"
+}
