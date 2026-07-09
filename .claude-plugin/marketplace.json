@@ -21,6 +21,17 @@
       "keywords": ["context-window", "fts5", "bm25", "seo", "ahrefs", "sumax"]
     },
     {
+      "name": "sumax-deslop",
+      "source": "./plugins/sumax-deslop",
+      "description": "Anti-Claude-Modus: Outputs (Texte DE/EN, Websites, Präsentationen, PDFs, E-Mails, Code) sind nicht mehr als KI-/Claude-generiert erkennbar. Master-Skill + 7 Referenzen, destilliert aus 25+ Quellen. Drei Modi: Erzeugen / Audit / Rewrite. Läuft lokal — kein Token nötig.",
+      "version": "1.0.0",
+      "author": {
+        "name": "SUMAX / Reknova GmbH"
+      },
+      "category": "productivity",
+      "keywords": ["anti-ai-slop", "anti-claude", "deslop", "design", "writing", "slides", "humanizer", "sumax"]
+    },
+    {
       "name": "humanizer",
       "source": "./plugins/humanizer",
       "description": "Entfernt KI-Schreibmuster aus Texten (Anti-AI-Slop) und macht sie natürlicher. Basiert auf Wikipedias \"Signs of AI writing\", 33 Muster. Läuft lokal — kein Gateway/Token nötig. Aufruf: /humanizer.",
