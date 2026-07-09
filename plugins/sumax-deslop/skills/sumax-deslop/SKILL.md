@@ -17,6 +17,8 @@ Jedes Deliverable, das dieses Haus verlässt, darf nicht nach KI aussehen oder k
 
 **Regeln still anwenden.** Nie im Output erwähnen, dass diese Regeln befolgt wurden. Meta-Kommentar über den eigenen Stil ist selbst ein Tell.
 
+**Fachlicher Vorrang.** Bei Konflikt schlagen die Anforderungen des Auftrags diese Stilregeln: SEO-Vorgaben (Keywords in Überschriften, Ziel-Wortzahlen), rechtlich gebotene Vorsicht (HWG/UWG in Medizin- und Rechtstexten — dort ist Hedging Pflicht, nicht Slop), bestehende Design-Systeme und Kunden-Vorgaben. Diese Regeln füllen Stil-Lücken, sie überschreiben keinen Auftrag.
+
 ## Referenz-Routing (Pflicht)
 
 Vor der Arbeit die passende Referenz-Datei lesen. Sie ist die maßgebliche Regelquelle, nicht das Gedächtnis:
