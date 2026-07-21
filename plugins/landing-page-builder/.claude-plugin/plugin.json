@@ -1,0 +1,10 @@
+{
+  "name": "landing-page-builder",
+  "version": "1.0.0",
+  "description": "Baut High-Converting Google-Ads-Landingpages nach dem Conversion-Centered-Design-Framework (Oli Gardner / Unbounce, 7 Prinzipien) kombiniert mit Google-Ads-Quality-Score-Anforderungen. Hartes Regelwerk mit Build-Sequenz + Pre-Launch-QA-Checkliste. Zu kombinieren mit sumax-style/sumax-deslop für Marke und Anti-KI-Look. Läuft lokal — kein Token nötig.",
+  "author": {
+    "name": "SUMAX / Reknova GmbH"
+  },
+  "keywords": ["landing-page", "ppc", "google-ads", "sea", "conversion", "ccd", "unbounce", "quality-score", "sumax"],
+  "skills": "./skills/"
+}
