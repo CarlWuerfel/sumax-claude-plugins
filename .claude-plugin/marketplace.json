@@ -32,6 +32,17 @@
       "keywords": ["anti-ai-slop", "anti-claude", "deslop", "design", "writing", "slides", "humanizer", "sumax"]
     },
     {
+      "name": "landing-page-builder",
+      "source": "./plugins/landing-page-builder",
+      "description": "Baut High-Converting Google-Ads-Landingpages nach dem Conversion-Centered-Design-Framework (Oli Gardner / Unbounce, 7 Prinzipien) + Google-Ads-Quality-Score. Hartes Regelwerk mit Build-Sequenz + Pre-Launch-QA-Checkliste. Kombinieren mit sumax-style + sumax-deslop. Läuft lokal — kein Token nötig.",
+      "version": "1.0.0",
+      "author": {
+        "name": "SUMAX / Reknova GmbH"
+      },
+      "category": "productivity",
+      "keywords": ["landing-page", "ppc", "google-ads", "sea", "conversion", "ccd", "unbounce", "quality-score", "sumax"]
+    },
+    {
       "name": "humanizer",
       "source": "./plugins/humanizer",
       "description": "Entfernt KI-Schreibmuster aus Texten (Anti-AI-Slop) und macht sie natürlicher. Basiert auf Wikipedias \"Signs of AI writing\", 33 Muster. Läuft lokal — kein Gateway/Token nötig. Aufruf: /humanizer.",
