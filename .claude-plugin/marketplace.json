@@ -18,7 +18,14 @@
         "name": "SUMAX / Reknova GmbH"
       },
       "category": "productivity",
-      "keywords": ["context-window", "fts5", "bm25", "seo", "ahrefs", "sumax"]
+      "keywords": [
+        "context-window",
+        "fts5",
+        "bm25",
+        "seo",
+        "ahrefs",
+        "sumax"
+      ]
     },
     {
       "name": "sumax-deslop",
@@ -29,7 +36,16 @@
         "name": "SUMAX / Reknova GmbH"
       },
       "category": "productivity",
-      "keywords": ["anti-ai-slop", "anti-claude", "deslop", "design", "writing", "slides", "humanizer", "sumax"]
+      "keywords": [
+        "anti-ai-slop",
+        "anti-claude",
+        "deslop",
+        "design",
+        "writing",
+        "slides",
+        "humanizer",
+        "sumax"
+      ]
     },
     {
       "name": "landing-page-builder",
@@ -40,7 +56,17 @@
         "name": "SUMAX / Reknova GmbH"
       },
       "category": "productivity",
-      "keywords": ["landing-page", "ppc", "google-ads", "sea", "conversion", "ccd", "unbounce", "quality-score", "sumax"]
+      "keywords": [
+        "landing-page",
+        "ppc",
+        "google-ads",
+        "sea",
+        "conversion",
+        "ccd",
+        "unbounce",
+        "quality-score",
+        "sumax"
+      ]
     },
     {
       "name": "humanizer",
@@ -51,7 +77,32 @@
         "name": "blader/humanizer (MIT)"
       },
       "category": "productivity",
-      "keywords": ["anti-ai-slop", "humanizer", "writing", "de-slop", "editing", "sumax"]
+      "keywords": [
+        "anti-ai-slop",
+        "humanizer",
+        "writing",
+        "de-slop",
+        "editing",
+        "sumax"
+      ]
+    },
+    {
+      "name": "google-ads",
+      "source": "./plugins/google-ads",
+      "description": "Google-Ads-Konten der SUMAX-MCC direkt in Claude analysieren: Kampagnen, Keywords, Search Terms, Conversions, Budgets, Quality Score, Impression Share, Auction Insights, Änderungshistorie. 25 Werkzeuge, strikt lesend. Braucht einen Zugangs-Token (SUMAX_ADS_TOKEN).",
+      "version": "1.0.0",
+      "author": {
+        "name": "SUMAX / Reknova GmbH"
+      },
+      "category": "productivity",
+      "keywords": [
+        "google-ads",
+        "sea",
+        "ppc",
+        "analyse",
+        "mcc",
+        "sumax"
+      ]
     }
   ]
 }
