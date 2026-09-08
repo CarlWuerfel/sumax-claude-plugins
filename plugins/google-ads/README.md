@@ -1,9 +1,40 @@
-# SUMAX Google Ads — Plugin für Claude Code
+# SUMAX Google Ads — Plugin für Claude
 
 Google-Ads-Konten der SUMAX-MCC direkt in Claude analysieren. 27 Lese-Werkzeuge plus
 ein Skill, der die Analyse-Leitplanken mitbringt.
 
-## Einrichten (einmalig, ~2 Minuten)
+Zwei Wege, je nachdem womit du arbeitest:
+
+- **Claude Desktop (die App)** → das Bundle per Doppelklick installieren, siehe unten.
+- **Claude Code (Terminal, Desktop-App oder IDE)** → Marketplace + `/plugin install`.
+
+---
+
+## Weg A: Claude Desktop — die App (kein Terminal nötig)
+
+1. **Token besorgen** bei c.wuerfel@sumax.de.
+2. **Bundle herunterladen:**
+   [sumax-google-ads.mcpb](https://github.com/CarlWuerfel/sumax-claude-plugins/raw/main/plugins/google-ads/dist/sumax-google-ads.mcpb)
+   (Datei landet im Download-Ordner.)
+3. **In Claude Desktop installieren:** Einstellungen → Erweiterungen → das Bundle in das
+   Fenster ziehen. Alternativ: Einstellungen → Erweiterungen → Erweiterte Einstellungen →
+   „Erweiterung installieren…" und die Datei auswählen.
+4. Claude fragt nach dem **Zugangs-Token** — eintragen, speichern. Der Token liegt danach
+   im Schlüsselbund, nicht in einer Datei.
+5. Fertig. Die Werkzeuge stehen im nächsten Chat bereit.
+
+Startet die Erweiterung nicht, fehlt meist `python3` auf dem Rechner: einmal Terminal
+öffnen, `xcode-select --install` ausführen, danach Claude Desktop neu starten.
+
+Der Skill mit den Analyse-Regeln gehört zum Claude-Code-Plugin, nicht zum Bundle. In
+Claude Desktop bekommst du also die Daten-Werkzeuge, nicht die eingebauten Leitplanken —
+für ernste Kontoanalysen ist Weg B die bessere Wahl.
+
+---
+
+## Weg B: Claude Code — Marketplace-Plugin (mit Skill)
+
+### Einrichten (einmalig, ~2 Minuten)
 
 **1. Token besorgen.** Bei c.wuerfel@sumax.de anfragen. Der Token gibt ausschließlich
 Lesezugriff auf Google-Ads-Daten — nicht auf Claude, Ahrefs oder andere SUMAX-Dienste.
