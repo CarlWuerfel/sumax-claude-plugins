@@ -22,6 +22,10 @@ Konfiguration ueber Umgebungsvariablen:
   CF_ACCESS_CLIENT_ID      Master-CF-Service-Token (NUR intern, nicht an MA geben)
   CF_ACCESS_CLIENT_SECRET
 """
+# Muss mit dem System-Python von macOS (3.9) laufen: Claude Desktop startet
+# /usr/bin/python3. Deshalb Annotationen lazy auswerten (str | None ist erst 3.10).
+from __future__ import annotations
+
 import getpass
 import json
 import os
@@ -376,7 +380,7 @@ def main() -> None:
             _result(req_id, {
                 "protocolVersion": PROTOCOL_VERSION,
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": "sumax-google-ads", "version": "1.0.0"},
+                "serverInfo": {"name": "sumax-google-ads", "version": "1.0.1"},
             })
         elif method == "notifications/initialized":
             continue

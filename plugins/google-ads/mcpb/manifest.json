@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "sumax-google-ads",
   "display_name": "SUMAX Google Ads",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Google-Ads-Konten der SUMAX-MCC direkt in Claude analysieren — 27 Werkzeuge, rein lesend.",
   "long_description": "Liest Kampagnen, Anzeigengruppen, Anzeigen, Keywords, Search Terms, Negativ-Keywords, Conversion-Aktionen und -Zahlen, Budget-Auslastung, Gebotsstrategien, Quality Score, Impression Share, Auction Insights, Kontostruktur, Zielgruppen, Geräte-Split, Shopping-Daten, Änderungshistorie, MCC-Branchen-Benchmarks und Keyword-Planner-Ideen. Es gibt bewusst kein Werkzeug, das etwas ändert: Budget-, Gebots- und Keyword-Änderungen laufen über den Google Ads Agent mit Freigabe-Queue.",
   "author": {

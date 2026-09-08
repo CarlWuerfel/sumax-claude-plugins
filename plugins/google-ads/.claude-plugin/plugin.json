@@ -1,6 +1,6 @@
 {
   "name": "google-ads",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Google-Ads-Konten der SUMAX-MCC direkt in Claude analysieren: Kampagnen, Keywords, Search Terms, Conversions, Budgets, Quality Score, Impression Share, Auction Insights, Änderungshistorie. Strikt lesend — spricht den SUMAX-Gateway an.",
   "author": {
     "name": "SUMAX / Reknova GmbH"

@@ -23,8 +23,13 @@ Zwei Wege, je nachdem womit du arbeitest:
    im Schlüsselbund, nicht in einer Datei.
 5. Fertig. Die Werkzeuge stehen im nächsten Chat bereit.
 
-Startet die Erweiterung nicht, fehlt meist `python3` auf dem Rechner: einmal Terminal
-öffnen, `xcode-select --install` ausführen, danach Claude Desktop neu starten.
+Startet die Erweiterung nicht, hilft ein Blick ins Log unter
+`~/Library/Logs/Claude/mcp-server-SUMAX Google Ads.log`. Fehlt dort `python3` komplett,
+einmal Terminal öffnen, `xcode-select --install` ausführen und Claude Desktop neu starten.
+
+Der Server läuft bewusst mit dem System-Python von macOS (`/usr/bin/python3`, Version 3.9) —
+Claude Desktop startet genau das. Deshalb keine Syntax ab 3.10 in `mcp_server.py` einbauen
+(`str | None` in Signaturen etwa), sonst stirbt die Erweiterung beim Start.
 
 Der Skill mit den Analyse-Regeln gehört zum Claude-Code-Plugin, nicht zum Bundle. In
 Claude Desktop bekommst du also die Daten-Werkzeuge, nicht die eingebauten Leitplanken —
