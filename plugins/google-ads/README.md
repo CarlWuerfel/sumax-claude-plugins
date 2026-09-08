@@ -1,6 +1,6 @@
 # SUMAX Google Ads — Plugin für Claude Code
 
-Google-Ads-Konten der SUMAX-MCC direkt in Claude analysieren. 25 Lese-Werkzeuge plus
+Google-Ads-Konten der SUMAX-MCC direkt in Claude analysieren. 27 Lese-Werkzeuge plus
 ein Skill, der die Analyse-Leitplanken mitbringt.
 
 ## Einrichten (einmalig, ~2 Minuten)
@@ -31,7 +31,7 @@ keine Abhängigkeiten, kein venv.
 
 Einfach fragen, zum Beispiel:
 
-- „Zeig mir die Konten, die 'dorow' im Namen haben."
+- „Zeig mir alle Konten, die zu diesem Kunden gehören.“
 - „Wie lief Konto 123-456-7890 in den letzten 30 Tagen?"
 - „Welche Search Terms haben in den letzten 90 Tagen Geld gekostet ohne Conversion?"
 - „Warum ist der CPA im August hochgegangen? Schau in die Änderungshistorie."

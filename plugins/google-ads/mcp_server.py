@@ -120,7 +120,7 @@ SPECS: dict[str, dict] = {
     "ads_accounts": {
         "path": "/accounts",
         "desc": "Alle Kunden-Konten der SUMAX-MCC (Name + Konto-ID + Waehrung). Immer der erste Schritt: hier die customer_id des Kunden holen. Optional 'search' filtert nach Kontoname.",
-        "params": {"search": ("string", "Optionaler Namensfilter, z.B. 'dorow' — filtert lokal ueber die Kontoliste.", False)},
+        "params": {"search": ("string", "Optionaler Namensfilter, z.B. ein Teil des Kundennamens — filtert lokal ueber die Kontoliste.", False)},
     },
     "ads_account_overview": {
         "path": "/account-overview",
@@ -254,7 +254,7 @@ SPECS: dict[str, dict] = {
         "method": "POST",
         "desc": "Keyword Planner: Ideen inkl. Suchvolumen und Wettbewerb — aus Seed-Keywords oder einer URL. Funktioniert ohne Kunden-Konto.",
         "params": {
-            "seed_keywords": ("array", "Liste von Start-Keywords, z.B. ['zahnimplantat koeln'].", False),
+            "seed_keywords": ("array", "Liste von Start-Keywords, z.B. ['beispiel keyword'].", False),
             "url": ("string", "Alternativ: URL, aus der Google Ideen ableitet.", False),
             "language": ("string", "Sprache, Default 'de'.", False),
             "location": ("string", "Land, Default 'DE'.", False),
