@@ -1,0 +1,44 @@
+{
+  "manifest_version": "0.3",
+  "name": "sumax-google-ads",
+  "display_name": "SUMAX Google Ads",
+  "version": "1.0.0",
+  "description": "Google-Ads-Konten der SUMAX-MCC direkt in Claude analysieren — 27 Werkzeuge, rein lesend.",
+  "long_description": "Liest Kampagnen, Anzeigengruppen, Anzeigen, Keywords, Search Terms, Negativ-Keywords, Conversion-Aktionen und -Zahlen, Budget-Auslastung, Gebotsstrategien, Quality Score, Impression Share, Auction Insights, Kontostruktur, Zielgruppen, Geräte-Split, Shopping-Daten, Änderungshistorie, MCC-Branchen-Benchmarks und Keyword-Planner-Ideen. Es gibt bewusst kein Werkzeug, das etwas ändert: Budget-, Gebots- und Keyword-Änderungen laufen über den Google Ads Agent mit Freigabe-Queue.",
+  "author": {
+    "name": "SUMAX / Reknova GmbH",
+    "email": "c.wuerfel@sumax.de"
+  },
+  "keywords": ["google-ads", "sea", "ppc", "analyse", "sumax"],
+  "server": {
+    "type": "python",
+    "entry_point": "server/main.py",
+    "mcp_config": {
+      "command": "python3",
+      "args": ["${__dirname}/server/main.py"],
+      "env": {
+        "SUMAX_ADS_TOKEN": "${user_config.token}",
+        "SUMAX_ADS_GATEWAY_URL": "${user_config.gateway_url}"
+      }
+    }
+  },
+  "user_config": {
+    "token": {
+      "type": "string",
+      "title": "Zugangs-Token",
+      "description": "Der SUMAX-Ads-Token. Bei c.wuerfel@sumax.de anfragen.",
+      "sensitive": true,
+      "required": true
+    },
+    "gateway_url": {
+      "type": "string",
+      "title": "Gateway-Adresse",
+      "description": "Nur ändern, wenn ausdrücklich gesagt wird.",
+      "default": "https://ads-mcp.sumax.dev",
+      "required": false
+    }
+  },
+  "compatibility": {
+    "platforms": ["darwin", "win32"]
+  }
+}
