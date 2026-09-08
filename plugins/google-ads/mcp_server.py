@@ -15,6 +15,7 @@ newline-delimited JSON-RPC 2.0 ueber stdin/stdout (MCP-stdio-Transport).
 
 Konfiguration ueber Umgebungsvariablen:
   SUMAX_ADS_TOKEN          Schmaler Zugangs-Token (NUR Google-Ads-Lesedaten) — Pflicht
+  SUMAX_ADS_TOKEN_FILE     Alternative: Datei mit dem Token (Default ~/.sumax/ads-token)
   SUMAX_ADS_GATEWAY_URL    Default https://ads-mcp.sumax.dev
   SUMAX_ADS_CALLER         Name dieses Nutzers (Default: user@host) — landet im Logging
   SUMAX_ADS_MAX_CHARS      Kappungsgrenze pro Antwort (Default 60000 Zeichen)
@@ -46,6 +47,25 @@ def _caller() -> str:
         return "claude-code"
 
 
+def _token() -> str:
+    """Zugangs-Token. Reihenfolge: Umgebungsvariable, dann Token-Datei.
+
+    Die Datei-Variante ist fuer alle Faelle gedacht, in denen keine Shell im Spiel ist
+    (Claude Desktop, Desktop-App, GUI-Start) — dort greift ein `export` in ~/.zshrc nicht.
+    Standardpfad ~/.sumax/ads-token, ueberschreibbar per SUMAX_ADS_TOKEN_FILE.
+    """
+    tok = os.environ.get("SUMAX_ADS_TOKEN", "").strip()
+    if tok:
+        return tok
+    path = os.environ.get("SUMAX_ADS_TOKEN_FILE", "").strip() or os.path.join(
+        os.path.expanduser("~"), ".sumax", "ads-token")
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return fh.read().strip()
+    except OSError:
+        return ""
+
+
 def _max_chars() -> int:
     try:
         return max(4000, int(os.environ.get("SUMAX_ADS_MAX_CHARS", "60000")))
@@ -61,7 +81,7 @@ def _headers() -> dict:
         "User-Agent": "sumax-google-ads-mcp/1.0",
         "X-Caller": f"mcp-google-ads:{_caller()}",
     }
-    tok = os.environ.get("SUMAX_ADS_TOKEN", "").strip()
+    tok = _token()
     if tok:
         h["X-Ads-Token"] = tok
     # Optionaler Master-CF-Service-Token (nur intern/Server-zu-Server, NICHT an MA geben).
@@ -96,8 +116,9 @@ def _request(method: str, path: str, params: dict | None = None, body: dict | No
         detail = e.read().decode("utf-8", "replace")[:600]
         if e.code == 401:
             raise RuntimeError(
-                "Zugang abgelehnt (401). Ist SUMAX_ADS_TOKEN in der Shell gesetzt? "
-                "Token bei c.wuerfel@sumax.de anfragen."
+                "Zugang abgelehnt (401). Token fehlt oder ist falsch — entweder "
+                "SUMAX_ADS_TOKEN in der Shell setzen oder in die Datei ~/.sumax/ads-token "
+                "schreiben. Token bei c.wuerfel@sumax.de anfragen."
             )
         if e.code == 503:
             raise RuntimeError("Gateway meldet: kein Ads-MCP-Token konfiguriert (Server-seitig).")

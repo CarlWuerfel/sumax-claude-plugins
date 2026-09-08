@@ -39,12 +39,19 @@ für ernste Kontoanalysen ist Weg B die bessere Wahl.
 **1. Token besorgen.** Bei c.wuerfel@sumax.de anfragen. Der Token gibt ausschließlich
 Lesezugriff auf Google-Ads-Daten — nicht auf Claude, Ahrefs oder andere SUMAX-Dienste.
 
-**2. Token in die Shell eintragen:**
+**2. Token hinterlegen** — eine der beiden Varianten:
 
 ```bash
-echo 'export SUMAX_ADS_TOKEN="<dein-token>"' >> ~/.zshrc
-source ~/.zshrc
+# Variante 1: Umgebungsvariable (Terminal-Nutzer)
+echo 'export SUMAX_ADS_TOKEN="<dein-token>"' >> ~/.zshrc && source ~/.zshrc
+
+# Variante 2: Token-Datei — funktioniert auch, wenn Claude Code aus einer App
+# heraus startet und die Shell-Variablen nicht sieht
+mkdir -p ~/.sumax && printf '%s' '<dein-token>' > ~/.sumax/ads-token && chmod 600 ~/.sumax/ads-token
 ```
+
+Startest du Claude Code als App (nicht aus dem Terminal), nimm Variante 2 — ein `export`
+in `~/.zshrc` erreicht GUI-Prozesse nicht zuverlässig.
 
 **3. Marketplace und Plugin installieren** (in Claude Code):
 
@@ -89,7 +96,19 @@ Optionale Umgebungsvariablen:
 
 | Variable | Zweck |
 |---|---|
-| `SUMAX_ADS_TOKEN` | Zugangs-Token (Pflicht) |
+| `SUMAX_ADS_TOKEN` | Zugangs-Token (Pflicht, sonst Token-Datei) |
+| `SUMAX_ADS_TOKEN_FILE` | Pfad zur Token-Datei, Default `~/.sumax/ads-token` |
 | `SUMAX_ADS_GATEWAY_URL` | anderer Gateway, Default `https://ads-mcp.sumax.dev` |
 | `SUMAX_ADS_CALLER` | eigener Name im Logging, Default `user@host` |
 | `SUMAX_ADS_MAX_CHARS` | Kappungsgrenze pro Antwort, Default 60000 |
+
+## Bundle neu bauen (nur für Maintainer)
+
+Nach jeder Änderung an `mcp_server.py` muss das Desktop-Bundle neu gebaut werden — es
+enthält eine Kopie der Datei:
+
+```bash
+./build-mcpb.sh   # schreibt dist/sumax-google-ads.mcpb
+```
+
+Version in `mcpb/manifest.json` hochzählen, damit Claude Desktop das Update anbietet.
