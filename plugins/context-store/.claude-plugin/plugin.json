@@ -1,16 +1,41 @@
 {
   "name": "context-store",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "SUMAX Context-Schublade: große Tool-Dumps (Ahrefs, Crawls, Logs) aus dem Context-Fenster auslagern und per Volltextsuche gezielt zurückholen. Spart Tokens in interaktiven Sessions. Spricht den SUMAX-Gateway an.",
   "author": {
     "name": "SUMAX / Reknova GmbH"
   },
-  "keywords": ["context-window", "fts5", "bm25", "seo", "ahrefs", "sumax"],
+  "keywords": [
+    "context-window",
+    "fts5",
+    "bm25",
+    "seo",
+    "ahrefs",
+    "sumax"
+  ],
   "mcpServers": {
     "sumax-context-store": {
       "command": "python3",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp_server.py"]
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp_server.py"
+      ]
     }
   },
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "userConfig": {
+    "token": {
+      "type": "string",
+      "title": "SUMAX Context-Token",
+      "description": "Schmaler Zugangs-Token nur für die Schublade (nicht der Gateway-Master-Token). Bekommst du von Carl. Wird im macOS-Schlüsselbund gespeichert, nicht im Klartext.",
+      "sensitive": true,
+      "required": true
+    },
+    "caller": {
+      "type": "string",
+      "title": "Dein Kürzel",
+      "description": "Erscheint in der Ablage als Absender, z. B. dein Vorname. Dient nur der Zuordnung.",
+      "required": false,
+      "default": "ma"
+    }
+  }
 }

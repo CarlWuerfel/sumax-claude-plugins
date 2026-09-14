@@ -58,7 +58,10 @@ def _token() -> str:
     (Claude Desktop, Desktop-App, GUI-Start) — dort greift ein `export` in ~/.zshrc nicht.
     Standardpfad ~/.sumax/ads-token, ueberschreibbar per SUMAX_ADS_TOKEN_FILE.
     """
-    tok = os.environ.get("SUMAX_ADS_TOKEN", "").strip()
+    # Token: zuerst aus der Plugin-Konfiguration (macOS-Schlüsselbund, seit v1.1.0),
+    # dann die klassische Shell-Variable, dann die Token-Datei.
+    tok = (os.environ.get("CLAUDE_PLUGIN_OPTION_TOKEN", "").strip()
+           or os.environ.get("SUMAX_ADS_TOKEN", "").strip())
     if tok:
         return tok
     path = os.environ.get("SUMAX_ADS_TOKEN_FILE", "").strip() or os.path.join(

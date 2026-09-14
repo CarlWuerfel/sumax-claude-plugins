@@ -52,7 +52,9 @@ def _headers() -> dict:
     h = {"Content-Type": "application/json", "User-Agent": "sumax-context-store/1.0", "X-Caller": _caller()}
     # Schmaler Context-Store-Token (Default-Weg für Mitarbeiter) — gibt NUR Zugriff
     # auf die Schublade, nicht auf den restlichen Gateway.
-    tok = os.environ.get("SUMAX_CONTEXT_TOKEN", "")
+    # Token: zuerst aus der Plugin-Konfiguration (macOS-Schlüsselbund, seit v1.1.0),
+    # dann als Rückfall die klassische Shell-Variable aus ~/.zshrc.
+    tok = os.environ.get("CLAUDE_PLUGIN_OPTION_TOKEN", "") or os.environ.get("SUMAX_CONTEXT_TOKEN", "")
     if tok:
         h["X-Context-Token"] = tok
     # Optionaler Master-CF-Service-Token (nur intern/Server-zu-Server, NICHT an MA geben).
