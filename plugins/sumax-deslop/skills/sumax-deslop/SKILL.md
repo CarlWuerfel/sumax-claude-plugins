@@ -1,6 +1,6 @@
 ---
 name: sumax-deslop
-description: Anti-Claude-Modus — sorgt dafür, dass Outputs (Texte, Websites, UIs, Präsentationen, PDFs, Angebote, E-Mails, Code, Charts) nicht als KI- oder Claude-generiert erkennbar sind. Anwenden bei JEDEM kundensichtbaren Deliverable und auf Zuruf ("deslop", "anti-claude", "klingt nach KI", "sieht nach KI aus", "nicht nach Claude aussehen", "humanize", "entsloppen"). Drei Modi. Erzeugen (Regeln beim Bauen anwenden), Audit (nur prüfen und scoren), Rewrite (bereinigen ohne Substanzverlust).
+description: Anti-Claude-Modus — sorgt dafür, dass Outputs nicht als KI- oder Claude-generiert erkennbar sind. **Beim BAUEN anwenden, nicht erst beim Nachbessern:** Website, Landingpage, UI, Dashboard, Komponente, HTML/CSS/TSX, Präsentation, Deck, Angebot, PDF, Report, Newsletter, Social-Post, Blogtext, Kunden-Mail, README — jedes kundensichtbare Deliverable. Deckt Fonts (kein Inter/Poppins/Space Grotesk als Default), Farben, Layout, Schatten, Motion und Textrhythmus ab. Auch auf Zuruf ("deslop", "anti-claude", "klingt nach KI", "sieht nach KI aus", "humanize", "entsloppen"). Drei Modi: Erzeugen (Regeln beim Bauen), Audit (prüfen und scoren), Rewrite (bereinigen ohne Substanzverlust).
 ---
 
 # Anti-Claude-Modus (sumax-deslop)
