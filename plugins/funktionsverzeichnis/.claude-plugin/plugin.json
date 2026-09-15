@@ -1,0 +1,33 @@
+{
+  "name": "funktionsverzeichnis",
+  "version": "1.0.0",
+  "description": "Zeigt, welche Funktionen in den SUMAX-Tools schon existieren — vor dem Bauen suchen statt doppelt bauen. Rund 1.600 Schnittstellen aus knapp 30 Projekten, direkt aus dem Quellcode gelesen.",
+  "author": {
+    "name": "SUMAX / Reknova GmbH"
+  },
+  "keywords": [
+    "funktionen",
+    "wiederverwendung",
+    "gateway",
+    "api",
+    "sumax"
+  ],
+  "mcpServers": {
+    "sumax-funktionsverzeichnis": {
+      "command": "python3",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp_server.py"
+      ]
+    }
+  },
+  "skills": "./skills/",
+  "userConfig": {
+    "token": {
+      "type": "string",
+      "title": "SUMAX Funktionsverzeichnis-Token",
+      "description": "Schmaler Zugangs-Token nur für das Verzeichnis (nicht der Gateway-Master-Token). Bekommst du von Carl. Wird im macOS-Schlüsselbund gespeichert, nicht im Klartext.",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

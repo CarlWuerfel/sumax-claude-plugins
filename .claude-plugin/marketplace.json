@@ -28,6 +28,24 @@
       ]
     },
     {
+      "name": "funktionsverzeichnis",
+      "source": "./plugins/funktionsverzeichnis",
+      "description": "Zeigt, welche Funktionen in den SUMAX-Tools schon existieren — vor dem Bauen suchen statt doppelt bauen. Rund 1.600 Schnittstellen aus knapp 30 Projekten, direkt aus dem Quellcode gelesen. Braucht einen Zugangs-Token (bekommst du von Carl).",
+      "version": "1.0.0",
+      "author": {
+        "name": "SUMAX / Reknova GmbH"
+      },
+      "category": "productivity",
+      "keywords": [
+        "funktionen",
+        "wiederverwendung",
+        "gateway",
+        "api",
+        "doppelbau",
+        "sumax"
+      ]
+    },
+    {
       "name": "sumax-deslop",
       "source": "./plugins/sumax-deslop",
       "description": "Anti-Claude-Modus: Outputs (Texte DE/EN, Websites, Präsentationen, PDFs, E-Mails, Code) sind nicht mehr als KI-/Claude-generiert erkennbar. Master-Skill + 7 Referenzen, destilliert aus 25+ Quellen. Drei Modi: Erzeugen / Audit / Rewrite. Läuft lokal — kein Token nötig.",
