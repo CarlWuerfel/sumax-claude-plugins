@@ -1,0 +1,34 @@
+{
+  "name": "urteil",
+  "version": "1.0.0",
+  "description": "Lange Listen Zeile für Zeile beurteilen lassen — ja/nein, einsortieren oder auf einer Skala. Schnell, günstig und bei jedem Durchlauf dieselbe Antwort. Nicht zum Texten.",
+  "author": {
+    "name": "SUMAX / Reknova GmbH"
+  },
+  "keywords": [
+    "urteil",
+    "liste",
+    "einsortieren",
+    "klassifizieren",
+    "filtern",
+    "sumax"
+  ],
+  "mcpServers": {
+    "sumax-urteil": {
+      "command": "python3",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp_server.py"
+      ]
+    }
+  },
+  "skills": "./skills/",
+  "userConfig": {
+    "token": {
+      "type": "string",
+      "title": "SUMAX Urteil-Token",
+      "description": "Dein persönlicher Zugangs-Token. Holst du dir unter users.sumax.dev → Zugriffs-Tokens → Plugin-Tokens. Wird im macOS-Schlüsselbund gespeichert, nicht im Klartext.",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}
