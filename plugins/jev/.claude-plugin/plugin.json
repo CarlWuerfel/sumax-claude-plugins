@@ -1,12 +1,12 @@
 {
-  "name": "urteil",
+  "name": "jev",
   "version": "1.0.0",
-  "description": "Lange Listen Zeile für Zeile beurteilen lassen — ja/nein, einsortieren oder auf einer Skala. Schnell, günstig und bei jedem Durchlauf dieselbe Antwort. Nicht zum Texten.",
+  "description": "Lange Listen Zeile für Zeile beurteilen lassen — ja/nein, einsortieren oder auf einer Skala. Schnell, günstig und bei jedem Durchlauf dieselbe Antwort. Benannt nach dem Modell dahinter. Nicht zum Texten.",
   "author": {
     "name": "SUMAX / Reknova GmbH"
   },
   "keywords": [
-    "urteil",
+    "jev",
     "liste",
     "einsortieren",
     "klassifizieren",
@@ -14,7 +14,7 @@
     "sumax"
   ],
   "mcpServers": {
-    "sumax-urteil": {
+    "sumax-jev": {
       "command": "python3",
       "args": [
         "${CLAUDE_PLUGIN_ROOT}/mcp_server.py"
@@ -25,7 +25,7 @@
   "userConfig": {
     "token": {
       "type": "string",
-      "title": "SUMAX Urteil-Token",
+      "title": "SUMAX Jev-Token",
       "description": "Dein persönlicher Zugangs-Token. Holst du dir unter users.sumax.dev → Zugriffs-Tokens → Plugin-Tokens. Wird im macOS-Schlüsselbund gespeichert, nicht im Klartext.",
       "sensitive": true,
       "required": true

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SUMAX Urteil — MCP-Server (stdio, reine Standardbibliothek).
+"""SUMAX Jev — MCP-Server (stdio, reine Standardbibliothek).
 
 Geht eine lange Liste Zeile fuer Zeile durch und faellt zu jeder dasselbe
 Urteil: ja/nein, eine aus mehreren Schubladen, oder eine Stufe auf einer Skala.
@@ -19,8 +19,8 @@ Bewusst OHNE externe Abhaengigkeiten (kein `mcp`-Paket, kein httpx) — laeuft m
 jedem python3. JSON-RPC 2.0 ueber stdin/stdout, wie die Schwester-Plugins.
 
 Konfiguration ueber Umgebungsvariablen:
-  SUMAX_URTEIL_TOKEN   Persoenlicher Zugangs-Token (Pflicht von extern)
-  SUMAX_URTEIL_URL     Default https://context-store.sumax.dev
+  SUMAX_JEV_TOKEN   Persoenlicher Zugangs-Token (Pflicht von extern)
+  SUMAX_JEV_URL     Default https://context-store.sumax.dev
   CF_ACCESS_CLIENT_ID  Master-CF-Service-Token (NUR intern, nicht an MA geben)
   CF_ACCESS_CLIENT_SECRET
 """
@@ -32,7 +32,7 @@ import urllib.error
 import urllib.request
 
 PROTOCOL_VERSION = "2024-11-05"
-BASIS = os.environ.get("SUMAX_URTEIL_URL", "https://context-store.sumax.dev").rstrip("/")
+BASIS = os.environ.get("SUMAX_JEV_URL", "https://context-store.sumax.dev").rstrip("/")
 TIMEOUT = 90
 
 # Wie viele Eintraege in EINEN Aufruf gehen. Das Modell beantwortet alle Fragen
@@ -52,12 +52,12 @@ def _headers() -> dict:
     # gewinnt ohnehin der Name aus dem Token. Intern (ohne Token) waere der
     # Verbrauch sonst als "unknown" gebucht — und die Kostenerfassung ist bei
     # uns Pflicht, nicht Kuer.
-    h = {"User-Agent": "sumax-urteil/1.0", "Content-Type": "application/json",
-         "X-Caller": "urteil-plugin"}
+    h = {"User-Agent": "sumax-jev/1.0", "Content-Type": "application/json",
+         "X-Caller": "jev-plugin"}
     tok = (os.environ.get("CLAUDE_PLUGIN_OPTION_TOKEN", "")
-           or os.environ.get("SUMAX_URTEIL_TOKEN", ""))
+           or os.environ.get("SUMAX_JEV_TOKEN", ""))
     if tok:
-        h["X-Urteil-Token"] = tok
+        h["X-Jev-Token"] = tok
     cid = os.environ.get("CF_ACCESS_CLIENT_ID", "")
     if cid:
         h["CF-Access-Client-Id"] = cid
@@ -225,7 +225,7 @@ TOOLS = [
         },
     },
     {
-        "name": "urteil_probe",
+        "name": "jev_probe",
         "description": (
             "Einen einzelnen Text zur Probe beurteilen lassen — zum Ausprobieren einer "
             "Fragestellung, bevor sie auf eine lange Liste losgelassen wird. Fuer eine "
@@ -246,7 +246,7 @@ TOOLS = [
 def _call_tool(name: str, args: dict) -> str:
     if name == "liste_beurteilen":
         return _liste_beurteilen(args)
-    if name == "urteil_probe":
+    if name == "jev_probe":
         return _probe(args)
     return f"Unbekanntes Werkzeug: {name}"
 
@@ -271,7 +271,7 @@ def main() -> None:
             _send({"jsonrpc": "2.0", "id": req_id, "result": {
                 "protocolVersion": PROTOCOL_VERSION,
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": "sumax-urteil", "version": "1.0.0"}}})
+                "serverInfo": {"name": "sumax-jev", "version": "1.0.0"}}})
         elif method == "notifications/initialized":
             continue
         elif method == "tools/list":

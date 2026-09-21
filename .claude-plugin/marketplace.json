@@ -123,16 +123,16 @@
       ]
     },
     {
-      "name": "urteil",
-      "source": "./plugins/urteil",
-      "description": "Lange Listen Zeile für Zeile beurteilen lassen — ja/nein, einsortieren oder auf einer Skala. Schnell, günstig und bei jedem Durchlauf dieselbe Antwort. Nicht zum Texten. Braucht einen persönlichen Zugangs-Token (users.sumax.dev → Zugriffs-Tokens).",
+      "name": "jev",
+      "source": "./plugins/jev",
+      "description": "Lange Listen Zeile für Zeile beurteilen lassen — ja/nein, einsortieren oder auf einer Skala. Immer dasselbe Ergebnis, Kosten im Zehntel-Cent-Bereich. Braucht einen persönlichen Zugangs-Token (users.sumax.dev → Zugriffs-Tokens).",
       "version": "1.0.0",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },
       "category": "productivity",
       "keywords": [
-        "urteil",
+        "jev",
         "liste",
         "einsortieren",
         "klassifizieren",

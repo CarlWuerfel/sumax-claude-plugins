@@ -1,5 +1,5 @@
 ---
-name: urteil
+name: jev
 description: Immer wenn dieselbe Frage auf viele Einträge angewendet wird — Listen filtern, einsortieren, bewerten — oder wenn ein SUMAX-Tool eine Ja/Nein-, Kategorie- oder Stufen-Entscheidung braucht, statt dafür einen Prompt zu schreiben und dessen Antwort zu parsen.
 ---
 
