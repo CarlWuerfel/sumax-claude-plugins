@@ -48,7 +48,12 @@ MAX_ZEICHEN_EINTRAG = 1500
 def _headers() -> dict:
     # Eigener User-Agent: Cloudflare blockt die Standardsignatur von python-urllib
     # (error 1010). Ein benannter UA kommt sauber durch.
-    h = {"User-Agent": "sumax-urteil/1.0", "Content-Type": "application/json"}
+    # X-Caller als Rueckfall: Laeuft der Aufruf ueber den Mitarbeiter-Zugang,
+    # gewinnt ohnehin der Name aus dem Token. Intern (ohne Token) waere der
+    # Verbrauch sonst als "unknown" gebucht — und die Kostenerfassung ist bei
+    # uns Pflicht, nicht Kuer.
+    h = {"User-Agent": "sumax-urteil/1.0", "Content-Type": "application/json",
+         "X-Caller": "urteil-plugin"}
     tok = (os.environ.get("CLAUDE_PLUGIN_OPTION_TOKEN", "")
            or os.environ.get("SUMAX_URTEIL_TOKEN", ""))
     if tok:
