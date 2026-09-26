@@ -16,6 +16,17 @@ Danach Claude Code neu starten (oder `/reload-plugins`).
 
 ## Plugins
 
+### pagespeed-statisch — schnelle statische Websites
+
+Vorgehen für PageSpeed 95–100 auf statischen HTML-Seiten: Bilder (WebP/AVIF mit
+`srcset`), CSS je Seite inline und verschlankt, verzögerte Skripte, terser, Schriften ohne
+Preload, `content-visibility`, CLS-Fallen und ein Testnetz gegen den alten Stand. Aus der
+Optimierung von sumax.de (Carl und Murat, September 2026). Läuft lokal, kein Token nötig.
+
+```
+/plugin install pagespeed-statisch@sumax
+```
+
 ### context-store — die "Context-Schublade"
 
 Große Tool-Ausgaben (Ahrefs-Daten, Site-Crawls, Logfiles, lange API-Antworten)

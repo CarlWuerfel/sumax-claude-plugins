@@ -1,0 +1,19 @@
+{
+  "name": "pagespeed-statisch",
+  "version": "1.0.0",
+  "description": "PageSpeed für statische HTML-Websites auf 95–100 mobil, ohne etwas kaputtzumachen: Bilder (WebP/AVIF, srcset), CSS je Seite inline und verschlankt, verzögerte Skripte, terser, Schriften ohne Preload, content-visibility, CLS-Fallen und ein Testnetz gegen den alten Stand. Aus der Optimierung von sumax.de (Carl und Murat, September 2026).",
+  "author": {
+    "name": "SUMAX / Reknova GmbH"
+  },
+  "keywords": [
+    "pagespeed",
+    "lighthouse",
+    "core-web-vitals",
+    "lcp",
+    "cls",
+    "performance",
+    "statisch",
+    "sumax"
+  ],
+  "skills": "./skills/"
+}

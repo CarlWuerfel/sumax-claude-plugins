@@ -139,6 +139,23 @@
         "filtern",
         "sumax"
       ]
+    },
+    {
+      "name": "pagespeed-statisch",
+      "source": "./plugins/pagespeed-statisch",
+      "description": "PageSpeed für statische Websites auf 95–100 mobil: Bilder, CSS je Seite, verzögerte Skripte, Schriften, CLS-Fallen, Testnetz. Aus der sumax.de-Optimierung (86 → 100 mobil). Läuft lokal, kein Token nötig.",
+      "version": "1.0.0",
+      "author": {
+        "name": "SUMAX / Reknova GmbH"
+      },
+      "category": "development",
+      "keywords": [
+        "pagespeed",
+        "lighthouse",
+        "core-web-vitals",
+        "performance",
+        "sumax"
+      ]
     }
   ]
 }
