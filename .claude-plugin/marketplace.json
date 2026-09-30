@@ -156,6 +156,24 @@
         "performance",
         "sumax"
       ]
+    },
+    {
+      "name": "hwg-check",
+      "source": "./plugins/hwg-check",
+      "description": "HWG-Check (Heilmittelwerbegesetz) für Texte, Instagram-Captions, Grafiken und Instagram-Pläne über den SUMAX-Gateway, gleiches Regelwerk wie Praximax. Einfach „bitte HWG-Check machen“ sagen. Braucht den Cloudflare-Service-Token.",
+      "version": "1.0.0",
+      "author": {
+        "name": "SUMAX / Reknova GmbH"
+      },
+      "category": "productivity",
+      "keywords": [
+        "hwg",
+        "heilmittelwerbegesetz",
+        "arztpraxis",
+        "instagram",
+        "compliance",
+        "sumax"
+      ]
     }
   ]
 }

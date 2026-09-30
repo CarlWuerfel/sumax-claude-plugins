@@ -1,0 +1,59 @@
+{
+    "rules": [
+        {
+            "id": "HWG-7",
+            "claim": "Werbung mit Zuwendungen: \u201ekostenlos\u201c, \u201egratis\u201c, Rabatte, Gutscheine, Pr\u00e4mien als Lockmittel",
+            "status": "verboten"
+        },
+        {
+            "id": "HWG-9",
+            "claim": "Werbung f\u00fcr Fernbehandlung: Diagnose, Einsch\u00e4tzung oder Therapie ohne pers\u00f6nlichen Kontakt",
+            "status": "verboten"
+        },
+        {
+            "id": "HWG-10",
+            "claim": "Publikumswerbung f\u00fcr verschreibungspflichtige Arzneimittel, auch \u00fcber Wirkstoff oder Markenname: Botulinumtoxin/\u201eBotox\u201c, Hyaluronidase/\u201eHylase\u201c, verschreibungspflichtige Infusionen",
+            "status": "verboten"
+        },
+        {
+            "id": "HWG-11-1",
+            "claim": "Vorher-Nachher-Darstellungen bei \u00e4sthetischen Eingriffen, auch Unterspritzungen",
+            "status": "verboten"
+        },
+        {
+            "id": "HWG-11-2",
+            "claim": "Angstwerbung, Dringlichkeit (\u201ejetzt handeln, sonst \u2026\u201c), Erzeugung von Sorge",
+            "status": "verboten"
+        },
+        {
+            "id": "HWG-3",
+            "claim": "Irref\u00fchrende Werbung: Erfolgs- oder Heilversprechen, Garantie, \u201eschmerzfrei\u201c, \u201edauerhaft\u201c, \u201esicher\u201c als Zusage",
+            "status": "verboten"
+        },
+        {
+            "id": "PREIS",
+            "claim": "Fest- oder Pauschalpreise f\u00fcr \u00e4rztliche Leistungen; erlaubt sind nur Spannen nach GO\u00c4/GOZ mit Hinweis \u201enach Untersuchung\u201c",
+            "status": "verboten"
+        },
+        {
+            "id": "UWG-5",
+            "claim": "Erfundene oder nicht belegbare Zahlen (Z\u00e4hler, Bewertungen, \u201e850+ Patienten\u201c), Superlative (\u201ebeste Praxis\u201c)",
+            "status": "verboten"
+        },
+        {
+            "id": "MDR-11",
+            "claim": "Aussagen, die eine medizinische Einsch\u00e4tzung, Dringlichkeit oder Eignung durch die Software versprechen",
+            "status": "verboten"
+        },
+        {
+            "id": "TITEL",
+            "claim": "Titel oder Qualifikationen, die nicht belegbar sind (\u201eSpezialist\u201c, \u201eExperte\u201c ohne Nachweis)",
+            "status": "bedenklich"
+        }
+    ],
+    "principles": [
+        "Widget-Texte informieren und f\u00fchren zur Beratung; sie versprechen nichts und beurteilen nichts.",
+        "Sachliche Sprache, keine \u00dcbertreibung, keine Emotionalisierung mit Angst.",
+        "Kosten immer als Rahmen und mit Vorbehalt der Untersuchung."
+    ]
+}
