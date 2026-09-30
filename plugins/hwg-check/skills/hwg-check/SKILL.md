@@ -12,9 +12,10 @@ Skill-Ordner und erledigt Zugang, Aufruf und Ausgabe. Nur Python 3, keine Pakete
 ## Zugang
 
 Das Skript liest `CF_ACCESS_CLIENT_ID` und `CF_ACCESS_CLIENT_SECRET` (Cloudflare-Service-Token) aus der
-Umgebung und ruft dann `https://sumax-microservices.sumax.dev` auf. Fehlen sie, fragen, wo der Token liegt
-(meist `~/.claude/settings.json` → `env`, oder eine `.env`), nie Werte im Chat ausgeben oder in Dateien
-schreiben, die in ein Repo oder auf einen Webserver kommen. 403 = Token fehlt oder ist falsch.
+Umgebung und ruft dann `https://sumax-microservices.sumax.dev` auf. Fehlen sie, nimmt es automatisch den
+internen Weg zum Gateway auf dem Büro-Mini (klappt auf Rechnern im SUMAX-Netz). Erst wenn beides scheitert
+(403 oder Zeitüberschreitung), nach dem Token fragen (meist `~/.claude/settings.json` → `env` oder eine
+`.env`). Werte nie im Chat ausgeben und nie in Dateien schreiben, die in ein Repo oder auf einen Webserver kommen.
 
 ## Ablauf je nach Eingabe
 
