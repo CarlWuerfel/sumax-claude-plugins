@@ -13,7 +13,7 @@
       "name": "context-store",
       "source": "./plugins/context-store",
       "description": "Große Tool-Dumps (Ahrefs, Crawls, Logs) aus dem Context-Fenster auslagern und per Volltextsuche gezielt zurückholen — spart Tokens in interaktiven Sessions.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },
@@ -69,7 +69,7 @@
       "name": "landing-page-builder",
       "source": "./plugins/landing-page-builder",
       "description": "Baut High-Converting Google-Ads-Landingpages nach dem Conversion-Centered-Design-Framework (Oli Gardner / Unbounce, 7 Prinzipien) + Google-Ads-Quality-Score. Hartes Regelwerk mit Build-Sequenz + Pre-Launch-QA-Checkliste. Kombinieren mit sumax-style + sumax-deslop. Läuft lokal — kein Token nötig.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },
@@ -108,7 +108,7 @@
       "name": "google-ads",
       "source": "./plugins/google-ads",
       "description": "Google-Ads-Konten der SUMAX-MCC direkt in Claude analysieren: Kampagnen, Keywords, Search Terms, Conversions, Budgets, Quality Score, Impression Share, Auction Insights, Änderungshistorie. 27 Werkzeuge, strikt lesend. Braucht einen Zugangs-Token (SUMAX_ADS_TOKEN).",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },
