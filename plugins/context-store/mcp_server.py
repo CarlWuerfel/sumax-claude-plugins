@@ -47,7 +47,7 @@ _GESPERRT_ORDNER = (".ssh", ".aws", ".gnupg", "Keychains", ".config/gcloud")
 
 def _datei_gesperrt(pfad: str) -> bool:
     name = os.path.basename(pfad).lower()
-    if any(name == g or name.startswith(g + ".") or name.startswith(g) for g in _GESPERRT_NAMEN):
+    if name.startswith(_GESPERRT_NAMEN):
         return True
     if name.endswith(_GESPERRT_ENDUNGEN):
         return True
