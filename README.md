@@ -52,6 +52,14 @@ Gespräch und holst Details per Volltextsuche zurück. Längere Sessions, wenige
 `ctx_stats` (Überblick). Ein mitgelieferter Skill bringt Claude bei, sie
 automatisch im richtigen Moment zu nutzen.
 
+**Seit 1.2.0 über Dateien:** Claude leitet große Ausgaben in eine Datei um und
+übergibt `ctx_store` nur den Pfad (`path=`). Der Plugin-Server liest die Datei
+selbst, der Inhalt kommt nie ins Gespräch. Vorher musste Claude den Dump erst
+lesen und dann komplett noch einmal ausgeben, das hat nichts gespart. CSV- und
+Log-Dateien werden an Zeilengrenzen geteilt, jeder CSV-Abschnitt behält die
+Kopfzeile. Dateien mit Zugangsdaten (`.env`, Schlüssel, `~/.ssh`) lehnt der
+Server ab.
+
 **Voraussetzung:** `python3` (auf jedem Mac vorhanden) und Zugang zum
 SUMAX-Gateway.
 
