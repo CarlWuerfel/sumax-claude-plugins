@@ -296,7 +296,7 @@ def main() -> None:
             _result(req_id, {
                 "protocolVersion": PROTOCOL_VERSION,
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": "sumax-context-store", "version": "1.0.0"},
+                "serverInfo": {"name": "sumax-context-store", "version": SERVER_VERSION},
             })
         elif method == "notifications/initialized":
             continue  # Notification — keine Antwort
