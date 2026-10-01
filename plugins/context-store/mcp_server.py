@@ -28,8 +28,81 @@ import urllib.error
 import urllib.request
 
 PROTOCOL_VERSION = "2024-11-05"
+SERVER_VERSION = "1.2.0"
 GATEWAY = os.environ.get("SUMAX_GATEWAY_URL", "https://context-store.sumax.dev").rstrip("/")
 TIMEOUT = 15
+
+# Dateien direkt einlesen (seit 1.2.0). Grund: Mit `content` muss Claude den Dump erst
+# lesen und dann ein zweites Mal komplett als Werkzeug-Eingabe ausgeben — dann steht
+# er doppelt im Gespräch statt gar nicht. Mit `path` liest dieser Server die Datei
+# selbst; der Inhalt kommt nie in Claudes Kontext.
+MAX_FILE_BYTES = 25 * 1024 * 1024
+BLOCK_CHARS = 1200   # knapp unter CHUNK_TARGET (1400) des Gateways, damit dort nichts hart umbricht
+
+# Nie hochladen, auch nicht auf Zuruf: Zugangsdaten gehören nicht in die Schublade.
+_GESPERRT_NAMEN = (".env", "id_rsa", "id_ed25519", "id_ecdsa", "credentials", ".netrc", ".pgpass")
+_GESPERRT_ENDUNGEN = (".pem", ".key", ".p12", ".pfx", ".keychain", ".keychain-db", ".kdbx")
+_GESPERRT_ORDNER = (".ssh", ".aws", ".gnupg", "Keychains", ".config/gcloud")
+
+
+def _datei_gesperrt(pfad: str) -> bool:
+    name = os.path.basename(pfad).lower()
+    if any(name == g or name.startswith(g + ".") or name.startswith(g) for g in _GESPERRT_NAMEN):
+        return True
+    if name.endswith(_GESPERRT_ENDUNGEN):
+        return True
+    teile = pfad.replace("\\", "/")
+    return any(f"/{o}/" in teile for o in _GESPERRT_ORDNER)
+
+
+def _zeilen_bloecke(text: str, source_hint: str = "") -> str:
+    """Zeilenbasierte Daten (CSV, Logs, JSON-Lines) in Absätze an Zeilengrenzen gliedern.
+
+    Der Gateway schneidet an Leerzeilen und bricht längere Stücke hart alle 1.400 Zeichen
+    um — mitten in einer Zeile. Hier werden Zeilen zu Blöcken unter dieser Grenze
+    zusammengefasst und durch Leerzeilen getrennt. Bei Tabellen (CSV/TSV) bekommt jeder
+    Block die Kopfzeile vorangestellt, damit ein einzeln gefundener Abschnitt lesbar bleibt.
+    Text, der schon Absätze hat (Doku, Markdown), bleibt unverändert.
+    """
+    text = text.replace("\r\n", "\n")
+    zeilen = text.split("\n")
+    if len(zeilen) < 20 or text.count("\n\n") > len(zeilen) / 20:
+        return text
+    kopf = zeilen[0]
+    tabelle = (
+        source_hint.lower().endswith((".csv", ".tsv"))
+        or (kopf.count(",") >= 2 or kopf.count(";") >= 2 or kopf.count("\t") >= 2)
+    ) and len(kopf) < 600
+    rumpf = zeilen[1:] if tabelle else zeilen
+    bloecke, block, laenge = [], [], 0
+    for z in rumpf:
+        if block and laenge + len(z) + 1 > BLOCK_CHARS:
+            bloecke.append(block)
+            block, laenge = [], 0
+        block.append(z)
+        laenge += len(z) + 1
+    if block:
+        bloecke.append(block)
+    if tabelle:
+        return "\n\n".join(kopf + "\n" + "\n".join(b) for b in bloecke)
+    return "\n\n".join("\n".join(b) for b in bloecke)
+
+
+def _datei_lesen(pfad: str) -> tuple[str, str]:
+    """Liest eine lokale Textdatei für die Ablage. Gibt (text, aufgeloester_pfad) zurück."""
+    p = os.path.realpath(os.path.expanduser(pfad))
+    if _datei_gesperrt(p):
+        raise ValueError(f"'{pfad}' sieht nach Zugangsdaten aus und wird nicht abgelegt.")
+    if not os.path.isfile(p):
+        raise ValueError(f"Datei nicht gefunden: {pfad}")
+    groesse = os.path.getsize(p)
+    if groesse > MAX_FILE_BYTES:
+        raise ValueError(f"Datei zu groß ({groesse // 1024 // 1024} MB, Grenze 25 MB). Vorher filtern, z. B. mit grep.")
+    with open(p, "rb") as f:
+        roh = f.read()
+    if b"\x00" in roh[:8192]:
+        raise ValueError("Binärdatei — nur Textdateien (CSV, JSON, Log, Markdown, HTML) können abgelegt werden.")
+    return roh.decode("utf-8", errors="replace"), p
 
 
 def _caller() -> str:
