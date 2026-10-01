@@ -1,63 +1,62 @@
 ---
 name: context-store
-description: SUMAX Context-Schublade — große Tool-Ausgaben (Ahrefs-Daten, Crawl-Ergebnisse, Logfiles, lange API-Antworten, Dokumentation) auslagern statt ins Gespräch laden, um das Context-Fenster schlank zu halten. Nutze diesen Skill, sobald ein Tool/Befehl einen großen Datenberg (> ~2 KB) zurückgibt, den du nicht komplett sofort brauchst — besonders bei SEO-Recherche, Site-Crawls, Logfile-Analyse und langen Dokumentationen. Werkzeuge: ctx_store, ctx_search, ctx_stats.
+description: SUMAX Context-Schublade — große Datenmengen (Ahrefs-Exporte, Crawls, Logfiles, lange API-Antworten, Dokumentation) ablegen, OHNE sie ins Gespräch zu laden, und gezielt per Volltextsuche zurückholen. Nutze diesen Skill, sobald ein Befehl oder Export voraussichtlich mehr als ~2 KB liefert, den du nicht komplett sofort brauchst — besonders bei SEO-Recherche, Site-Crawls, Logfile-Analyse und langen Dokumentationen. Werkzeuge: ctx_store (bevorzugt mit Dateipfad), ctx_search, ctx_stats.
 ---
 
 # SUMAX Context-Store ("die Schublade")
 
-Große Tool-Ausgaben fressen dein Context-Fenster. Ein einziger Ahrefs-Backlink-Dump,
-ein Site-Crawl oder ein Logfile kann zehntausende Tokens kosten — und nach ein paar
-solchen Aufrufen ist der Platz weg, du verlierst den Faden und musst komprimieren.
+Große Datenmengen fressen das Context-Fenster. Ein Ahrefs-Export, ein Site-Crawl oder ein
+Logfile kostet schnell zehntausende Tokens — bei jeder weiteren Nachricht erneut.
 
-Dieser Skill gibt dir drei Werkzeuge, um genau das zu vermeiden. Sie sprechen den
-SUMAX-Gateway an (`/api/context/*`), der die Rohdaten in einer durchsuchbaren Ablage
-hält. Du behältst nur das Wichtige im Gespräch und holst Details bei Bedarf zurück.
+**Der Kern: Der Inhalt darf gar nicht erst ins Gespräch.** Wer einen Dump erst liest und
+dann mit `ctx_store(content=…)` ablegt, hat ihn doppelt im Kontext (einmal gelesen, einmal
+als Werkzeug-Eingabe ausgegeben) und nichts gespart. Deshalb immer über eine Datei:
 
-## Die Grundregel
+## Ablauf (Standard)
 
-**Wenn ein Tool-Ergebnis groß ist (Faustregel > ~2 KB / mehr als ~50 Zeilen) und du
-nicht den gesamten Inhalt sofort weiterverarbeitest → erst `ctx_store`, dann mit
-`ctx_search` gezielt zurückholen.**
+1. **Ausgabe in eine Datei umleiten, NICHT anzeigen.**
+   `curl … > /tmp/ahrefs-backlinks.json`, `python3 crawl.py > /tmp/crawl.csv`,
+   `cat server.log | grep 2026-10 > /tmp/oktober.log` — ohne `cat` hinterher.
+   Nur zur Orientierung erlaubt: `wc -l`, `head -3`, `ls -la` (klein!).
+2. **`ctx_store(path="/tmp/…", source="…")`** — der Plugin-Server liest die Datei selbst.
+   Rückmeldung: Zeilenzahl, Zeichen, erste Zeile (bei CSV die Spalten). Der Inhalt bleibt draußen.
+3. **Gezielt zurückholen:** `ctx_search(queries=[…], source="…")` — nur die Treffer kommen ins Gespräch.
 
-Das gilt vor allem für:
-- **SEO-Recherche**: Ahrefs-Backlinks, verweisende Domains, Organic Keywords, SERP-Daten
-- **Site-Crawls**: gecrawlte Seiten, Meta-Daten, interne Verlinkung
-- **Logfiles & Build-Output**: Server-Logs, Access-Logs, Test-Ausgaben, Fehler-Listen
-- **Lange API-Antworten** und **umfangreiche Dokumentation**
+Hat Claude Code eine zu lange Werkzeug-Ausgabe selbst in eine Datei gespeichert
+("Output too large … Full output saved to: <pfad>"), diesen Pfad direkt an `ctx_store`
+übergeben, statt die Datei zu lesen.
+
+`content=` nur für Text, der ohnehin schon im Gespräch steht und später noch gebraucht
+wird (z. B. vor einer Kompaktierung sichern). Das spart nichts sofort, rettet aber den
+Inhalt über `/compact` hinweg.
+
+## Suchen oder filtern?
+
+`ctx_search` ist eine Wortsuche (BM25): gut für „welche Abschnitte handeln von X?“
+— Ankertexte, Fehlermeldungen, Themen, Domainnamen.
+
+Für **exakte Filter** (Statuscode = 404, Spalte > Wert, Zählen, Sortieren) ist die Datei
+selbst besser: `grep ',404,' /tmp/crawl.csv | head -50`, `awk -F, '$4 > 50' …`,
+`sort | uniq -c`. Die Wortsuche nach „404“ findet auch „seite-404“.
+Beides kombinieren ist normal: filtern per Befehl, Hintergrund per `ctx_search`.
 
 ## Wann NICHT
 
-- Kleine Ergebnisse (< 2 KB) — direkt verarbeiten, kein Umweg nötig.
-- Daten, die du komplett und sofort brauchst (z.B. eine Datei, die du gerade editierst).
-- Wenn du den Inhalt nur einmal kurz prüfst und sofort verwirfst.
+- Kleine Ergebnisse (< 2 KB) — direkt verarbeiten.
+- Daten, die du komplett und sofort brauchst (eine Datei, die du gerade bearbeitest).
+- Zugangsdaten: `.env`, Schlüssel, `~/.ssh` u. Ä. lehnt der Server ab — richtig so.
 
 ## Werkzeuge
 
-### `ctx_store`
-Legt einen großen Rohtext ab und gibt nur einen kompakten Pointer zurück (kein Inhalt
-— das ist die Ersparnis). Gib ein sprechendes `source`-Label mit, damit du später
-gezielt suchen kannst.
+| Werkzeug | Zweck |
+|---|---|
+| `ctx_store(path=…, source=…)` | Datei ablegen (bevorzugt). CSV/Logs werden an Zeilengrenzen geteilt, CSV-Abschnitte behalten die Kopfzeile. Bis 25 MB, nur Text. |
+| `ctx_store(content=…, source=…)` | Text ablegen, der schon im Gespräch steht. |
+| `ctx_search(queries=[…], source=…, limit=6)` | Relevante Abschnitte zurückholen, max. 20 pro Anfrage. |
+| `ctx_stats()` | Was liegt gerade in der Schublade? |
 
-> Beispiel: Du hast 340 Backlinks von Ahrefs geholt. Statt alle ins Gespräch zu
-> nehmen: `ctx_store(content=<dump>, source="ahrefs:backlinks:kunde.de")`.
-
-### `ctx_search`
-Holt per Volltextsuche (BM25) nur die relevanten Abschnitte zurück. Eine oder mehrere
-Suchanfragen. Optional auf eine `source` einschränken.
-
-> Beispiel: `ctx_search(queries=["toxische backlinks", "domain rating verlust"],
-> source="ahrefs:backlinks:kunde.de")` → nur die passenden Zeilen, nicht der ganze Dump.
-
-### `ctx_stats`
-Zeigt, was gerade in deiner Schublade liegt (Größe, Quellen, gesparte Tokens).
-
-## Typischer Ablauf
-
-1. Großes Tool-Ergebnis erhalten (z.B. Ahrefs/Crawl/Log).
-2. `ctx_store` mit klarem `source`-Label → Pointer merken.
-3. Weiterarbeiten mit dem schlanken Pointer im Gespräch.
-4. Sobald du ein Detail brauchst: `ctx_search` mit gezielter Frage.
-5. Nur die Treffer landen wieder im Context — der Rest bleibt in der Schublade.
+`source` sprechend wählen (`ahrefs:backlinks:kunde.de`, `crawl:kunde.de`, `log:gateway:2026-10`),
+damit spätere Suchen gezielt eingeschränkt werden können.
 
 Die Ablage ist pro Nutzer und Session getrennt und wird nach 7 Tagen automatisch
-aufgeräumt. Du musst nichts manuell löschen.
+aufgeräumt.
