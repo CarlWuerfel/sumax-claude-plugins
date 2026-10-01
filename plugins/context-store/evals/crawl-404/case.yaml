@@ -1,4 +1,0 @@
-schema_version: "1.1"
-name: crawl-404
-context:
-  add_dirs: [resources]

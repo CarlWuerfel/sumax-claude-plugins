@@ -1,0 +1,63 @@
+{
+  "tools": [
+    {
+      "name": "ctx_store",
+      "description": "Lege einen großen Text-Dump (Ahrefs-Daten, Crawl-Ergebnis, Logfile, API-Antwort, lange Dokumentation) in der SUMAX Context-Schublade ab. BEVORZUGT mit `path`: Ausgabe eines Befehls erst in eine Datei umleiten (z. B. `befehl > /tmp/x.txt`, OHNE sie anzuzeigen) und dann nur den Pfad übergeben — dieser Server liest die Datei selbst, der Inhalt kommt nie ins Gespräch. Auch die Datei, in die Claude Code eine zu lange Ausgabe gespeichert hat, kann direkt übergeben werden. `content` nur für Text, der ohnehin schon im Gespräch steht. Gibt Pointer, Zeilenzahl und Kopfzeile zurück; Details danach mit ctx_search.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Lokaler Pfad einer Textdatei (CSV, JSON, Log, Markdown). Bevorzugt."
+          },
+          "content": {
+            "type": "string",
+            "description": "Rohtext, falls er schon im Gespräch steht. Nur wenn kein `path` möglich ist."
+          },
+          "source": {
+            "type": "string",
+            "description": "Kurzes Label der Quelle, z.B. 'ahrefs:backlinks' oder 'crawl:kunde.de'."
+          }
+        },
+        "required": [
+          "source"
+        ]
+      }
+    },
+    {
+      "name": "ctx_search",
+      "description": "Hole gezielt die relevanten Abschnitte aus der Context-Schublade zurück (BM25-Volltextsuche). Nutze dies, nachdem du etwas mit ctx_store ausgelagert hast und jetzt einen bestimmten Aspekt brauchst. Gib eine oder mehrere Suchanfragen an.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "queries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Eine oder mehrere Suchanfragen (Stichworte oder kurze Fragen)."
+          },
+          "source": {
+            "type": "string",
+            "description": "Optional: nur in dieser Quelle suchen."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Max. Abschnitte pro Anfrage (Default 6)."
+          }
+        },
+        "required": [
+          "queries"
+        ]
+      }
+    },
+    {
+      "name": "ctx_stats",
+      "description": "Zeige, was aktuell in der Context-Schublade dieser Session liegt (Größe, Quellen, gesparte Tokens).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ]
+}
