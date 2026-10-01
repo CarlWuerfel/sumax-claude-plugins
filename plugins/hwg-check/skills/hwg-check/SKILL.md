@@ -1,6 +1,6 @@
 ---
 name: hwg-check
-description: HWG-Check (Heilmittelwerbegesetz) für Werbetexte von Arztpraxen und Kliniken über den SUMAX-Gateway. Verwenden bei „HWG-Check“, „HWG prüfen“, „Heilmittelwerbegesetz“, „ist das erlaubt“ für Instagram-Captions, Instagram-Grafiken/Bilder, einen ganzen Instagram-Plan (plan.json), Website- oder Landingpage-Texte, Anzeigen, Newsletter. Gleiches Regelwerk wie Praximax.
+description: HWG-Check (Heilmittelwerbegesetz) für Werbetexte von Arztpraxen und Kliniken über den SUMAX-Gateway. Verwenden bei „HWG-Check“, „HWG prüfen“, „Heilmittelwerbegesetz“, „ist das erlaubt“ für Instagram-Captions, Instagram-Grafiken/Bilder, einen ganzen Instagram-Plan (plan.json), Website- oder Landingpage-Texte, Anzeigen, Newsletter. Gleiches Regelwerk wie Lenon.
 ---
 
 # HWG-Check

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """HWG-Prüfung über den SUMAX-Gateway: einzelner Text, Textdatei oder Instagram-Plan (insta-auto-Format).
 
-Prüft jede Caption mit demselben Regelkatalog wie Praximax (scripts/hwg-katalog.json, erzeugt aus lib/hwg.ts)
+Prüft jede Caption mit demselben Regelkatalog wie Lenon (scripts/hwg-katalog.json, erzeugt aus lib/hwg.ts)
 und schreibt einen Bericht als CSV. Nur Standardbibliothek, läuft mit jedem Python 3.9+.
 
     python3 hwg_check.py --text "Botox ab 140 €, keine Ausfallzeit"

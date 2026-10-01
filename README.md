@@ -21,7 +21,7 @@ Danach Claude Code neu starten (oder `/reload-plugins`).
 Einfach „bitte HWG-Check machen“ sagen: für eine Caption, einen Website- oder Anzeigentext, eine
 Instagram-Grafik (Claude liest den Text im Bild und achtet auf Vorher-Nachher) oder einen ganzen
 Instagram-Plan (`plan.json`, Bericht als CSV). Geprüft wird über den SUMAX-Gateway mit demselben
-Regelwerk wie Praximax, je Fundstelle mit Zitat, Regel, Begründung und Umformulierung. Keine
+Regelwerk wie Lenon, je Fundstelle mit Zitat, Regel, Begründung und Umformulierung. Keine
 Rechtsberatung, sondern ein Filter für die typischen Fehler. Braucht den Cloudflare-Service-Token
 (`CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET`) in der Umgebung, z. B. in `~/.claude/settings.json` → `env`.
 
