@@ -309,6 +309,8 @@ def main() -> None:
             try:
                 text = _call_tool(name, args)
                 _result(req_id, {"content": [{"type": "text", "text": text}]})
+            except ValueError as e:
+                _result(req_id, {"content": [{"type": "text", "text": str(e)}], "isError": True})
             except urllib.error.URLError as e:
                 _result(req_id, {"content": [{"type": "text", "text": f"Gateway nicht erreichbar: {e}"}], "isError": True})
             except Exception as e:
