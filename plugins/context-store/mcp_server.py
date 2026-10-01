@@ -202,17 +202,30 @@ TOOLS = [
 
 def _call_tool(name: str, args: dict) -> str:
     if name == "ctx_store":
+        pfad = (args.get("path") or "").strip()
+        if pfad:
+            text, aufgeloest = _datei_lesen(pfad)
+            herkunft = f"Datei {aufgeloest}"
+        else:
+            text = args.get("content", "")
+            aufgeloest, herkunft = "", "übergebener Text"
+        if not text.strip():
+            return "Nichts abgelegt: weder `path` noch `content` enthält Text."
+        source = args.get("source") or (os.path.basename(aufgeloest) if aufgeloest else "dump")
         r = _gateway_post("/api/context/store", {
-            "content": args.get("content", ""),
-            "source": args.get("source", "dump"),
+            "content": _zeilen_bloecke(text, aufgeloest),
+            "source": source,
             "caller": _caller(),
             "session": _session(),
         })
         if not r.get("ok"):
             return f"Ablage fehlgeschlagen: {r.get('reason') or r}"
+        zeilen = text.count("\n") + 1
+        kopf = text.split("\n", 1)[0][:200]
         return (
-            f"✅ {r['chunks']} Abschnitt(e) aus '{r['source']}' abgelegt "
-            f"(~{r['approx_tokens_saved']:,} Tokens gespart). "
+            f"✅ {r['chunks']} Abschnitt(e) aus '{r['source']}' abgelegt ({herkunft}, {zeilen:,} Zeilen, "
+            f"{len(text):,} Zeichen; ~{r['approx_tokens_saved']:,} Tokens nicht im Gespräch).\n"
+            f"Erste Zeile: {kopf}\n"
             f"Mit ctx_search (source=\"{r['source']}\") gezielt zurückholen."
         )
 
