@@ -55,5 +55,5 @@ Immer dazusagen: Der Check ist ein Filter für typische Fehler, keine Rechtsbera
 
 - Kosten laufen im Gateway unter dem Caller `hwg-plan-check`.
 - „Antwort in unerwartetem Format“ oder FEHLER: den Text bzw. Beitrag einfach erneut prüfen.
-- Der Katalog ist eine Kopie aus `praxis-toolset/lib/hwg.ts` (Quelle der Wahrheit). Ändert sich dort etwas,
+- Der Katalog ist eine Kopie aus `lenon/lib/hwg.ts` (Quelle der Wahrheit). Ändert sich dort etwas,
   `hwg-katalog.json` hier ersetzen und Plugin-Version erhöhen.
