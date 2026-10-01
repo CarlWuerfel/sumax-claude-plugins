@@ -157,18 +157,22 @@ TOOLS = [
         "name": "ctx_store",
         "description": (
             "Lege einen großen Text-Dump (Ahrefs-Daten, Crawl-Ergebnis, Logfile, API-Antwort, "
-            "lange Dokumentation) in der SUMAX Context-Schublade ab, STATT ihn ins Gespräch zu "
-            "laden. Gibt nur einen kompakten Pointer zurück — spart Context-Tokens. Hol die "
-            "Inhalte später gezielt mit ctx_search zurück. Nutze dies, sobald ein Tool-Ergebnis "
-            "größer als ~2 KB ist und du nicht den ganzen Inhalt sofort brauchst."
+            "lange Dokumentation) in der SUMAX Context-Schublade ab. BEVORZUGT mit `path`: "
+            "Ausgabe eines Befehls erst in eine Datei umleiten (z. B. `befehl > /tmp/x.txt`, "
+            "OHNE sie anzuzeigen) und dann nur den Pfad übergeben — dieser Server liest die "
+            "Datei selbst, der Inhalt kommt nie ins Gespräch. Auch die Datei, in die Claude Code "
+            "eine zu lange Ausgabe gespeichert hat, kann direkt übergeben werden. `content` nur "
+            "für Text, der ohnehin schon im Gespräch steht. Gibt Pointer, Zeilenzahl und "
+            "Kopfzeile zurück; Details danach mit ctx_search."
         ),
         "inputSchema": {
             "type": "object",
             "properties": {
-                "content": {"type": "string", "description": "Der große Rohtext, der ausgelagert werden soll."},
+                "path": {"type": "string", "description": "Lokaler Pfad einer Textdatei (CSV, JSON, Log, Markdown). Bevorzugt."},
+                "content": {"type": "string", "description": "Rohtext, falls er schon im Gespräch steht. Nur wenn kein `path` möglich ist."},
                 "source": {"type": "string", "description": "Kurzes Label der Quelle, z.B. 'ahrefs:backlinks' oder 'crawl:kunde.de'."},
             },
-            "required": ["content", "source"],
+            "required": ["source"],
         },
     },
     {
