@@ -91,7 +91,8 @@ Visuals sell the outcome, not the object.
 Point the eye at the CTA.
 
 - **Reserve ONE bold color exclusively for CTAs.** Nothing else on the page may use it. For SUMAX this is
-  Gold `#C8960C` — apply it only to conversion buttons, nowhere decorative.
+  Gold `#FAAC01` (the brand gold per sumax-style — NOT the old `#C8960C`) — apply it only to conversion
+  buttons, nowhere decorative. For SUMAX clients: the client's own CTA color.
 - Max 3–4 colors total (excluding photo content).
 - **CTA button sizing:** button + font-weight ≈ 2× body copy. The CTA should be the *second* thing the eye
   hits after the section headline.
