@@ -167,7 +167,7 @@ Run this before declaring a page done. 🔴 = blocker (page not shippable if it 
 - 🔴 Brand style = sumax-style tokens (fonts, colors, logo placement)
 
 **Attention**
-- 🔴 One reserved bold color (Gold #C8960C) used ONLY on CTAs
+- 🔴 One reserved bold color (SUMAX: Gold #FAAC01; clients: their CTA color) used ONLY on CTAs
 - 🟡 CTA is ~2× body size and has whitespace around it
 - 🟡 Directional cues point to the CTA/form
 
