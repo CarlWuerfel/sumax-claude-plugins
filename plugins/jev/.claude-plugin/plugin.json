@@ -1,6 +1,6 @@
 {
   "name": "jev",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lange Listen Zeile für Zeile beurteilen lassen — ja/nein, einsortieren oder auf einer Skala. Schnell, günstig und bei jedem Durchlauf dieselbe Antwort. Benannt nach dem Modell dahinter. Nicht zum Texten.",
   "author": {
     "name": "SUMAX / Reknova GmbH"

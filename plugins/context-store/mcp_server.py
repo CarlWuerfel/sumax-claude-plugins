@@ -30,6 +30,18 @@ import urllib.request
 PROTOCOL_VERSION = "2024-11-05"
 SERVER_VERSION = "1.2.0"
 GATEWAY = os.environ.get("SUMAX_GATEWAY_URL", "https://context-store.sumax.dev").rstrip("/")
+
+
+def _ssl_ctx() -> ssl.SSLContext:
+    """Volle Zertifikatsprüfung; nur interne Adressen (Tailscale, localhost) mit selbst-signierten Certs ausgenommen.
+
+    Bis 09.10.2026 war die Prüfung für alle Adressen aus, auch für das öffentliche GATEWAY.
+    """
+    ctx = ssl.create_default_context()
+    if "tail61b1.ts.net" in GATEWAY or "localhost" in GATEWAY or "127.0.0.1" in GATEWAY:
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+    return ctx
 TIMEOUT = 15
 
 # Dateien direkt einlesen (seit 1.2.0). Grund: Mit `content` muss Claude den Dump erst
@@ -139,12 +151,10 @@ def _headers() -> dict:
 
 
 def _gateway_post(path: str, payload: dict) -> dict:
-    """POST an den Gateway. Self-signed Certs werden akzeptiert (interne URLs)."""
+    """POST an den Gateway (Zertifikat geprüft, siehe _ssl_ctx)."""
     data = json.dumps(payload).encode()
     req = urllib.request.Request(f"{GATEWAY}{path}", data=data, headers=_headers(), method="POST")
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
+    ctx = _ssl_ctx()
     with urllib.request.urlopen(req, timeout=TIMEOUT, context=ctx) as resp:
         return json.loads(resp.read())
 
@@ -249,9 +259,7 @@ def _call_tool(name: str, args: dict) -> str:
         from urllib.parse import urlencode
         q = urlencode({"caller": _caller(), "session": _session()})
         req = urllib.request.Request(f"{GATEWAY}/api/context/stats?{q}", headers=_headers())
-        ctx = ssl.create_default_context()
-        ctx.check_hostname = False
-        ctx.verify_mode = ssl.CERT_NONE
+        ctx = _ssl_ctx()
         with urllib.request.urlopen(req, timeout=TIMEOUT, context=ctx) as resp:
             r = json.loads(resp.read())
         srcs = ", ".join(f"{s['source']} ({s['chunks']})" for s in r.get("by_source", [])[:8]) or "—"

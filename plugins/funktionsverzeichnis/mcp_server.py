@@ -26,6 +26,18 @@ import urllib.request
 
 PROTOCOL_VERSION = "2024-11-05"
 BASIS = os.environ.get("SUMAX_FUNKTIONEN_URL", "https://context-store.sumax.dev").rstrip("/")
+
+
+def _ssl_ctx() -> ssl.SSLContext:
+    """Volle Zertifikatsprüfung; nur interne Adressen (Tailscale, localhost) mit selbst-signierten Certs ausgenommen.
+
+    Bis 09.10.2026 war die Prüfung für alle Adressen aus, auch für das öffentliche BASIS.
+    """
+    ctx = ssl.create_default_context()
+    if "tail61b1.ts.net" in BASIS or "localhost" in BASIS or "127.0.0.1" in BASIS:
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+    return ctx
 TIMEOUT = 20
 
 
@@ -49,9 +61,7 @@ def _get(pfad: str, **params) -> dict:
     if params:
         url += "?" + urllib.parse.urlencode({k: v for k, v in params.items() if v is not None})
     req = urllib.request.Request(url, headers=_headers())
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
+    ctx = _ssl_ctx()
     with urllib.request.urlopen(req, timeout=TIMEOUT, context=ctx) as resp:
         return json.loads(resp.read())
 
