@@ -1,0 +1,24 @@
+{
+  "name": "buero-status",
+  "version": "1.0.0",
+  "description": "Zeigt im SUMAX Büro über deinem Kopf, dass du gerade mit Claude an einem SUMAX-Tool baust. Meldet nur Start, Lebenszeichen und Ende der Sitzung mit dem Repo-Namen, keine Prompts, keine Dateien. Die Anzeige schaltest du im Büro-Profil selbst ein.",
+  "author": {
+    "name": "SUMAX / Reknova GmbH"
+  },
+  "keywords": [
+    "buero",
+    "status",
+    "praesenz",
+    "hooks",
+    "sumax"
+  ],
+  "userConfig": {
+    "token": {
+      "type": "string",
+      "title": "SUMAX Büro-Token",
+      "description": "Dein persönlicher Plugin-Token „SUMAX Büro (Statusanzeige)“. Holst du dir unter users.sumax.dev → Zugriffs-Tokens → Plugin-Tokens. Wird im macOS-Schlüsselbund gespeichert, nicht im Klartext.",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

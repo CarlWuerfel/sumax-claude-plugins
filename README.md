@@ -91,6 +91,44 @@ nicht auf andere SUMAX-Dienste, keine KI-Aufrufe, keine Kundendaten. Weitere opt
 Variablen: `SUMAX_GATEWAY_URL` (Default `https://context-store.sumax.dev`),
 `SUMAX_CONTEXT_CALLER` (Default `user@host`).
 
+### buero-status: im SUMAX Büro zeigen, woran du mit Claude baust
+
+Im SUMAX Büro (office.sumax.dev) steht dann über deiner Figur „baut mit Claude an
+&lt;Tool&gt;“. Dafür meldet das Plugin dem Büro, wann eine Claude-Code-Sitzung beginnt,
+dass sie noch läuft (höchstens alle 5 Minuten, nach einer Antwort von Claude) und wann
+sie endet.
+
+```
+/plugin install buero-status@sumax
+```
+
+**Gesendet wird nur:** eine zufällige Sitzungs-ID, der Zustand (Start, Lebenszeichen,
+Ende) und der Name des Git-Repos, in dem du arbeitest (nur der Ordnername, kein Pfad).
+Außerhalb eines Git-Repos bleibt der Name leer, das Büro zeigt dann nur „arbeitet mit
+Claude“.
+
+**Nicht gesendet werden:** deine Eingaben, Claudes Antworten, Dateinamen, Pfade, Code
+oder sonstige Inhalte.
+
+**Datenschutz:** Die Anzeige ist aus, bis du sie im Büro in deinem Profil unter „Arbeit
+mit Claude“ selbst einschaltest. Das Büro nennt den Repo-Namen nur, wenn er ein bekanntes
+SUMAX-Tool ist. Private oder fremde Projekte erscheinen nie mit Namen, sondern höchstens
+als „arbeitet mit Claude“.
+
+**Token holen:** users.sumax.dev → Zugriffs-Tokens → Plugin-Tokens → „SUMAX Büro
+(Statusanzeige)“. Claude Code fragt beim Einschalten des Plugins danach und legt ihn im
+macOS-Schlüsselbund ab. Ersatzweise geht die Umgebungsvariable `SUMAX_BUERO_TOKEN`
+(z. B. in `~/.claude/settings.json` → `env`). Ohne Token meldet das Plugin nichts.
+
+**Abschalten:** `/plugin disable buero-status@sumax`, oder vorübergehend
+`SUMAX_BUERO_AUS=1` in `~/.claude/settings.json` → `env` setzen. Die Anzeige im Büro
+lässt sich zusätzlich im Profil ausschalten.
+
+**Voraussetzung:** `python3` (auf jedem Mac vorhanden). Unter Windows muss `python3`
+als Befehl verfügbar sein, sonst bleibt das Plugin stumm. Ist das Büro nicht erreichbar,
+merkst du davon nichts: Das Plugin gibt nach höchstens 3 Sekunden auf und stört Claude
+Code nie.
+
 ## Neues Plugin hinzufügen
 
 1. Unterordner unter `plugins/<name>/` anlegen mit `.claude-plugin/plugin.json`.

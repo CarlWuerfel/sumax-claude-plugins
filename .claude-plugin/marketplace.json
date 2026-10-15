@@ -174,6 +174,23 @@
         "compliance",
         "sumax"
       ]
+    },
+    {
+      "name": "buero-status",
+      "source": "./plugins/buero-status",
+      "description": "Zeigt im SUMAX Büro über deinem Kopf, dass du gerade mit Claude an einem SUMAX-Tool baust. Meldet nur Start, Lebenszeichen und Ende der Sitzung mit dem Repo-Namen, keine Prompts, keine Dateien. Braucht einen persönlichen Plugin-Token (users.sumax.dev → Zugriffs-Tokens).",
+      "version": "1.0.0",
+      "author": {
+        "name": "SUMAX / Reknova GmbH"
+      },
+      "category": "productivity",
+      "keywords": [
+        "buero",
+        "status",
+        "praesenz",
+        "hooks",
+        "sumax"
+      ]
     }
   ]
 }
