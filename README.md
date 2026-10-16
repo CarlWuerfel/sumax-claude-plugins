@@ -16,6 +16,24 @@ Danach Claude Code neu starten (oder `/reload-plugins`).
 
 ## Plugins
 
+### linkedin-kunden — LinkedIn für Kunden
+
+Für alles, was wir auf LinkedIn für Kunden machen: Strategie und Ziele festlegen, Redaktionsplan,
+Beiträge schreiben (Hook, Länge, Format, Bild oder Karussell, Links, Hashtags), fremde Entwürfe prüfen
+und den Monatsreport richtig rechnen. Der Skill kennt den aktuellen Stand des LinkedIn-Algorithmus
+(15.10.2026, rund 700 Quellen), Benchmarks nach Seitengröße, typische Branchen (Industrie, Handwerk,
+Gesundheit, Kanzleien, IT …), Ghostwriting für Geschäftsführer unserer Kunden und die Rechtsfallen für
+Agenturen (Impressum, Werbekennzeichnung, Bildrechte, DSGVO, HWG, Berufsrecht, AI Act, Gewinnspiele).
+Mit Vorlagen für Onboarding, Freigabe, Einwilligung und Report.
+
+Einfach fragen, z. B. „Erstelle eine LinkedIn-Strategie für [Kunde]“, „Schreib drei Recruiting-Posts“
+oder „Prüf diesen Entwurf“. Läuft lokal, kein Token nötig. Keine Rechtsberatung: bei Abmahnung oder
+heiklen Branchen Kammer oder Kanzlei fragen.
+
+```
+/plugin install linkedin-kunden@sumax
+```
+
 ### hwg-check — Heilmittelwerbegesetz prüfen
 
 Einfach „bitte HWG-Check machen“ sagen: für eine Caption, einen Website- oder Anzeigentext, eine

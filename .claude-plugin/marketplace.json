@@ -191,6 +191,24 @@
         "hooks",
         "sumax"
       ]
+    },
+    {
+      "name": "linkedin-kunden",
+      "source": "./plugins/linkedin-kunden",
+      "description": "LinkedIn für Kunden: Strategie, Redaktionsplan, Beiträge schreiben und prüfen, Monatsreport. Aktuelles Wissen zu Algorithmus, Formaten, Benchmarks, Branchen, Ghostwriting für Geschäftsführer und Recht für Agenturen (Stand 15.10.2026, rund 700 Quellen). Läuft lokal, kein Token nötig.",
+      "version": "1.2.1",
+      "author": {
+        "name": "SUMAX / Reknova GmbH"
+      },
+      "category": "productivity",
+      "keywords": [
+        "linkedin",
+        "social-media",
+        "unternehmensseite",
+        "redaktionsplan",
+        "ghostwriting",
+        "sumax"
+      ]
     }
   ]
 }

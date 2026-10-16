@@ -1,0 +1,10 @@
+{
+  "name": "linkedin-kunden",
+  "version": "1.2.1",
+  "description": "LinkedIn für Kunden: Strategie, Redaktionsplan, Beiträge schreiben und prüfen, Monatsreport. Mit aktuellem Wissen zum LinkedIn-Algorithmus (Stand 15.10.2026, rund 700 Quellen), Formaten, Benchmarks nach Seitengröße, Branchen, Ghostwriting für Geschäftsführer, Thought Leader Ads und Recht für Agenturen (Impressum, Werbekennzeichnung, Bildrechte, DSGVO, HWG, Berufsrecht, AI Act). Vorlagen für Onboarding, Freigabe und Report. Läuft lokal, kein Token nötig.",
+  "author": {
+    "name": "SUMAX / Reknova GmbH"
+  },
+  "keywords": ["linkedin", "social-media", "unternehmensseite", "redaktionsplan", "ghostwriting", "employer-branding", "recht", "sumax"],
+  "skills": "./skills/"
+}
