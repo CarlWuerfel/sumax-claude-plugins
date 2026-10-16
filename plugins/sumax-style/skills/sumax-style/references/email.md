@@ -1,60 +1,71 @@
 # SUMAX Style — Email Signatures
 
-## Standard Signature Template
+## Standard Signature
 
 ```
 Vorname Nachname
-Position – SUMAX
-Reknova GmbH | Phoenixseestr. 20 | 44263 Dortmund
-T: +49 231 XXXXXXX | M: +49 1XX XXXXXXX
-E: vorname.nachname@sumax.de | W: www.sumax.de
+Position | SUMAX
+Tel. +49 231 317 017-30 | Mobil +49 1xx xxxxxxx
+vorname.nachname@sumax.de | www.sumax.de
 
-[SUMAX AI DRIVEN Logo – 160×22px]
+[Logo, 160 px wide]
+
+SUMAX ist eine Marke der Reknova GmbH | Phoenixseestraße 20 | 44263 Dortmund
+Sitz der Gesellschaft: Dortmund | Amtsgericht Dortmund HRB 26626 | Geschäftsführer: Murat Ulusoy
 ```
+
+- Fill in the real name, position and numbers of the person; leave out the mobile line if there is none. Central number: +49 231 317 017-30.
+- The last two lines are required for business emails of a GmbH (§ 35a GmbHG: legal form, registered office, register court, register number, managing director). Never drop them.
+- Email addresses follow the pattern initial.lastname@sumax.de (e.g. c.wuerfel@sumax.de); use the person's real address.
 
 ## Formatting
 
-- Font: Arial, 10pt
-- Name: Bold, Black #000000
-- Other text: Regular, Anthracite #393939
-- Links (email, website): Gold #FAAC01
-- Separators: Pipe character ` | ` in Gray #666666
-- Line height: 1.4
+- Font: Arial, 13 px (Inter is not reliable in email clients)
+- Name: bold, #111111, 14 px
+- Other text: #333333; legal lines 11 px, #5C5C5C
+- Links: #111111, no underline (gold text on white is unreadable)
+- Separators: ` | ` in #5C5C5C
+- Line height 1.5
 
 ## Rules
 
-- Logo is the ONLY graphic element — no banners, badges, or social icons
-- No images, quotes, disclaimers, or marketing banners
-- No "Sent from my iPhone" or similar
-- Consistent across all employees
-- Website link without "https://" prefix for cleanliness
+- The logo is the only graphic. No banners, badges, social icons, photos or quotes
+- No long confidentiality disclaimers
+- Logo as PNG, never SVG (Outlook and Gmail block SVG). Use `assets/SUMAX_Ai_Driven_1.png` from this skill, displayed at 160×22 px; host it or embed it in the mail program's signature editor
+- Website link without "https://" in the visible text
 
-## HTML Signature Code
+## HTML Signature
 
 ```html
-<table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 13px; color: #393939; line-height: 1.5;">
+<table cellpadding="0" cellspacing="0" role="presentation" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #333333; line-height: 1.5;">
   <tr>
     <td>
-      <strong style="color: #000000; font-size: 14px;">Vorname Nachname</strong><br>
-      Position – SUMAX<br>
-      <span style="color: #666666;">Reknova GmbH | Phoenixseestr. 20 | 44263 Dortmund</span><br>
-      T: +49 231 XXXXXXX
-      <span style="color: #666666;">|</span>
-      M: +49 1XX XXXXXXX<br>
-      E: <a href="mailto:v.nachname@sumax.de" style="color: #FAAC01; text-decoration: none;">v.nachname@sumax.de</a>
-      <span style="color: #666666;">|</span>
-      W: <a href="https://www.sumax.de" style="color: #FAAC01; text-decoration: none;">www.sumax.de</a>
-      <br><br>
-      <img src="logo-url" alt="SUMAX AI DRIVEN" width="160" height="22" style="display: block;">
+      <strong style="color: #111111; font-size: 14px;">Vorname Nachname</strong><br>
+      Position <span style="color: #5C5C5C;">|</span> SUMAX<br>
+      Tel. +49 231 317 017-30 <span style="color: #5C5C5C;">|</span> Mobil +49 1xx xxxxxxx<br>
+      <a href="mailto:vorname.nachname@sumax.de" style="color: #111111; text-decoration: none;">vorname.nachname@sumax.de</a>
+      <span style="color: #5C5C5C;">|</span>
+      <a href="https://www.sumax.de" style="color: #111111; text-decoration: none;">www.sumax.de</a>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 12px 0 10px;">
+      <img src="LOGO-URL.png" alt="SUMAX AI DRIVEN" width="160" height="22" style="display: block; border: 0;">
+    </td>
+  </tr>
+  <tr>
+    <td style="font-size: 11px; color: #5C5C5C; border-top: 1px solid #E6E6E6; padding-top: 8px;">
+      SUMAX ist eine Marke der Reknova GmbH | Phoenixseestraße 20 | 44263 Dortmund<br>
+      Sitz der Gesellschaft: Dortmund | Amtsgericht Dortmund HRB 26626 | Geschäftsführer: Murat Ulusoy
     </td>
   </tr>
 </table>
 ```
 
-## Email Communication Style
+## Writing Emails
 
-- Subject lines: Concise, informative, no all-caps
-- Greeting: "Sehr geehrte/r [Name]," (external) or "Hallo [Name]," (internal)
+- Subject: short and specific, no all caps
+- Greeting: "Sehr geehrte Frau / Sehr geehrter Herr [Name]," (external) or "Hallo [Name]," (internal)
+- First sentence carries the reason for the email; last sentence one clear next step with a date
 - Sign-off: "Mit freundlichen Grüßen" (external) or "Viele Grüße" (internal)
-- No emojis in external communication
-- Professional but approachable tone
+- No emojis in external emails

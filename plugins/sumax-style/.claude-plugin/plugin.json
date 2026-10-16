@@ -1,10 +1,19 @@
 {
   "name": "sumax-style",
-  "version": "1.0.0",
-  "description": "SUMAX-Firmenstil für alles, was Claude erstellt: PDFs, Word-Dokumente, Präsentationen, Websites, Social-Media-Grafiken und E-Mail-Signaturen. Farben (Schwarz, Weiß, Gold #FAAC01), Schrift (Inter, ersatzweise Arial), Logo als SVG und Layout-Regeln von sumax.de. Greift bei „im SUMAX-Stil“, „SUMAX Format“, „unser Firmenstil“. Läuft lokal, kein Token nötig.",
+  "version": "1.1.0",
+  "description": "SUMAX-Firmenstil für alles, was Claude erstellt: PDFs (fertige Vorlage mit Inter-Schrift, Logo, Kopf- und Fußzeile, Kennzahlen, Tabellen), Word-Dokumente, Präsentationen, Websites, Social-Media-Grafiken und E-Mail-Signaturen. Farben, Schrift und Firmenangaben geprüft gegen sumax.de und Impressum. Greift bei „im SUMAX-Stil“, „SUMAX CI“, „unser Firmenstil“. Läuft lokal, kein Token nötig.",
   "author": {
     "name": "SUMAX / Reknova GmbH"
   },
-  "keywords": ["corporate-design", "ci", "branding", "pdf", "docx", "pptx", "website", "sumax"],
+  "keywords": [
+    "corporate-design",
+    "ci",
+    "branding",
+    "pdf",
+    "docx",
+    "pptx",
+    "website",
+    "sumax"
+  ],
   "skills": "./skills/"
 }

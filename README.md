@@ -37,10 +37,14 @@ heiklen Branchen Kammer oder Kanzlei fragen.
 ### sumax-style — SUMAX-Firmenstil
 
 Damit sieht alles, was Claude für SUMAX erstellt, nach SUMAX aus: PDFs, Word-Dokumente,
-Präsentationen, Websites, Social-Media-Grafiken und E-Mail-Signaturen. Der Skill kennt Farben
-(Schwarz, Weiß, Gold `#FAAC01`), Schrift (Inter, in Word und PowerPoint Arial), das Logo als SVG,
-Schriftgrößen und die Gestaltungselemente von sumax.de. Absender ist immer „SUMAX, eine Marke der
-Reknova GmbH“, nie „SUMAX GmbH“.
+Präsentationen, Websites, Social-Media-Grafiken und E-Mail-Signaturen. Für PDFs bringt der Skill eine
+fertige Vorlage mit: Titelseite, Logo in der Kopfzeile, Seitenzahlen, Kennzahlen, Tabellen, Hinweis-Kasten,
+Unterschriften und die Pflichtangaben der GmbH. Die Schrift Inter ist eingebettet, das PDF sieht also auf
+jedem Rechner gleich aus. Farben, Schrift, Kennzahlen und Firmenangaben sind gegen sumax.de und das
+Impressum geprüft. Absender ist immer „SUMAX ist eine Marke der Reknova GmbH“, nie „SUMAX GmbH“.
+
+Für PDFs braucht Claude WeasyPrint (`pip install weasyprint`, auf dem Mac zusätzlich `brew install pango`)
+oder Google Chrome. Chrome reicht, wenn es installiert ist.
 
 Einfach dazuschreiben, z. B. „Erstell mir das als PDF im SUMAX-Stil“ oder „Bau die Präsentation im
 SUMAX Format“. Läuft lokal, kein Token nötig.

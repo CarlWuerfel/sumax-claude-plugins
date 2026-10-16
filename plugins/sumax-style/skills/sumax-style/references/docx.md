@@ -14,15 +14,17 @@ const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, ImageR
 
 ```javascript
 const FONT = "Arial"  // Arial as fallback — Inter cannot be embedded in docx-js;
-const C_BLACK = "000000";
+const C_INK = "111111";   // headings, table header
 const C_GOLD = "FAAC01";
 const C_GOLD_LIGHT = "FFF5E0";
 const C_GOLD_MID = "FDD88A";
 const C_RED = "CC0000";
-const C_GREEN = "24CC9A";
+const C_GREEN = "1A936F";  // positive numbers as text
 const C_TEXT = "333333";
-const C_GRAY = "666666";
-const C_TABLE_HEAD = "1A1A1A";
+const C_GRAY = "5C5C5C";
+const C_GOLD_TEXT = "8A6A12";  // gold as text on white (labels, subtitle)
+const C_LINE = "E6E6E6";
+const C_TABLE_HEAD = "111111";
 const C_TABLE_ALT = "F7F7F7";
 
 // A4 page
@@ -34,27 +36,13 @@ const CW = PW - 2 * MARGIN;  // 9026 DXA content width
 
 ## Logo Handling
 
-The logo SVG is bundled in the skill at `assets/SUMAX_Ai_Driven_1.svg`. Convert to PNG before embedding in docx:
+Use the ready-made PNG from the skill: `<skill base directory>/assets/SUMAX_Ai_Driven_1.png` (1000×135 px, transparent). No SVG conversion needed.
 
-```python
-import os, cairosvg
-
-# Check common skill install locations
-logo_paths = [
-    os.path.join(os.path.dirname(__file__), "..", "assets", "SUMAX_Ai_Driven_1.svg"),
-    "/mnt/skills/user/sumax-style/assets/SUMAX_Ai_Driven_1.svg",
-    "/mnt/skills/private/sumax-style/assets/SUMAX_Ai_Driven_1.svg",
-    "/mnt/user-data/uploads/SUMAX_Ai_Driven_1.svg",  # fallback
-]
-logo_svg = next((p for p in logo_paths if os.path.exists(p)), None)
-
-if logo_svg:
-    cairosvg.svg2png(url=logo_svg, write_to='logo.png', output_width=500)
-else:
-    raise FileNotFoundError("SUMAX logo not found — ask user to upload SUMAX_Ai_Driven_1.svg")
+```javascript
+const fs = require('fs');
+const logoBuffer = fs.readFileSync(SKILL_DIR + '/assets/SUMAX_Ai_Driven_1.png');  // SKILL_DIR = base directory of this skill
+// aspect ratio 7.4 : 1  → e.g. 280×38, 200×27
 ```
-
-The resulting PNG is ~500×68px.
 
 ## Styles Definition
 
@@ -63,13 +51,13 @@ styles: {
   default: { document: { run: { font: "Arial", size: 22, color: "333333" } } },
   paragraphStyles: [
     { id: "Heading1", name: "Heading 1", basedOn: "Normal", next: "Normal", quickFormat: true,
-      run: { size: 36, bold: true, font: "Arial", color: "000000" },
+      run: { size: 36, bold: true, font: "Arial", color: "111111" },
       paragraph: { spacing: { before: 360, after: 200 }, outlineLevel: 0 } },
     { id: "Heading2", name: "Heading 2", basedOn: "Normal", next: "Normal", quickFormat: true,
-      run: { size: 28, bold: true, font: "Arial", color: "FAAC01" },
+      run: { size: 28, bold: true, font: "Arial", color: "111111" },
       paragraph: { spacing: { before: 280, after: 160 }, outlineLevel: 1 } },
     { id: "Heading3", name: "Heading 3", basedOn: "Normal", next: "Normal", quickFormat: true,
-      run: { size: 24, bold: true, font: "Arial", color: "000000" },
+      run: { size: 24, bold: true, font: "Arial", color: "111111" },
       paragraph: { spacing: { before: 200, after: 120 }, outlineLevel: 2 } },
   ]
 }
@@ -121,27 +109,27 @@ new Paragraph({ spacing: { before: 100 },
 
 // 3. Title (after large spacing)
 new Paragraph({ spacing: { before: 2000 }, children: [
-  new TextRun({ text: "Document Title", font: "Arial", size: 56, bold: true, color: "000000" })
+  new TextRun({ text: "Document Title", font: "Arial", size: 56, bold: true, color: "111111" })
 ] }),
 
 // 4. Subtitle
 new Paragraph({ spacing: { after: 120 }, children: [
-  new TextRun({ text: "Subtitle here", font: "Arial", size: 26, color: "FAAC01" })
+  new TextRun({ text: "Subtitle here", font: "Arial", size: 26, color: "5C5C5C" })
 ] }),
 
 // 5. Description
 new Paragraph({ children: [
-  new TextRun({ text: "Description text", font: "Arial", size: 22, color: "666666", italics: true })
+  new TextRun({ text: "Description text", font: "Arial", size: 22, color: "5C5C5C" })
 ] }),
 
 // 6. Meta block (after large spacing)
 new Paragraph({ spacing: { before: 2400 },
-  border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: "CCCCCC", space: 8 } },
+  border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: "E6E6E6", space: 8 } },
   children: [] }),
 new Paragraph({ spacing: { before: 200 }, children: [
-  new TextRun({ text: "SUMAX – Reknova GmbH", font: "Arial", size: 22, color: "333333" })
+  new TextRun({ text: "SUMAX ist eine Marke der Reknova GmbH", font: "Arial", size: 20, color: "333333" })
 ] }),
-// ... address, date, author
+// then: Phoenixseestraße 20 · 44263 Dortmund · www.sumax.de, date, author
 
 // 7. VERTRAULICH label (only if requested)
 new Paragraph({ children: [
@@ -158,7 +146,7 @@ new Header({ children: [
     border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: "FAAC01", space: 6 } },
     children: [
       new ImageRun({ data: logoBuffer, transformation: { width: 200, height: 27 }, type: "png" }),
-      new TextRun({ text: "     Document Title", font: "Arial", size: 18, color: "666666", italics: true }),
+      new TextRun({ text: "     Document Title", font: "Arial", size: 16, color: "5C5C5C" }),
     ]
   })
 ] })
@@ -169,19 +157,28 @@ new Header({ children: [
 ```javascript
 new Footer({ children: [
   new Paragraph({ alignment: AlignmentType.RIGHT, children: [
-    new TextRun({ text: "Seite ", font: "Arial", size: 16, color: "666666" }),
-    new TextRun({ children: [PageNumber.CURRENT], font: "Arial", size: 16, color: "666666" })
+    new TextRun({ text: "Seite ", font: "Arial", size: 16, color: "5C5C5C" }),
+    new TextRun({ children: [PageNumber.CURRENT], font: "Arial", size: 16, color: "5C5C5C" }),
+    new TextRun({ text: " von ", font: "Arial", size: 16, color: "5C5C5C" }),
+    new TextRun({ children: [PageNumber.TOTAL_PAGES], font: "Arial", size: 16, color: "5C5C5C" })
   ] })
 ] })
 ```
 
-Optional extended footer with company info on left (use tab stops, NOT tables).
+Left side of the footer: "SUMAX · Reknova GmbH" (use tab stops, NOT tables).
+
+Offers, letters, order confirmations and agreements end with the company details required by § 35a GmbHG (Arial 7–8pt, color 5C5C5C, thin E6E6E6 line above):
+
+```
+SUMAX ist eine Marke der Reknova GmbH · Phoenixseestraße 20 · 44263 Dortmund · Tel. +49 231 317 017-30 · info@sumax.de · www.sumax.de
+Sitz der Gesellschaft: Dortmund · Amtsgericht Dortmund HRB 26626 · USt-IdNr. DE293750664 · Geschäftsführer: Murat Ulusoy
+```
 
 ## Tables
 
 ### Standard borders and margins
 ```javascript
-const border = { style: BorderStyle.SINGLE, size: 1, color: "CCCCCC" };
+const border = { style: BorderStyle.SINGLE, size: 1, color: "E6E6E6" };
 const borders = { top: border, bottom: border, left: border, right: border };
 const cellM = { top: 80, bottom: 80, left: 120, right: 120 };
 ```
@@ -191,7 +188,7 @@ const cellM = { top: 80, bottom: 80, left: 120, right: 120 };
 new TableCell({
   borders, margins: cellM,
   width: { size: w, type: WidthType.DXA },
-  shading: { fill: "1A1A1A", type: ShadingType.CLEAR },
+  shading: { fill: "111111", type: ShadingType.CLEAR },
   children: [new Paragraph({ children: [
     new TextRun({ text, font: "Arial", size: 20, color: "FFFFFF", bold: true })
   ] })]
@@ -251,11 +248,11 @@ new Paragraph({
 
 ## Section Label
 
-Small bold gold text above H1 headings:
+Small bold uppercase dark-gold label above H1 headings:
 ```javascript
 new Paragraph({
   spacing: { after: 80 },
-  children: [new TextRun({ text: "TEIL 1", font: "Arial", size: 20, bold: true, color: "FAAC01" })]
+  children: [new TextRun({ text: "TEIL 1", font: "Arial", size: 16, bold: true, color: "8A6A12", characterSpacing: 30 })]
 })
 ```
 
@@ -271,12 +268,12 @@ new Table({
       borders: noBorders, width: { size: 4513, type: WidthType.DXA }, margins: cellM,
       children: [
         new Paragraph({ spacing: { after: 800 }, children: [] }),
-        new Paragraph({ border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: "000000", space: 1 } }, children: [] }),
+        new Paragraph({ border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: "111111", space: 1 } }, children: [] }),
         new Paragraph({ spacing: { before: 80 }, children: [
-          new TextRun({ text: "Name (Rolle)", font: "Arial", size: 20, color: "666666" })
+          new TextRun({ text: "Name (Rolle)", font: "Arial", size: 20, color: "5C5C5C" })
         ] }),
         new Paragraph({ children: [
-          new TextRun({ text: "Datum: _______________", font: "Arial", size: 20, color: "666666" })
+          new TextRun({ text: "Datum: _______________", font: "Arial", size: 20, color: "5C5C5C" })
         ] }),
       ]
     }),
@@ -287,13 +284,10 @@ new Table({
 
 ## Monetary Values
 
-- Positive amounts: color `"24CC9A"` (Green) or default `"333333"`
+- Positive amounts: color `"1A936F"` (Green) or default `"333333"`
 - Negative amounts: color `"CC0000"` (Red)
 - Format: German locale (1.000,00 €)
 
 ## Validation
 
-Always validate after creation:
-```bash
-python scripts/office/validate.py document.docx
-```
+Always check after creation: open the file (or convert to PDF with LibreOffice `soffice --headless --convert-to pdf`) and look at every page. If the `docx` skill is available, use its validation script.

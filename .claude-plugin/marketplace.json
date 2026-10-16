@@ -213,8 +213,8 @@
     {
       "name": "sumax-style",
       "source": "./plugins/sumax-style",
-      "description": "SUMAX-Firmenstil für PDFs, Word, Präsentationen, Websites, Social-Media-Grafiken und E-Mail-Signaturen: Farben, Schrift, Logo und Layout von sumax.de. Greift bei „im SUMAX-Stil“. Läuft lokal, kein Token nötig.",
-      "version": "1.0.0",
+      "description": "SUMAX-Firmenstil für PDFs (fertige Vorlage mit Schrift und Logo), Word, Präsentationen, Websites, Social-Media-Grafiken und E-Mail-Signaturen: Farben, Schrift, Logo und Firmenangaben wie auf sumax.de. Greift bei „im SUMAX-Stil“. Läuft lokal, kein Token nötig.",
+      "version": "1.1.0",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },

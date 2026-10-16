@@ -2,50 +2,42 @@
 
 ## Formats
 
-| Platform | Aspect Ratio | Resolution |
-|----------|-------------|------------|
-| Instagram Feed | 1:1 | 1080×1080px |
-| Instagram Story/Reel | 9:16 | 1080×1920px |
-| LinkedIn Post | 1.91:1 or 1:1 | 1200×628px or 1080×1080px |
-| YouTube Thumbnail | 16:9 | 1280×720px |
-| Open Graph / Sharing | 1.91:1 | 1200×630px |
-| Facebook Cover | 2.63:1 | 820×312px |
-| LinkedIn Banner | 4:1 | 1584×396px |
+| Platform | Aspect ratio | Resolution |
+|---|---|---|
+| Instagram feed | 4:5 (preferred) or 1:1 | 1080×1350 px / 1080×1080 px |
+| Instagram story / reel | 9:16 | 1080×1920 px |
+| LinkedIn post | 1:1 or 4:5 | 1080×1080 px / 1080×1350 px |
+| LinkedIn link image | 1.91:1 | 1200×627 px |
+| LinkedIn document (carousel) | 4:5 | 1080×1350 px, exported as PDF |
+| YouTube thumbnail | 16:9 | 1280×720 px |
+| Open Graph / sharing | 1.91:1 | 1200×630 px |
+| LinkedIn banner | 4:1 | 1584×396 px |
 
 ## Design Rules
 
-- **Background:** White (#FFFFFF) or very light gray (#F7F7F7) as default
-- **Text overlay:** Black or White depending on background — never Gold as text color on images
-- **Gold accents:** Lines, thin borders, small accent elements only
-- **Logo:** Always visible — bottom-left or top-left preferred. Min 120px width.
-- **Text amount:** Maximum 3–4 lines on social graphics. Less is more.
-- **Imagery:** Prefer AI-generated or custom visuals. No generic stock photos.
+- **Background:** white, light gray #F3F3F3, or ink #111111 for statement posts
+- **Text:** #111111 on light, white on dark. Gold text only on #111111. Text on a gold area is always #111111
+- **Gold accents:** bars, lines, checkmarks, the marker under one word, number circles
+- **Logo:** `assets/SUMAX_Ai_Driven_1.png`, on light backgrounds only, bottom-left or top-left, min. 120 px wide, clear space of half the logo height
+- **Text amount:** max. 3–4 lines on a graphic
+- **Imagery:** real photos (team, office, projects) or custom visuals. No generic stock photos
 
 ## Typography on Graphics
 
-- Font: Arial always
-- Headline: Bold, 48–72px depending on format, Black or White
-- Subtext: Regular, 24–36px, Gray #666666 or White
-- CTA text: Bold, Gold #FAAC01 (only on white/light backgrounds)
-
-## Color Usage
-
-- Use max 3 colors from the SUMAX palette per graphic
-- Gold for accent elements (lines, icons, small highlights)
-- Black + White for text
-- Red/Green only if showing data (positive/negative)
-- Never use gold as a full background fill
+- Font: Inter (bundled in `assets/fonts/`), ExtraBold for headlines, Medium/Regular for subtext
+- Headline: 800, 56–80 px depending on format, letter-spacing −0.02em
+- Subtext: 400–500, 28–36 px, #5C5C5C on light, #E9E9E9 on dark
+- Label above the headline: 700, uppercase, letter-spacing 0.1em, #8A6A12 on light, #FAAC01 on dark
 
 ## Brand Elements
 
-- Gold accent line (horizontal or vertical) as recurring brand element
-- "AI DRIVEN" can appear as a tagline on brand graphics
-- Logo always with adequate clear space (half logo height on all sides)
+- Short gold bar (horizontal) above the headline as the recurring element
+- Key figures as large numbers with a short caption (only real figures, see SKILL.md)
+- "AI DRIVEN" only as part of the logo, not as separate decoration
 
 ## Video / Reels
 
-- Intro: Logo fade-in on white, gold line animates in
-- Lower third: Dark bar (#1A1A1A) with white text, gold accent
-- End card: Logo centered, white background, contact info
-- Captions: Arial, white with dark shadow/outline for readability
-- Music/SFX: Professional, modern, tech-forward tone
+- Intro: logo on white, gold bar slides in
+- Lower third: #111111 bar, white text, gold accent line
+- End card: logo centered on white, website and contact
+- Captions: Inter Bold, white with dark outline, or #111111 on a gold box

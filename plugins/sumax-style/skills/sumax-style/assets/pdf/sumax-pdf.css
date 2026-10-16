@@ -1,0 +1,279 @@
+/* SUMAX PDF-Stil. Läuft mit WeasyPrint und Chrome (headless).
+   Pfade sind relativ zu dieser Datei: Logo in ../, Schriften in ../fonts/.
+   Kopf- und Fußzeile nutzen bewusst nur Inter 400: Chrome lädt für die Seitenränder
+   nur Schnitte, die auch im Text vorkommen, sonst fällt es auf Arial zurück. */
+
+@font-face { font-family: "Inter"; font-weight: 400; src: url("../fonts/Inter-400.ttf"); }
+@font-face { font-family: "Inter"; font-weight: 500; src: url("../fonts/Inter-500.ttf"); }
+@font-face { font-family: "Inter"; font-weight: 600; src: url("../fonts/Inter-600.ttf"); }
+@font-face { font-family: "Inter"; font-weight: 700; src: url("../fonts/Inter-700.ttf"); }
+@font-face { font-family: "Inter"; font-weight: 800; src: url("../fonts/Inter-800.ttf"); }
+
+:root {
+  --tinte: #111111;      /* Überschriften, Tabellenkopf, dunkle Flächen */
+  --text: #333333;       /* Fließtext */
+  --grau: #5c5c5c;       /* Nebentext, Fußzeile */
+  --linie: #e6e6e6;      /* Trennlinien */
+  --flaeche: #f3f3f3;    /* helle Flächen, Zebra */
+  --gold: #faac01;       /* Akzent: Linien, Haken, Markierung, Flächen hinter dunkler Schrift */
+  --gold-text: #8a6a12;  /* Gold als Schrift auf Weiß (Kontrast 5:1) */
+  --gold-hell: #fff5e0;  /* Hinweis-Kästen */
+  --rot: #cc0000;        /* nur Warnungen und VERTRAULICH */
+  --gruen: #1a936f;      /* positive Zahlen als Schrift */
+}
+
+/* ---------- Seiten ---------- */
+
+@page {
+  size: A4;
+  margin: 26mm 18mm 22mm 18mm;
+  @top-left {
+    content: "";
+    width: 34mm;
+    background: url("../SUMAX_Ai_Driven_1.svg") no-repeat left bottom;
+    background-size: 34mm auto;
+    margin-bottom: 7mm;
+  }
+  @top-right {
+    /* Dokumenttitel: in der Vorlage per <style id="kopfzeile"> gesetzt */
+    content: "";
+    font: 400 7.5pt "Inter", Arial, sans-serif;
+    color: #5c5c5c;
+    vertical-align: bottom;
+    margin-bottom: 7mm;
+  }
+  @bottom-left {
+    content: "SUMAX · Reknova GmbH";
+    font: 400 7.5pt "Inter", Arial, sans-serif;
+    color: #5c5c5c;
+    vertical-align: top;
+    margin-top: 8mm;
+  }
+  @bottom-right {
+    content: "Seite " counter(page) " von " counter(pages);
+    font: 400 7.5pt "Inter", Arial, sans-serif;
+    color: #5c5c5c;
+    vertical-align: top;
+    margin-top: 8mm;
+  }
+}
+
+@page titel {
+  margin: 0;
+  @top-left { content: none; background: none; }
+  @top-right { content: none; }
+  @bottom-left { content: none; }
+  @bottom-right { content: none; }
+}
+
+/* ---------- Grundlagen ---------- */
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  margin: 0;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+  line-height: 1.55;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  hyphens: auto;
+}
+
+p { margin: 0 0 3mm; orphans: 3; widows: 3; }
+strong { font-weight: 600; color: var(--tinte); }
+a { color: var(--tinte); text-decoration: underline; text-decoration-color: var(--gold); }
+
+.etikett {
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+  margin: 0 0 2mm;
+}
+
+h1, h2, h3 { color: var(--tinte); break-after: avoid; page-break-after: avoid; text-wrap: balance; }
+h1 { font-size: 22pt; font-weight: 800; line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 5mm; }
+h2 { font-size: 13.5pt; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; margin: 8mm 0 2.5mm; }
+h3 { font-size: 10.5pt; font-weight: 700; margin: 5mm 0 1.5mm; }
+
+/* Ein Wort in der Überschrift hervorheben: goldener Balken unter der Schrift statt goldener Schrift */
+.markiert {
+  background: linear-gradient(transparent 66%, var(--gold) 66%, var(--gold) 92%, transparent 92%);
+}
+
+.kapitel { break-before: page; page-break-before: always; margin-top: 0; }
+.zusammen { break-inside: avoid; page-break-inside: avoid; }
+.klein { font-size: 8.5pt; color: var(--grau); }
+.quelle { font-size: 7.5pt; color: var(--grau); margin: -2mm 0 5mm; }
+
+/* ---------- Titelseite ---------- */
+
+.titelseite {
+  page: titel;
+  position: relative;
+  height: 297mm;
+  width: 210mm;
+  box-sizing: border-box;
+  padding: 24mm 18mm 0;
+  break-after: page;
+  page-break-after: always;
+  overflow: hidden;
+}
+.titelseite .logo { width: 52mm; display: block; }
+.titelseite .goldbalken { width: 18mm; height: 1.6mm; background: var(--gold); margin: 62mm 0 7mm; }
+.titelseite h1 { font-size: 34pt; line-height: 1.06; letter-spacing: -0.03em; margin: 2mm 0 6mm; max-width: 160mm; }
+.titelseite .unterzeile { font-size: 13pt; line-height: 1.4; color: var(--grau); max-width: 140mm; margin: 0; }
+.vertraulich {
+  display: inline-block;
+  padding: 1.2mm 3mm;
+  border: 0.8pt solid var(--rot);
+  color: var(--rot);
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.titelseite .vertraulich { margin-top: 8mm; }
+.titelseite .angaben {
+  position: absolute;
+  left: 18mm;
+  right: 18mm;
+  bottom: 30mm;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6mm;
+  border-top: 0.6pt solid var(--linie);
+  padding-top: 5mm;
+}
+.titelseite .angaben div { font-size: 9pt; color: var(--tinte); font-weight: 500; }
+.titelseite .angaben span { display: block; margin-bottom: 1mm; font-size: 7pt; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grau); }
+.titelseite .absender {
+  position: absolute;
+  left: 18mm;
+  right: 18mm;
+  bottom: 12mm;
+  font-size: 7.5pt;
+  color: var(--grau);
+}
+.titelseite .goldkante { position: absolute; left: 0; right: 0; bottom: 0; height: 4mm; background: var(--gold); }
+
+/* ---------- Bausteine ---------- */
+
+/* Liste mit goldenen Haken */
+ul.haken { list-style: none; padding: 0; margin: 0 0 4mm; }
+ul.haken.zusammen, ol.schritte { break-inside: avoid; page-break-inside: avoid; }
+ul.haken li {
+  position: relative;
+  padding-left: 7mm;
+  margin-bottom: 1.8mm;
+}
+ul.haken li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6mm;
+  width: 4.2mm;
+  height: 4.2mm;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23faac01' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+/* Nummerierte Schritte */
+ol.schritte { list-style: none; counter-reset: schritt; padding: 0; margin: 0 0 4mm; }
+ol.schritte li { counter-increment: schritt; position: relative; padding-left: 10mm; margin-bottom: 3mm; }
+ol.schritte li::before {
+  content: counter(schritt);
+  position: absolute;
+  left: 0;
+  top: -0.3mm;
+  width: 6.5mm;
+  height: 6.5mm;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--tinte);
+  font-size: 8.5pt;
+  font-weight: 700;
+  line-height: 6.5mm;
+  text-align: center;
+}
+
+/* Kennzahlen-Reihe */
+.kennzahlen { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; margin: 5mm 0 6mm; break-inside: avoid; page-break-inside: avoid; }
+.kennzahlen.vier { grid-template-columns: repeat(4, 1fr); }
+.kennzahl { border-top: 1.6pt solid var(--tinte); padding-top: 2.5mm; }
+.kennzahl .wert { display: block; font-size: 20pt; font-weight: 800; letter-spacing: -0.02em; color: var(--tinte); line-height: 1.1; }
+.kennzahl .text { display: block; font-size: 8pt; color: var(--grau); margin-top: 1mm; line-height: 1.35; hyphens: manual; }
+
+/* Tabellen */
+table { width: 100%; border-collapse: collapse; margin: 3mm 0 5mm; font-size: 9pt; break-inside: auto; }
+thead { display: table-header-group; }
+thead tr { background: var(--tinte); }  /* verhindert helle Nahtlinien zwischen Kopfzellen */
+tr { break-inside: avoid; page-break-inside: avoid; }
+th {
+  background: var(--tinte);
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding: 2.4mm 3mm;
+  font-size: 8pt;
+}
+td { padding: 2.4mm 3mm; border-bottom: 0.6pt solid var(--linie); vertical-align: top; }
+tbody tr:nth-child(even) td { background: #f7f7f7; }
+td.zahl, th.zahl { text-align: right; white-space: nowrap; }
+tr.summe td { background: none; border-top: 1.2pt solid var(--tinte); border-bottom: none; font-weight: 700; color: var(--tinte); }
+tr.hervorgehoben td { background: var(--gold-hell); }
+.plus { color: var(--gruen); font-weight: 600; }
+.minus { color: var(--rot); font-weight: 600; }
+
+/* Hinweis-Kasten */
+.hinweis {
+  background: var(--gold-hell);
+  border-left: 3pt solid var(--gold);
+  padding: 3.5mm 5mm;
+  margin: 4mm 0 5mm;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.hinweis p:last-child { margin-bottom: 0; }
+
+/* Dunkler Kasten, z. B. „Auf einen Blick“ */
+.dunkel {
+  background: var(--tinte);
+  color: #e9e9e9;
+  padding: 6mm 7mm 4mm;
+  margin: 4mm 0 6mm;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.dunkel .etikett { color: var(--gold); }
+.dunkel h2, .dunkel h3, .dunkel strong { color: #fff; margin-top: 0; }
+
+/* Zitat */
+blockquote {
+  margin: 5mm 0;
+  padding: 0 0 0 5mm;
+  border-left: 2pt solid var(--gold);
+  font-size: 12pt;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--tinte);
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+blockquote footer { margin-top: 2mm; font-size: 8.5pt; font-weight: 400; color: var(--grau); }
+
+/* Unterschriften */
+.unterschriften { display: grid; grid-template-columns: 1fr 1fr; gap: 14mm; margin-top: 18mm; break-inside: avoid; page-break-inside: avoid; }
+.unterschriften div { border-top: 0.8pt solid var(--tinte); padding-top: 2mm; font-size: 8.5pt; color: var(--grau); }
+
+/* Pflichtangaben der GmbH (Briefe, Angebote, Verträge) */
+.pflichtangaben {
+  margin-top: 12mm;
+  padding-top: 3mm;
+  border-top: 0.6pt solid var(--linie);
+  font-size: 7pt;
+  line-height: 1.5;
+  color: var(--grau);
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
