@@ -209,6 +209,25 @@
         "ghostwriting",
         "sumax"
       ]
+    },
+    {
+      "name": "sumax-style",
+      "source": "./plugins/sumax-style",
+      "description": "SUMAX-Firmenstil für PDFs, Word, Präsentationen, Websites, Social-Media-Grafiken und E-Mail-Signaturen: Farben, Schrift, Logo und Layout von sumax.de. Greift bei „im SUMAX-Stil“. Läuft lokal, kein Token nötig.",
+      "version": "1.0.0",
+      "author": {
+        "name": "SUMAX / Reknova GmbH"
+      },
+      "category": "productivity",
+      "keywords": [
+        "corporate-design",
+        "ci",
+        "branding",
+        "pdf",
+        "docx",
+        "pptx",
+        "sumax"
+      ]
     }
   ]
 }

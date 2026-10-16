@@ -34,6 +34,21 @@ heiklen Branchen Kammer oder Kanzlei fragen.
 /plugin install linkedin-kunden@sumax
 ```
 
+### sumax-style — SUMAX-Firmenstil
+
+Damit sieht alles, was Claude für SUMAX erstellt, nach SUMAX aus: PDFs, Word-Dokumente,
+Präsentationen, Websites, Social-Media-Grafiken und E-Mail-Signaturen. Der Skill kennt Farben
+(Schwarz, Weiß, Gold `#FAAC01`), Schrift (Inter, in Word und PowerPoint Arial), das Logo als SVG,
+Schriftgrößen und die Gestaltungselemente von sumax.de. Absender ist immer „SUMAX, eine Marke der
+Reknova GmbH“, nie „SUMAX GmbH“.
+
+Einfach dazuschreiben, z. B. „Erstell mir das als PDF im SUMAX-Stil“ oder „Bau die Präsentation im
+SUMAX Format“. Läuft lokal, kein Token nötig.
+
+```
+/plugin install sumax-style@sumax
+```
+
 ### hwg-check — Heilmittelwerbegesetz prüfen
 
 Einfach „bitte HWG-Check machen“ sagen: für eine Caption, einen Website- oder Anzeigentext, eine
