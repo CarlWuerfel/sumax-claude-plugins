@@ -1,6 +1,6 @@
 {
   "name": "kundenakte",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Kunden in Claude nachschlagen: Akte mit Lage, Aktuellem, Zusagen, Ansprechpartnern und Tabus, Zeitachse aus allen Quellen, Volltextsuche und Fragen an die Akte. Nur lesen, ohne Rechnungsbeträge. Braucht einen persönlichen Token (users.sumax.dev) und das Kundenakte-Recht.",
   "author": {
     "name": "SUMAX / Reknova GmbH"
@@ -17,7 +17,10 @@
       "command": "python3",
       "args": [
         "${CLAUDE_PLUGIN_ROOT}/mcp_server.py"
-      ]
+      ],
+      "env": {
+        "CLAUDE_PLUGIN_OPTION_TOKEN": "${user_config.token}"
+      }
     }
   },
   "skills": "./skills/",
@@ -27,7 +30,8 @@
       "title": "Persönlicher Kundenakte-Token",
       "description": "Dein eigener Token aus users.sumax.dev (Zugriffs-Tokens, Plugin „Kundenakte“). Gilt nur, solange du das Kundenakte-Recht hast. Wird im macOS-Schlüsselbund gespeichert, nicht im Klartext.",
       "sensitive": true,
-      "required": true
+      "required": false,
+      "default": ""
     }
   }
 }

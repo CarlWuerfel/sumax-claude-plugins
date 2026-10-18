@@ -1,6 +1,6 @@
 {
   "name": "jev",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Lange Listen Zeile für Zeile beurteilen lassen — ja/nein, einsortieren oder auf einer Skala. Schnell, günstig und bei jedem Durchlauf dieselbe Antwort. Benannt nach dem Modell dahinter. Nicht zum Texten.",
   "author": {
     "name": "SUMAX / Reknova GmbH"
@@ -18,7 +18,10 @@
       "command": "python3",
       "args": [
         "${CLAUDE_PLUGIN_ROOT}/mcp_server.py"
-      ]
+      ],
+      "env": {
+        "CLAUDE_PLUGIN_OPTION_TOKEN": "${user_config.token}"
+      }
     }
   },
   "skills": "./skills/",
@@ -28,7 +31,8 @@
       "title": "SUMAX Jev-Token",
       "description": "Dein persönlicher Zugangs-Token. Holst du dir unter users.sumax.dev → Zugriffs-Tokens → Plugin-Tokens. Wird im macOS-Schlüsselbund gespeichert, nicht im Klartext.",
       "sensitive": true,
-      "required": true
+      "required": false,
+      "default": ""
     }
   }
 }

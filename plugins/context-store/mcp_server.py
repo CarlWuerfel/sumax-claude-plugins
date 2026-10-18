@@ -118,7 +118,8 @@ def _datei_lesen(pfad: str) -> tuple[str, str]:
 
 
 def _caller() -> str:
-    c = os.environ.get("SUMAX_CONTEXT_CALLER", "").strip()
+    c = (os.environ.get("CLAUDE_PLUGIN_OPTION_CALLER", "").strip()
+         or os.environ.get("SUMAX_CONTEXT_CALLER", "").strip())
     if c:
         return c.lower()
     try:

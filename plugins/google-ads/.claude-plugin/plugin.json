@@ -1,6 +1,6 @@
 {
   "name": "google-ads",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Google-Ads-Konten der SUMAX-MCC direkt in Claude analysieren: Kampagnen, Keywords, Search Terms, Conversions, Budgets, Quality Score, Impression Share, Auction Insights, Änderungshistorie. Strikt lesend — spricht den SUMAX-Gateway an.",
   "author": {
     "name": "SUMAX / Reknova GmbH"
@@ -18,7 +18,11 @@
       "command": "python3",
       "args": [
         "${CLAUDE_PLUGIN_ROOT}/mcp_server.py"
-      ]
+      ],
+      "env": {
+        "CLAUDE_PLUGIN_OPTION_TOKEN": "${user_config.token}",
+        "CLAUDE_PLUGIN_OPTION_CALLER": "${user_config.caller}"
+      }
     }
   },
   "skills": "./skills/",
@@ -28,14 +32,15 @@
       "title": "SUMAX Ads-Token",
       "description": "Persönlicher Zugangs-Token für den Google-Ads-MCP (read-only auf die SUMAX-MCC). Bekommst du von Carl. Wird im macOS-Schlüsselbund gespeichert, nicht im Klartext.",
       "sensitive": true,
-      "required": true
+      "required": false,
+      "default": ""
     },
     "caller": {
       "type": "string",
       "title": "Dein Kürzel",
       "description": "Erscheint im Zugriffsprotokoll des Gateways. Dient nur der Zuordnung.",
       "required": false,
-      "default": "ma"
+      "default": ""
     }
   }
 }

@@ -13,7 +13,7 @@
       "name": "context-store",
       "source": "./plugins/context-store",
       "description": "Große Tool-Dumps (Ahrefs, Crawls, Logs) aus dem Context-Fenster auslagern und per Volltextsuche gezielt zurückholen — spart Tokens in interaktiven Sessions.",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },
@@ -31,7 +31,7 @@
       "name": "funktionsverzeichnis",
       "source": "./plugins/funktionsverzeichnis",
       "description": "Zeigt, welche Funktionen in den SUMAX-Tools schon existieren — vor dem Bauen suchen statt doppelt bauen. Rund 1.600 Schnittstellen aus knapp 30 Projekten, direkt aus dem Quellcode gelesen. Braucht einen Zugangs-Token (bekommst du von Carl).",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },
@@ -108,7 +108,7 @@
       "name": "google-ads",
       "source": "./plugins/google-ads",
       "description": "Google-Ads-Konten der SUMAX-MCC direkt in Claude analysieren: Kampagnen, Keywords, Search Terms, Conversions, Budgets, Quality Score, Impression Share, Auction Insights, Änderungshistorie. 27 Werkzeuge, strikt lesend. Braucht einen Zugangs-Token (SUMAX_ADS_TOKEN).",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },
@@ -126,7 +126,7 @@
       "name": "jev",
       "source": "./plugins/jev",
       "description": "Lange Listen Zeile für Zeile beurteilen lassen — ja/nein, einsortieren oder auf einer Skala. Immer dasselbe Ergebnis, Kosten im Zehntel-Cent-Bereich. Braucht einen persönlichen Zugangs-Token (users.sumax.dev → Zugriffs-Tokens).",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },
@@ -161,7 +161,7 @@
       "name": "hwg-check",
       "source": "./plugins/hwg-check",
       "description": "HWG-Check (Heilmittelwerbegesetz) für Texte, Instagram-Captions, Grafiken und ganze Instagram-Pläne über den SUMAX-Gateway, mit demselben Regelwerk wie Lenon. Einfach „bitte HWG-Check machen“ sagen. Braucht einen persönlichen Schlüssel (users.sumax.dev → Meine Daten → anfragen).",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },
@@ -233,7 +233,7 @@
       "name": "kundenakte",
       "source": "./plugins/kundenakte",
       "description": "Kunden in Claude nachschlagen: Akte mit Lage, Aktuellem, Zusagen, Ansprechpartnern und Tabus, Zeitachse aus allen Quellen, Suche und Fragen an die Akte. Nur lesen, ohne Rechnungsbeträge. Braucht einen persönlichen Token (users.sumax.dev) und das Kundenakte-Recht.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },

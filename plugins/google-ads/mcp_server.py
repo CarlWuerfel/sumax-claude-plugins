@@ -42,7 +42,8 @@ TIMEOUT = 90  # Google-Ads-Reports koennen bei kalten Caches dauern
 
 
 def _caller() -> str:
-    c = os.environ.get("SUMAX_ADS_CALLER", "").strip()
+    c = (os.environ.get("CLAUDE_PLUGIN_OPTION_CALLER", "").strip()
+         or os.environ.get("SUMAX_ADS_CALLER", "").strip())
     if c:
         return c.lower()
     try:
