@@ -160,8 +160,8 @@
     {
       "name": "hwg-check",
       "source": "./plugins/hwg-check",
-      "description": "HWG-Check (Heilmittelwerbegesetz) für Texte, Instagram-Captions, Grafiken und Instagram-Pläne über den SUMAX-Gateway, gleiches Regelwerk wie Lenon. Einfach „bitte HWG-Check machen“ sagen. Braucht den Cloudflare-Service-Token.",
-      "version": "1.0.2",
+      "description": "HWG-Check (Heilmittelwerbegesetz) für Texte, Instagram-Captions, Grafiken und ganze Instagram-Pläne über den SUMAX-Gateway, mit demselben Regelwerk wie Lenon. Einfach „bitte HWG-Check machen“ sagen. Braucht einen persönlichen Schlüssel (users.sumax.dev → Meine Daten → anfragen).",
+      "version": "1.1.0",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },

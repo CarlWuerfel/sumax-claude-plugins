@@ -1,10 +1,35 @@
 {
   "name": "hwg-check",
-  "version": "1.0.2",
-  "description": "HWG-Check (Heilmittelwerbegesetz) für Texte, Instagram-Captions, Grafiken und ganze Instagram-Pläne über den SUMAX-Gateway, mit demselben Regelwerk wie Lenon. Einfach „bitte HWG-Check machen“ sagen. Braucht den Cloudflare-Service-Token (CF_ACCESS_CLIENT_ID/SECRET).",
+  "version": "1.1.0",
+  "description": "HWG-Check (Heilmittelwerbegesetz) für Texte, Instagram-Captions, Grafiken und ganze Instagram-Pläne über den SUMAX-Gateway, mit demselben Regelwerk wie Lenon. Einfach „bitte HWG-Check machen“ sagen. Braucht einen persönlichen Schlüssel (users.sumax.dev → Meine Daten → anfragen).",
   "author": {
     "name": "SUMAX / Reknova GmbH"
   },
-  "keywords": ["hwg", "heilmittelwerbegesetz", "health-claims", "arztpraxis", "instagram", "compliance", "sumax"],
-  "skills": "./skills/"
+  "keywords": [
+    "hwg",
+    "heilmittelwerbegesetz",
+    "health-claims",
+    "arztpraxis",
+    "instagram",
+    "compliance",
+    "sumax"
+  ],
+  "skills": "./skills/",
+  "mcpServers": {
+    "sumax-hwg-check": {
+      "command": "python3",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp_server.py"
+      ]
+    }
+  },
+  "userConfig": {
+    "token": {
+      "type": "string",
+      "title": "Persönlicher HWG-Check-Schlüssel",
+      "description": "Dein Schlüssel aus users.sumax.dev (Meine Daten → Meine Claude-Plugins → HWG-Check anfragen, nach der Freigabe abholen). Wird im macOS-Schlüsselbund gespeichert.",
+      "sensitive": true,
+      "required": true
+    }
+  }
 }

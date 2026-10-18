@@ -9,7 +9,9 @@ und schreibt einen Bericht als CSV. Nur Standardbibliothek, läuft mit jedem Pyt
     python3 hwg_check.py plan.json                      # ganzer Instagram-Plan → hwg-bericht.csv
     python3 hwg_check.py plan.json --nur kw38-p18       # einzelne Kennung(en)
 
-Zugang, einer von zwei Wegen:
+Zugang, einer von drei Wegen:
+  - Persönlicher Schlüssel (Standard seit 18.10.2026): CLAUDE_PLUGIN_OPTION_TOKEN oder SUMAX_HWG_TOKEN, dann geht der
+    Aufruf an https://context-store.sumax.dev/api/hwg-plugin (Schlüssel: users.sumax.dev → Meine Daten → anfragen).
   - Cloudflare (von überall, auch von einem Webserver): CF_ACCESS_CLIENT_ID und CF_ACCESS_CLIENT_SECRET als
     Umgebungsvariablen setzen, dann geht der Aufruf an https://sumax-microservices.sumax.dev.
   - Tailscale: ohne die beiden Variablen direkt an den Büro-Mini (http://100.64.251.16:8080).
@@ -25,18 +27,23 @@ KATALOG = json.load(open(os.path.join(HIER, "hwg-katalog.json"), encoding="utf-8
 
 
 def zugang() -> tuple[str, dict]:
-    """Adresse und Kopfzeilen erst beim Aufruf lesen (Zugangsdaten nie auf Modulebene)."""
+    """Prüf-Adresse (vollständige URL) und Kopfzeilen erst beim Aufruf lesen (Zugangsdaten nie auf Modulebene)."""
+    tok = os.environ.get("CLAUDE_PLUGIN_OPTION_TOKEN", "") or os.environ.get("SUMAX_HWG_TOKEN", "")
+    if tok:
+        basis = os.environ.get("SUMAX_HWG_URL", "https://context-store.sumax.dev").rstrip("/")
+        return f"{basis}/api/hwg-plugin/check-text", {"X-Hwg-Token": tok}
     cid, sec = os.environ.get("CF_ACCESS_CLIENT_ID", ""), os.environ.get("CF_ACCESS_CLIENT_SECRET", "")
     if cid and sec:
         url = os.environ.get("GATEWAY_URL", "https://sumax-microservices.sumax.dev")
-        return url.rstrip("/"), {"CF-Access-Client-Id": cid, "CF-Access-Client-Secret": sec}
-    return os.environ.get("GATEWAY_URL", "http://100.64.251.16:8080").rstrip("/"), {}  # Tailscale: http, 8080 hat kein TLS
+        return url.rstrip("/") + "/api/health-claims/check-text", {"CF-Access-Client-Id": cid, "CF-Access-Client-Secret": sec}
+    # Tailscale: http, 8080 hat kein TLS
+    return os.environ.get("GATEWAY_URL", "http://100.64.251.16:8080").rstrip("/") + "/api/health-claims/check-text", {}
 
 
 def pruefen(text: str) -> dict:
     body = json.dumps({"text": text, "catalog": KATALOG}).encode()
     url, cf = zugang()
-    req = urllib.request.Request(f"{url}/api/health-claims/check-text", data=body,
+    req = urllib.request.Request(url, data=body,
                                  headers={"content-type": "application/json", "X-Caller": "hwg-plan-check", "X-Deslop": "off",
                                           # Cloudflare sperrt die Standardkennung „Python-urllib“ (403), deshalb eigene
                                           "User-Agent": "hwg-plan-check/1.0", **cf})
