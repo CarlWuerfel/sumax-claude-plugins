@@ -27,15 +27,6 @@ TIMEOUT = 60
 AMPEL = {"gruen": "🟢 läuft", "gelb": "🟡 offene Punkte", "rot": "🔴 kritisch"}
 
 
-def _ssl_ctx() -> ssl.SSLContext:
-    """Volle Zertifikatsprüfung; nur lokale Testadressen ausgenommen."""
-    ctx = ssl.create_default_context()
-    if "localhost" in BASIS or "127.0.0.1" in BASIS:
-        ctx.check_hostname = False
-        ctx.verify_mode = ssl.CERT_NONE
-    return ctx
-
-
 def _headers() -> dict:
     # Eigener User-Agent: Cloudflare blockt die Standardsignatur von python-urllib (error 1010).
     h = {"User-Agent": "sumax-kundenakte/1.0", "Content-Type": "application/json"}
@@ -51,7 +42,7 @@ def _aufruf(methode: str, pfad: str, params: dict | None = None, body: dict | No
         url += "?" + urllib.parse.urlencode({k: v for k, v in params.items() if v not in (None, "")})
     daten = json.dumps(body).encode("utf-8") if body is not None else None
     req = urllib.request.Request(url, data=daten, headers=_headers(), method=methode)
-    with urllib.request.urlopen(req, timeout=TIMEOUT, context=_ssl_ctx()) as resp:
+    with urllib.request.urlopen(req, timeout=TIMEOUT, context=ssl.create_default_context()) as resp:
         return json.loads(resp.read())
 
 
@@ -206,13 +197,13 @@ def _call_tool(name: str, args: dict) -> str:
     if name == "frage":
         d = _domain(args)
         r = _aufruf("POST", f"/kunden/{d}/frage", body={"frage": str(args.get("frage", "")).strip()})
-        antwort = r.get("antwort") or r.get("text") or json.dumps(r, ensure_ascii=False)[:4000]
-        belege = r.get("belege") or []
-        if belege:
-            antwort += "\n\nBelege:\n" + "\n".join(
-                f"  - {(b.get('zeitpunkt') or '')[:10]} {b.get('quelle', '')}: {b.get('titel', '')}" for b in belege[:10]
-                if isinstance(b, dict))
-        return antwort
+        antwort = r.get("antwort") or "Keine Antwort erhalten."
+        sicher = r.get("sicherheit")
+        if sicher:
+            antwort += f"\n\nSicherheit: {sicher}" + (f" ({len(r.get('belege') or [])} Belege in der Akte)" if r.get("belege") else "")
+        if r.get("nachsehen"):
+            antwort += f"\nMehr dazu: {r['nachsehen']}"
+        return antwort + f"\nAkte: https://kundenakte.sumax.dev/#/kunde/{d}"
 
     if name == "kunde_zu_kennung":
         r = _aufruf("GET", "/zuordnung", {"art": str(args.get("art", "")).strip(), "wert": str(args.get("wert", "")).strip()})

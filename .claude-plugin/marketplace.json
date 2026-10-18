@@ -228,6 +228,23 @@
         "pptx",
         "sumax"
       ]
+    },
+    {
+      "name": "kundenakte",
+      "source": "./plugins/kundenakte",
+      "description": "Kunden in Claude nachschlagen: Akte mit Lage, Aktuellem, Zusagen, Ansprechpartnern und Tabus, Zeitachse aus allen Quellen, Suche und Fragen an die Akte. Nur lesen, ohne Rechnungsbeträge. Braucht einen persönlichen Token (users.sumax.dev) und das Kundenakte-Recht.",
+      "version": "1.0.0",
+      "author": {
+        "name": "SUMAX / Reknova GmbH"
+      },
+      "category": "productivity",
+      "keywords": [
+        "kundenakte",
+        "kunden",
+        "vertretung",
+        "account-management",
+        "sumax"
+      ]
     }
   ]
 }
