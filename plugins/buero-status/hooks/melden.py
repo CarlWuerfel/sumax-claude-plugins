@@ -43,6 +43,9 @@ MAX_STDIN = 1_000_000
 LOKALE_HOSTS = ("127.0.0.1", "localhost", "::1")
 
 
+SUMAX_REMOTES = ("github.com:carlwuerfel/", "github.com/carlwuerfel/", "github-buero:")
+
+
 def _token() -> str:
     return (os.environ.get("CLAUDE_PLUGIN_OPTION_TOKEN", "").strip()
             or os.environ.get("SUMAX_BUERO_TOKEN", "").strip())
@@ -82,6 +85,23 @@ def _repo(cwd) -> str:
         return ""
     name = os.path.basename(erg.stdout.strip().rstrip("/\\"))
     return re.sub(r"[^A-Za-z0-9._-]", "", name)[:120]
+
+
+def _sumax_repo(cwd) -> bool:
+    """Nur SUMAX-Repos melden: origin zeigt auf das SUMAX-GitHub-Konto. Private und fremde Projekte verlassen den
+    Rechner nie (Carl, 19.10.2026: „darf nicht gezeigt werden, wenn ich an privaten Projekten arbeite“)."""
+    if not isinstance(cwd, str) or not cwd or not os.path.isdir(cwd):
+        return False
+    try:
+        erg = subprocess.run(
+            ["git", "-C", cwd, "remote", "get-url", "origin"],
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+            timeout=2, check=False, text=True,
+        )
+    except Exception:
+        return False
+    url = erg.stdout.strip().lower() if erg.returncode == 0 else ""
+    return any(z in url for z in SUMAX_REMOTES)
 
 
 def _marken_ordner() -> str:
@@ -160,7 +180,7 @@ def main() -> None:
     if not isinstance(daten, dict):
         return
     sitzung = _sitzung(daten.get("session_id"))
-    if not sitzung:
+    if not sitzung or not _sumax_repo(daten.get("cwd")):
         return
     if _drosseln(zustand, sitzung):
         return
