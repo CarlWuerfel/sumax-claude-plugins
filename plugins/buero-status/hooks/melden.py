@@ -84,6 +84,17 @@ def _repo(cwd) -> str:
     if erg.returncode != 0:
         return ""
     name = os.path.basename(erg.stdout.strip().rstrip("/\\"))
+    # Arbeitskopien (git worktree) und umbenannte Ordner: Repo-Name aus origin, z. B. „sumax-office“.
+    try:
+        url = subprocess.run(
+            ["git", "-C", cwd, "remote", "get-url", "origin"],
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+            timeout=2, check=False, text=True,
+        ).stdout.strip()
+    except Exception:
+        url = ""
+    if url:
+        name = re.sub(r"\.git$", "", url.rstrip("/").split("/")[-1].split(":")[-1])
     return re.sub(r"[^A-Za-z0-9._-]", "", name)[:120]
 
 
