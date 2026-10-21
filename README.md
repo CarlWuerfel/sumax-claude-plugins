@@ -147,10 +147,17 @@ Claude“.
 **Nicht gesendet werden:** deine Eingaben, Claudes Antworten, Dateinamen, Pfade, Code
 oder sonstige Inhalte.
 
-**Datenschutz:** Die Anzeige ist aus, bis du sie im Büro in deinem Profil unter „Arbeit
-mit Claude“ selbst einschaltest. Das Büro nennt den Repo-Namen nur, wenn er ein bekanntes
-SUMAX-Tool ist. Private oder fremde Projekte erscheinen nie mit Namen, sondern höchstens
-als „arbeitet mit Claude“.
+**Datenschutz:** Gemeldet werden nur Repos auf dem SUMAX-GitHub-Konto; private oder fremde
+Projekte verlassen den Rechner nie. Das Büro nennt den Repo-Namen nur, wenn er ein bekanntes
+SUMAX-Tool ist.
+
+**Werkzeuge für Claude (ab 1.1.0):** Mit demselben Token kennt Claude das Büro:
+
+- `wer_ist_frei` – wer gerade im Büro und ansprechbar ist, optional je Abteilung
+  („Wen aus SEA kann ich gerade fragen?“). Dazu, wer im Fokus (bis wann), in der Pause,
+  im Termin oder nicht im Büro ist. Nur, was im Büro ohnehin alle sehen.
+- `status_setzen` – den eigenen Status setzen: Fokus mit Dauer, Pause oder ansprechbar
+  („Setz mich für 90 Minuten auf Fokus“). Nur für dich selbst, Feierabend nur im Büro.
 
 **Token holen:** users.sumax.dev → Zugriffs-Tokens → Plugin-Tokens → „SUMAX Büro
 (Statusanzeige)“. Claude Code fragt beim Einschalten des Plugins danach und legt ihn im

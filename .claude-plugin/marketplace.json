@@ -178,8 +178,8 @@
     {
       "name": "buero-status",
       "source": "./plugins/buero-status",
-      "description": "Zeigt im SUMAX Büro über deinem Kopf, dass du gerade mit Claude an einem SUMAX-Tool baust. Meldet nur Start, Lebenszeichen und Ende der Sitzung mit dem Repo-Namen, keine Prompts, keine Dateien. Braucht einen persönlichen Plugin-Token (users.sumax.dev → Zugriffs-Tokens).",
-      "version": "1.0.2",
+      "description": "Zeigt im SUMAX Büro über deinem Kopf, dass du gerade mit Claude an einem SUMAX-Tool baust (keine Prompts, keine Dateien). Dazu zwei Werkzeuge: „Wer ist frei?“ und eigenen Büro-Status setzen (Fokus, Pause, ansprechbar). Braucht einen persönlichen Plugin-Token (users.sumax.dev → Zugriffs-Tokens).",
+      "version": "1.1.0",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },

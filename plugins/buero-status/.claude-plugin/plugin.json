@@ -1,7 +1,18 @@
 {
   "name": "buero-status",
-  "version": "1.0.2",
-  "description": "Zeigt im SUMAX Büro über deinem Kopf, dass du gerade mit Claude an einem SUMAX-Tool baust. Meldet nur Start, Lebenszeichen und Ende der Sitzung mit dem Repo-Namen, keine Prompts, keine Dateien. Die Anzeige schaltest du im Büro-Profil selbst ein.",
+  "version": "1.1.0",
+  "description": "Zeigt im SUMAX Büro über deinem Kopf, dass du gerade mit Claude an einem SUMAX-Tool baust (nur Start, Lebenszeichen und Ende der Sitzung mit dem Repo-Namen, keine Prompts, keine Dateien). Dazu zwei Werkzeuge: „Wer ist frei?“ (optional je Abteilung) und den eigenen Büro-Status setzen (Fokus mit Dauer, Pause, ansprechbar).",
+  "mcpServers": {
+    "sumax-buero": {
+      "command": "python3",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp_server.py"
+      ],
+      "env": {
+        "CLAUDE_PLUGIN_OPTION_TOKEN": "${user_config.token}"
+      }
+    }
+  },
   "author": {
     "name": "SUMAX / Reknova GmbH"
   },
