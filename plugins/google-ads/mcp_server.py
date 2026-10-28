@@ -151,6 +151,7 @@ FREE = {
 }
 LIMIT = {"limit": ("integer", "Maximale Zeilen (Default 100). Bei grossen Konten klein halten.", False)}
 ACT = {"ad_account_id": ("string", "Meta-Werbekonto aus meta_accounts, z.B. 'act_1234567890'.", True)}
+CART = {"conversion_art": ("string", "Optional: welche Meta-Conversion als Haupt-Art gilt (conversions, CPA, ROAS): purchase, lead, contact, schedule, submit_application, complete_registration, subscribe … oder custom:<ID> fuer eine eigene Conversion. Ohne Angabe: erste vorhandene aus Kauf, Lead, Kontakt, Termin. Alle Arten stehen ohnehin unter conversion_arten.", False)}
 MDR = {"date_range": ("string", "Zeitraum: LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_90_DAYS, THIS_MONTH, LAST_MONTH, YESTERDAY. Default LAST_30_DAYS (volle Tage bis gestern, wie bei Google).", False)}
 
 SPECS: dict[str, dict] = {
@@ -305,34 +306,34 @@ SPECS: dict[str, dict] = {
     },
     "meta_overview": {
         "path": "/meta/insights",
-        "desc": "Meta-Konto auf einen Blick: Kosten, Reichweite, Frequenz, Klicks, CTR, CPC, CPM, Kaeufe, Leads, Conversions, Conversion-Wert, CPA, ROAS.",
-        "params": {**ACT, **MDR, **FREE},
+        "desc": "Meta-Konto auf einen Blick: Kosten, Reichweite, Frequenz, Klicks, CTR, CPC, CPM, alle Conversion-Arten (conversion_arten: Kauf, Lead, Kontakt, Termin, eigene Conversions …) und Conversions/Wert/CPA/ROAS fuer die Haupt-Art (conversion_art).",
+        "params": {**ACT, **MDR, **FREE, **CART},
     },
     "meta_daily": {
         "path": "/meta/daily",
         "desc": "Meta-Konto je Tag (Kosten, Klicks, Conversions …) fuer Verlaeufe und Einbrueche. Tage ohne Ausspielung fehlen.",
-        "params": {**ACT, **MDR, **FREE},
+        "params": {**ACT, **MDR, **FREE, **CART},
     },
     "meta_campaigns": {
         "path": "/meta/campaigns",
         "desc": "Alle Meta-Kampagnen mit Ziel, Status, Tages-/Laufzeitbudget, Gebotsstrategie und Kennzahlen, sortiert nach Kosten. Kampagnen ohne Ausspielung haben kennzahlen=null.",
-        "params": {**ACT, **MDR, **FREE},
+        "params": {**ACT, **MDR, **FREE, **CART},
     },
     "meta_adsets": {
         "path": "/meta/adsets",
         "desc": "Meta-Anzeigengruppen (Ad Sets) mit Optimierungsziel, Budget, Zielgruppe (Alter, Geschlecht, Laender, Plattformen) und Kennzahlen; optional auf eine Kampagne gefiltert.",
-        "params": {**ACT, "campaign_id": ("string", "Optional: nur diese Meta-Kampagnen-ID.", False), **MDR, **FREE},
+        "params": {**ACT, "campaign_id": ("string", "Optional: nur diese Meta-Kampagnen-ID.", False), **MDR, **FREE, **CART},
     },
     "meta_ads": {
         "path": "/meta/ads",
         "desc": "Einzelne Meta-Anzeigen mit Format, Titel, Text, CTA, Kennzahlen und Frequenz; ermuedung_verdacht=true ab Frequenz 4. Fuer Creative-Bewertung und Motiv-Ermuedung.",
-        "params": {**ACT, "campaign_id": ("string", "Optional: nur diese Meta-Kampagnen-ID.", False), **MDR, **FREE, **LIMIT},
+        "params": {**ACT, "campaign_id": ("string", "Optional: nur diese Meta-Kampagnen-ID.", False), **MDR, **FREE, **CART, **LIMIT},
     },
     "meta_breakdown": {
         "path": "/meta/breakdown",
         "desc": "Meta-Kennzahlen aufgeschluesselt nach age, gender, publisher_platform, platform_position, device_platform, impression_device, country oder region (ein oder zwei Felder, kommagetrennt) — fuer Konto oder eine Kampagne.",
         "params": {**ACT, "breakdown": ("string", "z.B. 'age,gender' oder 'publisher_platform,platform_position'.", True),
-                   "campaign_id": ("string", "Optional: nur diese Meta-Kampagnen-ID.", False), **MDR, **FREE},
+                   "campaign_id": ("string", "Optional: nur diese Meta-Kampagnen-ID.", False), **MDR, **FREE, **CART},
     },
     # ── GA4 und Search Console, seit 1.3.0 ──────────────────────────────────
     "ga4_properties": {
@@ -384,7 +385,8 @@ SPECS: dict[str, dict] = {
                    "meta_ad_account_id": ("string", "Optional: Meta-Werbekonto (act_…) statt Kundenliste/Namenssuche.", False),
                    "ga4_property_id": ("string", "Optional: GA4-Property statt der aus der Kundenliste.", False),
                    **MDR, **FREE,
-                   "taeglich": ("boolean", "true = zusaetzlich Tagesverlauf der bezahlten Kanaele.", False)},
+                   "taeglich": ("boolean", "true = zusaetzlich Tagesverlauf der bezahlten Kanaele.", False),
+                   "meta_conversion_art": ("string", "Optional: Meta-Conversion fuer den Vergleich (lead, contact, schedule, purchase, custom:<ID> …), wenn die automatische Wahl nicht passt.", False)},
     },
 }
 
@@ -495,7 +497,7 @@ def main() -> None:
             _result(req_id, {
                 "protocolVersion": PROTOCOL_VERSION,
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": "sumax-google-ads", "version": "1.3.0"},
+                "serverInfo": {"name": "sumax-google-ads", "version": "1.4.0"},
             })
         elif method == "notifications/initialized":
             continue

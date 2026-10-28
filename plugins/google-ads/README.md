@@ -3,7 +3,15 @@
 Werbekonten direkt in Claude analysieren: Google Ads der SUMAX-MCC, seit 1.2.0 auch
 Meta Ads (Facebook/Instagram) und der Kanalvergleich je Kunde mit GA4, seit 1.3.0 GA4-Berichte
 und die Search Console. 40 Lese-Werkzeuge
-plus ein Skill, der die Analyse-Leitplanken mitbringt.
+plus ein Skill, der die Analyse-Leitplanken mitbringt. Seit 1.4.0 kommen drei fertige Befehle
+für Claude Code dazu:
+
+- `/google-ads:kontocheck <Kunde>`: Gesundheitscheck des Werbekontos mit Befunden nach Dringlichkeit.
+- `/google-ads:kanalbericht <Kunde>`: alle Kanäle im selben Zeitraum mit Vorperiode, für die interne Besprechung.
+- `/google-ads:praesentation <Kunde>`: kundentaugliche Präsentation über alle Kanäle.
+
+Bei Meta lässt sich seit 1.4.0 außerdem wählen, welche Conversion zählt (`conversion_art`, z. B.
+Termin statt Kontakt).
 
 Zwei Wege, je nachdem womit du arbeitest:
 

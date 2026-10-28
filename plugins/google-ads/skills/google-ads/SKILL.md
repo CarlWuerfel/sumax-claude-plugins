@@ -62,9 +62,14 @@ Aussagen, die im Kundengespräch auseinanderfallen.
    `device_platform`, `region`).
 
 Meta-Regeln:
-- **Conversions = Käufe + Leads**, je Gruppe nur ein Meta-Name (sonst zählt derselbe Kauf
-  dreifach). `conversion_typen` sagt, welcher Name gezählt wurde — weicht eine Zahl vom
-  Werbeanzeigenmanager ab, liegt es fast immer daran oder am Attributionsfenster.
+- **Conversions: alle Arten, eine Haupt-Art.** `conversion_arten` listet je Zeile jede Art
+  (Kauf, Lead, Kontakt, Termin, Bewerbung, eigene Conversions …), je Art ohne Doppelzählung über
+  die Meta-Wege. `conversions`, `conversion_wert`, `cpa` und `roas` gelten nur für EINE Art
+  (`conversion_art` in der Antwort): automatisch die erste vorhandene aus Kauf, Lead, Kontakt,
+  Termin. Passt sie nicht zum Ziel des Kunden (Praxis optimiert auf Termin, nicht auf Kontakt),
+  mit `conversion_art` neu abfragen, z. B. `schedule`, `lead` oder `custom:<ID>`. In jeder Aussage
+  nennen, welche Art gemeint ist. Weicht eine Zahl vom Werbeanzeigenmanager ab, liegt es fast
+  immer an der Art oder am Attributionsfenster.
 - **Frequenz** ist die Kennzahl für Motiv-Ermüdung. `ermuedung_verdacht` ab 4 in der
   Abfrage; immer mit dem CTR-Verlauf (`meta_daily`) belegen, nicht allein darauf schließen.
 - **Kampagnen mit `kennzahlen: null`** hatten im Zeitraum keine Ausspielung. Das ist keine
@@ -94,8 +99,23 @@ Regeln für den Vergleich:
   die Kennung in der Kundenliste einzutragen.
 - **`kunde_unklar`:** Kandidaten zeigen und nachfragen, dann mit `kunden_id` aufrufen. Nie
   raten — ein falscher Kunde heißt fremde Zahlen in der Präsentation.
+- **Mehrere Google-Ads-Konten:** Steht unter `kanaele.google_ads.konten` mehr als ein Konto,
+  ist die Kennzahl die Summe (z. B. zwei Konten für zwei Fachbereiche). Einzelwerte bei Bedarf
+  nennen. Ein Hinweis „NICHT mitgezählt“ heißt: ein weiteres Konto trägt die Domain im Namen,
+  ist aber nicht bestätigt. Nicht selbst dazurechnen, sondern nachfragen.
+- **Geteilte GA4-Property:** `ga4.nur_host` heißt, die Property teilen sich mehrere Kunden und
+  gezeigt werden nur Sitzungen dieser Domain. Steht stattdessen „ganze Domain“ im Hinweis, sind
+  die GA4-Zahlen nicht nur die dieses Kunden: so sagen, nicht als seine Zahlen ausgeben.
 - **Kostenanteil allein ist keine Empfehlung.** Budgetverschiebung nur mit CPA bzw. ROAS je
   Kanal und dem Hinweis auf unterschiedliche Zählweisen begründen.
+
+## Fertige Abläufe (Befehle)
+
+- `/google-ads:kontocheck <Kunde> [Zeitraum]` — Gesundheitscheck eines Google-Ads- (und, wenn
+  verknüpft, Meta-)Kontos mit Befunden nach Dringlichkeit.
+- `/google-ads:kanalbericht <Kunde> [Zeitraum]` — alle Kanäle eines Kunden im selben Zeitraum,
+  mit Vorperiode, für die interne Besprechung.
+- `/google-ads:praesentation <Kunde> [Zeitraum]` — kundentaugliche Präsentation über alle Kanäle.
 
 ## GA4 und Search Console
 
