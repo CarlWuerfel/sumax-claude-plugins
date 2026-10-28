@@ -1,12 +1,12 @@
 ---
 name: google-ads
-description: Werbekonten analysieren — Google Ads der SUMAX-MCC (Kampagnen, Keywords, Search Terms, Budgets, Conversions, Quality Score, Impression Share), Meta Ads (Facebook/Instagram) und der Kanalvergleich je Kunde mit GA4. Nutze diesen Skill, sobald es um ein Google-Ads- oder Meta-Konto, ein SEA-Konto, eine Kontoanalyse, Streuverluste, Negativ-Keywords, CPA/ROAS, Budget-Auslastung, Facebook-/Instagram-Werbung, Kanalvergleich, Budgetverteilung zwischen Kanälen oder "warum ist die Performance eingebrochen" geht. Auch bei "schau mal ins Konto von X", "SEA-Check", "Ads-Analyse", "Search Terms prüfen", "Meta-Check", "Google vs. Meta", "Kundenpräsentation über alle Kanäle".
+description: Werbekonten analysieren — Google Ads der SUMAX-MCC (Kampagnen, Keywords, Search Terms, Budgets, Conversions, Quality Score, Impression Share), Meta Ads (Facebook/Instagram) und der Kanalvergleich je Kunde mit GA4. Nutze diesen Skill, sobald es um ein Google-Ads- oder Meta-Konto, ein SEA-Konto, eine Kontoanalyse, Streuverluste, Negativ-Keywords, CPA/ROAS, Budget-Auslastung, Facebook-/Instagram-Werbung, GA4-Auswertungen (Landingpages, Quellen, Conversions auf der Website), Search Console (Suchbegriffe, Rankings, Klicks), Kanalvergleich, Budgetverteilung zwischen Kanälen oder "warum ist die Performance eingebrochen" geht. Auch bei "schau mal ins Konto von X", "SEA-Check", "Ads-Analyse", "Search Terms prüfen", "Meta-Check", "Google vs. Meta", "Kundenpräsentation über alle Kanäle", "GA4 von Kunde X", "für welche Begriffe rankt", "welche Landingpage konvertiert".
 ---
 
 # Werbekonten analysieren: Google Ads, Meta Ads, Kanalvergleich
 
 Die Werkzeuge `ads_*` lesen live aus unserer Google-Ads-MCC, `meta_*` aus den
-Meta-Werbekonten und `kanaele_*` bringen Google Ads, Meta und GA4 je Kunde zusammen —
+Meta-Werbekonten, `ga4_*` aus Google Analytics 4, `gsc_*` aus der Search Console und `kanaele_*` bringen Google Ads, Meta und GA4 je Kunde zusammen —
 alles über den SUMAX-Gateway. **Alles ist read-only.** Änderungen an Budgets, Geboten, Keywords oder Anzeigen laufen
 über den `google-ads-agent` mit Freigabe-Queue — nie aus einer Chat-Session heraus.
 Wenn jemand um eine Änderung bittet: Empfehlung formulieren, Umsetzung an den Agent
@@ -96,6 +96,23 @@ Regeln für den Vergleich:
   raten — ein falscher Kunde heißt fremde Zahlen in der Präsentation.
 - **Kostenanteil allein ist keine Empfehlung.** Budgetverschiebung nur mit CPA bzw. ROAS je
   Kanal und dem Hinweis auf unterschiedliche Zählweisen begründen.
+
+## GA4 und Search Console
+
+Beide nehmen die `kunden_id` aus `kanaele_kunden`; Google-Konto und Property findet der
+Gateway selbst. Nur wenn ein Kunde dort fehlt: `ga4_properties` bzw. `gsc_sites` mit `suche`.
+
+- **`ga4_report`** mit GA4-API-Namen: Landingpages `landingPagePlusQueryString`, Quelle/Medium
+  `sessionSourceMedium`, Kanäle `sessionDefaultChannelGroup`, Geräte `deviceCategory`, Verlauf
+  `date`; Metriken `sessions`, `engagedSessions`, `keyEvents`, `totalRevenue`, `eventCount`. Sortiert
+  wird nach der ersten Metrik. Für „welche Seite bringt Anfragen“ `keyEvents` an erste Stelle.
+- **`gsc_query`**: `query` für Suchbegriffe, `page` für Seiten, beides zusammen für „welche Seite
+  rankt für welchen Begriff“. Position ist ein Durchschnitt über alle Impressionen, kein Ranking an
+  einem Tag. Die letzten 2–3 Tage fehlen oft noch.
+- **Paid vs. organisch nicht vermischen:** Die Search Console zeigt nur organische Google-Suche.
+  Google-Ads-Klicks stehen dort nicht. Für bezahlt vs. organisch GA4 je Kanalgruppe nehmen.
+- **`(not set)` als Landingpage** heißt meist fehlerhaftes Tracking oder Sitzungen ohne
+  Seitenaufruf, nicht „eine Seite namens not set“. Als Tracking-Hinweis benennen.
 
 ## Datenmenge im Griff behalten
 

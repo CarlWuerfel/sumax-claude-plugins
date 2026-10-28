@@ -3,7 +3,8 @@
 
 Duenner Bruecken-Server: stellt Claude Code Lese-Werkzeuge fuer die SUMAX-MCC
 bereit, seit 1.2.0 auch fuer Meta Ads (`meta_*`) und den Kanalvergleich je Kunde
-(`kanaele_*`: Google Ads + Meta + GA4). Dahinter steckt der SUMAX-Gateway (`/api/google-ads/*`) — inklusive
+(`kanaele_*`: Google Ads + Meta + GA4), seit 1.3.0 fuer GA4 (`ga4_*`) und die
+Search Console (`gsc_*`). Dahinter steckt der SUMAX-Gateway (`/api/google-ads/*`) — inklusive
 Caching, damit dieselbe Abfrage nicht doppelt Google-Ads-API-Kontingent kostet.
 
 STRIKT READ-ONLY. Es gibt hier bewusst kein Werkzeug, das Budgets, Gebote,
@@ -333,6 +334,40 @@ SPECS: dict[str, dict] = {
         "params": {**ACT, "breakdown": ("string", "z.B. 'age,gender' oder 'publisher_platform,platform_position'.", True),
                    "campaign_id": ("string", "Optional: nur diese Meta-Kampagnen-ID.", False), **MDR, **FREE},
     },
+    # ── GA4 und Search Console, seit 1.3.0 ──────────────────────────────────
+    "ga4_properties": {
+        "path": "/web/ga4/properties",
+        "desc": "Alle GA4-Properties der verbundenen SUMAX-Google-Konten (property_id, Name, Konto). Optional 'suche' nach Name. Meist nicht noetig: ga4_report nimmt auch die kunden_id aus kanaele_kunden.",
+        "params": {"suche": ("string", "Teil des Property- oder Kontonamens.", False)},
+    },
+    "ga4_report": {
+        "path": "/web/ga4/bericht",
+        "desc": "GA4-Bericht mit frei waehlbaren Dimensionen und Metriken (GA4-API-Namen), sortiert nach der ersten Metrik absteigend. Beispiele: Landingpages (dimensionen=landingPagePlusQueryString, metriken=sessions,keyEvents), Quellen (sessionSourceMedium), Geraete (deviceCategory), Kanaele (sessionDefaultChannelGroup), Ereignisse (eventName, metriken=eventCount). Property ueber property_id oder kunden_id; das Google-Konto findet der Gateway selbst.",
+        "params": {"property_id": ("string", "GA4-Property-ID (Zahl) aus ga4_properties.", False),
+                   "kunden_id": ("integer", "Alternativ: kunden_id aus kanaele_kunden (nimmt die GA4-Kennung aus der Kundenliste).", False),
+                   "dimensionen": ("string", "Kommagetrennt, bis 5, z.B. 'landingPagePlusQueryString' oder 'date,sessionDefaultChannelGroup'. Default sessionDefaultChannelGroup.", False),
+                   "metriken": ("string", "Kommagetrennt, bis 10, z.B. 'sessions,engagedSessions,keyEvents,totalRevenue'. Die erste bestimmt die Sortierung.", False),
+                   **MDR, **FREE,
+                   "limit": ("integer", "Zeilen (Default 50, max 1000).", False),
+                   "filter_dimension": ("string", "Optional: Dimension fuer einen Enthaelt-Filter, z.B. 'pagePath'.", False),
+                   "filter_enthaelt": ("string", "Optional: Text, den filter_dimension enthalten muss, z.B. '/blog'.", False)},
+    },
+    "gsc_sites": {
+        "path": "/web/gsc/sites",
+        "desc": "Alle Search-Console-Properties der verbundenen SUMAX-Google-Konten. Optional 'suche' nach Domain. Meist nicht noetig: gsc_query findet die Property ueber die kunden_id selbst.",
+        "params": {"suche": ("string", "Teil der Domain.", False)},
+    },
+    "gsc_query": {
+        "path": "/web/gsc/abfrage",
+        "desc": "Search-Console-Leistung: Klicks, Impressionen, CTR (%), Position je Suchbegriff (query), Seite (page), Land, Geraet, Datum oder Suchdarstellung — sortiert nach Klicks. Website ueber site_url oder kunden_id (Domain-Property bevorzugt). Optional Enthaelt-Filter auf Suchbegriff und Seite. Die letzten 2–3 Tage sind bei Google oft noch unvollstaendig.",
+        "params": {"site_url": ("string", "Property aus gsc_sites, z.B. 'sc-domain:beispiel.de' oder eine Domain.", False),
+                   "kunden_id": ("integer", "Alternativ: kunden_id aus kanaele_kunden.", False),
+                   "dimensionen": ("string", "Kommagetrennt, bis 3: query, page, country, device, date, searchAppearance (letztere nur allein). Default query.", False),
+                   **MDR, **FREE,
+                   "limit": ("integer", "Zeilen (Default 50, max 1000).", False),
+                   "filter_suchbegriff": ("string", "Optional: Suchbegriff enthaelt …", False),
+                   "filter_seite": ("string", "Optional: URL enthaelt …, z.B. '/blog/'.", False)},
+    },
     # ── Kanaluebergreifend, seit 1.2.0 ──────────────────────────────────────
     "kanaele_kunden": {
         "path": "/kanaele/kunden",
@@ -372,6 +407,7 @@ TOOLS = [
         "description": spec["desc"] + (
             " (Lesezugriff auf Meta-Werbekonten ueber den SUMAX-Gateway.)" if name.startswith("meta_") else
             " (Lesezugriff auf Kundenliste, Google Ads, Meta und GA4 ueber den SUMAX-Gateway.)" if name.startswith("kanaele_") else
+            " (Lesezugriff auf GA4 und Search Console der SUMAX-Google-Konten ueber den Gateway.)" if name.startswith(("ga4_", "gsc_")) else
             " (Lesezugriff auf die SUMAX Google-Ads-MCC ueber den Gateway.)"),
         "inputSchema": _schema(spec["params"]),
     }
@@ -459,7 +495,7 @@ def main() -> None:
             _result(req_id, {
                 "protocolVersion": PROTOCOL_VERSION,
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": "sumax-google-ads", "version": "1.2.0"},
+                "serverInfo": {"name": "sumax-google-ads", "version": "1.3.0"},
             })
         elif method == "notifications/initialized":
             continue

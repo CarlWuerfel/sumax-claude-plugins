@@ -1,7 +1,8 @@
 # SUMAX Google Ads — Plugin für Claude
 
 Werbekonten direkt in Claude analysieren: Google Ads der SUMAX-MCC, seit 1.2.0 auch
-Meta Ads (Facebook/Instagram) und der Kanalvergleich je Kunde mit GA4. 36 Lese-Werkzeuge
+Meta Ads (Facebook/Instagram) und der Kanalvergleich je Kunde mit GA4, seit 1.3.0 GA4-Berichte
+und die Search Console. 40 Lese-Werkzeuge
 plus ein Skill, der die Analyse-Leitplanken mitbringt.
 
 Zwei Wege, je nachdem womit du arbeitest:
@@ -81,6 +82,8 @@ Einfach fragen, zum Beispiel:
 - „Warum ist der CPA im August hochgegangen? Schau in die Änderungshistorie."
 - „Können wir das Budget erhöhen — wie viel Impression Share verlieren wir durch Budget?"
 - „Welche Meta-Anzeigen laufen schon zu lange? Zeig mir Frequenz und CTR je Motiv."
+- „Welche Landingpages bringen bei diesem Kunden die meisten Anfragen?“
+- „Für welche Suchbegriffe rankt die Seite /leistungen/ und wo verlieren wir Klicks?“
 - „Stell mir Google Ads und Meta für diesen Kunden im letzten Monat nebeneinander, mit GA4 als Gegenprobe."
 
 Claude zieht sich die passenden Daten selbst. Die `customer_id` findet es über
@@ -91,6 +94,8 @@ Claude zieht sich die passenden Daten selbst. Die `customer_id` findet es über
 |---|---|
 | `ads_*` (27) | Google Ads der SUMAX-MCC |
 | `meta_*` (7) | Meta Ads: Konten, Überblick, Tagesverlauf, Kampagnen, Anzeigengruppen, Anzeigen, Aufschlüsselung |
+| `ga4_*` (2) | GA4: Properties, Bericht mit frei wählbaren Dimensionen und Metriken |
+| `gsc_*` (2) | Search Console: Properties, Leistung nach Suchbegriff, Seite, Land, Gerät, Datum |
 | `kanaele_*` (2) | Kunden mit ihren Kanal-Kennungen; Google Ads + Meta + GA4 je Kunde im selben Zeitraum |
 
 Solange im Gateway kein Meta-Zugang eingerichtet ist, melden die `meta_*`-Werkzeuge das
@@ -105,8 +110,8 @@ Umsetzung läuft über den `google-ads-agent` mit Freigabe-Queue oder von Hand i
 
 `mcp_server.py` ist ein dünner Wrapper um `/api/google-ads/*` im SUMAX-Gateway
 (Mac Mini Büro, Port 8080), erreichbar über `ads-mcp.sumax.dev`. Dieser Hostname gibt
-per cloudflared-Pfadfilter nur diesen Pfad frei; alles andere ist dort 403. Meta und der
-Kanalvergleich hängen deshalb unter `/api/google-ads/meta/*` und `/api/google-ads/kanaele/*`,
+per cloudflared-Pfadfilter nur diesen Pfad frei; alles andere ist dort 403. Meta, GA4/Search Console und der
+Kanalvergleich hängen deshalb unter `/api/google-ads/meta/*`, `/api/google-ads/web/*` und `/api/google-ads/kanaele/*`,
 mit derselben Token-Prüfung und ebenfalls nur lesend.
 Der Gateway cacht die Antworten (30 Min bis 7 Tage je Endpoint), was Google-Ads-API-
 Kontingent spart. Jeder Aufruf trägt den Nutzernamen als `X-Caller` — Zugriffe sind
