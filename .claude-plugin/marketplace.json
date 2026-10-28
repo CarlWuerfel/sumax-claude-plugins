@@ -108,7 +108,7 @@
       "name": "google-ads",
       "source": "./plugins/google-ads",
       "description": "Werbekonten direkt in Claude analysieren: Google Ads der SUMAX-MCC, Meta Ads (Facebook/Instagram) und der Kanalvergleich je Kunde mit GA4. 36 Werkzeuge, strikt lesend. Braucht einen Zugangs-Token (SUMAX_ADS_TOKEN).",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },

@@ -88,9 +88,12 @@ Regeln für den Vergleich:
 - **Kein ROAS bei Platzhalterwerten:** Steht `roas: null` mit dem Hinweis „Platzhalter 1 je
   Conversion“, hat das Konto keine echten Conversion-Werte. Dann über CPA argumentieren und
   als Empfehlung festhalten, echte Werte zu übergeben.
-- **Meta-Konto über den Namen zugeordnet** (`zuordnung: ueber_namen`): vor jeder Aussage
-  bestätigen lassen, dass es das richtige Konto ist, und die Kennung in der Kundenliste
-  eintragen lassen.
+- **Meta `nicht_verknuepft` mit `vorschlaege`:** In der Kundenliste fehlt die Meta-Kennung.
+  Die Vorschläge stammen nur aus dem Namensabgleich. Nie selbst eins nehmen: den Nutzer
+  fragen, welches Konto es ist, dann mit `meta_ad_account_id` erneut aufrufen und anregen,
+  die Kennung in der Kundenliste einzutragen.
+- **`kunde_unklar`:** Kandidaten zeigen und nachfragen, dann mit `kunden_id` aufrufen. Nie
+  raten — ein falscher Kunde heißt fremde Zahlen in der Präsentation.
 - **Kostenanteil allein ist keine Empfehlung.** Budgetverschiebung nur mit CPA bzw. ROAS je
   Kanal und dem Hinweis auf unterschiedliche Zählweisen begründen.
 
