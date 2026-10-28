@@ -2,7 +2,8 @@
 """SUMAX Google Ads — MCP-Server (stdio, reine Standardbibliothek).
 
 Duenner Bruecken-Server: stellt Claude Code Lese-Werkzeuge fuer die SUMAX-MCC
-bereit. Dahinter steckt der SUMAX-Gateway (`/api/google-ads/*`) — inklusive
+bereit, seit 1.2.0 auch fuer Meta Ads (`meta_*`) und den Kanalvergleich je Kunde
+(`kanaele_*`: Google Ads + Meta + GA4). Dahinter steckt der SUMAX-Gateway (`/api/google-ads/*`) — inklusive
 Caching, damit dieselbe Abfrage nicht doppelt Google-Ads-API-Kontingent kostet.
 
 STRIKT READ-ONLY. Es gibt hier bewusst kein Werkzeug, das Budgets, Gebote,
@@ -112,7 +113,8 @@ def _ssl_ctx() -> ssl.SSLContext:
 def _request(method: str, path: str, params: dict | None = None, body: dict | None = None):
     url = f"{GATEWAY}{path}"
     if params:
-        clean = {k: v for k, v in params.items() if v is not None and v != ""}
+        clean = {k: (str(v).lower() if isinstance(v, bool) else v)
+                 for k, v in params.items() if v is not None and v != ""}
         if clean:
             url += "?" + urllib.parse.urlencode(clean)
     data = json.dumps(body).encode() if body is not None else None
@@ -128,6 +130,9 @@ def _request(method: str, path: str, params: dict | None = None, body: dict | No
                 "SUMAX_ADS_TOKEN in der Shell setzen oder in die Datei ~/.sumax/ads-token "
                 "schreiben. Token bei c.wuerfel@sumax.de anfragen."
             )
+        if e.code == 503 and "meta" in path.lower():
+            raise RuntimeError("Meta Ads ist im SUMAX-Gateway noch nicht eingerichtet (Zugangsschluessel fehlt). "
+                               "Google Ads und GA4 funktionieren trotzdem.")
         if e.code == 503:
             raise RuntimeError("Gateway meldet: kein Ads-MCP-Token konfiguriert (Server-seitig).")
         raise RuntimeError(f"Gateway-Fehler {e.code}: {detail}")
@@ -144,6 +149,8 @@ FREE = {
     "end_date": ("string", "Freier Zeitraum-Ende YYYY-MM-DD (nur zusammen mit start_date).", False),
 }
 LIMIT = {"limit": ("integer", "Maximale Zeilen (Default 100). Bei grossen Konten klein halten.", False)}
+ACT = {"ad_account_id": ("string", "Meta-Werbekonto aus meta_accounts, z.B. 'act_1234567890'.", True)}
+MDR = {"date_range": ("string", "Zeitraum: LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_90_DAYS, THIS_MONTH, LAST_MONTH, YESTERDAY. Default LAST_30_DAYS (volle Tage bis gestern, wie bei Google).", False)}
 
 SPECS: dict[str, dict] = {
     "ads_accounts": {
@@ -289,6 +296,61 @@ SPECS: dict[str, dict] = {
             "location": ("string", "Land, Default 'DE'.", False),
         },
     },
+    # ── Meta Ads (Facebook + Instagram), seit 1.2.0 ─────────────────────────
+    "meta_accounts": {
+        "path": "/meta/accounts",
+        "desc": "Alle Meta-Werbekonten (Facebook/Instagram), auf die SUMAX Zugriff hat: ad_account_id (act_…), Name, Status, Waehrung. Erster Schritt fuer jede Meta-Analyse. Optional 'search' filtert nach Name.",
+        "params": {"search": ("string", "Optionaler Namensfilter (Teil des Kunden- oder Kontonamens).", False)},
+    },
+    "meta_overview": {
+        "path": "/meta/insights",
+        "desc": "Meta-Konto auf einen Blick: Kosten, Reichweite, Frequenz, Klicks, CTR, CPC, CPM, Kaeufe, Leads, Conversions, Conversion-Wert, CPA, ROAS.",
+        "params": {**ACT, **MDR, **FREE},
+    },
+    "meta_daily": {
+        "path": "/meta/daily",
+        "desc": "Meta-Konto je Tag (Kosten, Klicks, Conversions …) fuer Verlaeufe und Einbrueche. Tage ohne Ausspielung fehlen.",
+        "params": {**ACT, **MDR, **FREE},
+    },
+    "meta_campaigns": {
+        "path": "/meta/campaigns",
+        "desc": "Alle Meta-Kampagnen mit Ziel, Status, Tages-/Laufzeitbudget, Gebotsstrategie und Kennzahlen, sortiert nach Kosten. Kampagnen ohne Ausspielung haben kennzahlen=null.",
+        "params": {**ACT, **MDR, **FREE},
+    },
+    "meta_adsets": {
+        "path": "/meta/adsets",
+        "desc": "Meta-Anzeigengruppen (Ad Sets) mit Optimierungsziel, Budget, Zielgruppe (Alter, Geschlecht, Laender, Plattformen) und Kennzahlen; optional auf eine Kampagne gefiltert.",
+        "params": {**ACT, "campaign_id": ("string", "Optional: nur diese Meta-Kampagnen-ID.", False), **MDR, **FREE},
+    },
+    "meta_ads": {
+        "path": "/meta/ads",
+        "desc": "Einzelne Meta-Anzeigen mit Format, Titel, Text, CTA, Kennzahlen und Frequenz; ermuedung_verdacht=true ab Frequenz 4. Fuer Creative-Bewertung und Motiv-Ermuedung.",
+        "params": {**ACT, "campaign_id": ("string", "Optional: nur diese Meta-Kampagnen-ID.", False), **MDR, **FREE, **LIMIT},
+    },
+    "meta_breakdown": {
+        "path": "/meta/breakdown",
+        "desc": "Meta-Kennzahlen aufgeschluesselt nach age, gender, publisher_platform, platform_position, device_platform, impression_device, country oder region (ein oder zwei Felder, kommagetrennt) — fuer Konto oder eine Kampagne.",
+        "params": {**ACT, "breakdown": ("string", "z.B. 'age,gender' oder 'publisher_platform,platform_position'.", True),
+                   "campaign_id": ("string", "Optional: nur diese Meta-Kampagnen-ID.", False), **MDR, **FREE},
+    },
+    # ── Kanaluebergreifend, seit 1.2.0 ──────────────────────────────────────
+    "kanaele_kunden": {
+        "path": "/kanaele/kunden",
+        "desc": "SUMAX-Kunden aus der Kundenliste mit ihren Kanal-Kennungen (Google-Ads-Konto, Meta-Werbekonto, GA4-Property) und kunden_id. Einstieg fuer den Kanalvergleich.",
+        "params": {"suche": ("string", "Teil von Firmenname oder Domain.", False),
+                   "nur_laufend": ("boolean", "Default true: nur Kunden mit laufendem Vertrag.", False)},
+    },
+    "kanaele_vergleich": {
+        "path": "/kanaele/vergleich",
+        "desc": "Ein Kunde, alle Kanaele, derselbe Zeitraum: Google Ads und Meta Ads nebeneinander (Kosten, Klicks, Conversions, CPA, ROAS, Kostenanteil) plus GA4 je Kanalgruppe (Sitzungen, Key Events, Umsatz). Kanaele ohne Daten kommen mit Status statt 0. Kunde ueber kunden_id oder suche; Kennungen lassen sich uebersteuern.",
+        "params": {"kunden_id": ("integer", "kunden_id aus kanaele_kunden (eindeutig, bevorzugt).", False),
+                   "suche": ("string", "Alternativ Firmenname oder Domain.", False),
+                   "google_customer_id": ("string", "Optional: Google-Ads-Konto statt dem aus der Kundenliste.", False),
+                   "meta_ad_account_id": ("string", "Optional: Meta-Werbekonto (act_…) statt Kundenliste/Namenssuche.", False),
+                   "ga4_property_id": ("string", "Optional: GA4-Property statt der aus der Kundenliste.", False),
+                   **MDR, **FREE,
+                   "taeglich": ("boolean", "true = zusaetzlich Tagesverlauf der bezahlten Kanaele.", False)},
+    },
 }
 
 
@@ -307,7 +369,10 @@ def _schema(params: dict) -> dict:
 TOOLS = [
     {
         "name": name,
-        "description": spec["desc"] + " (Lesezugriff auf die SUMAX Google-Ads-MCC ueber den Gateway.)",
+        "description": spec["desc"] + (
+            " (Lesezugriff auf Meta-Werbekonten ueber den SUMAX-Gateway.)" if name.startswith("meta_") else
+            " (Lesezugriff auf Kundenliste, Google Ads, Meta und GA4 ueber den SUMAX-Gateway.)" if name.startswith("kanaele_") else
+            " (Lesezugriff auf die SUMAX Google-Ads-MCC ueber den Gateway.)"),
         "inputSchema": _schema(spec["params"]),
     }
     for name, spec in SPECS.items()
@@ -341,6 +406,16 @@ def _call_tool(name: str, args: dict) -> str:
                     if needle in json.dumps(r, ensure_ascii=False).lower()]
             if not rows:
                 return f"Kein Konto gefunden, dessen Name '{needle}' enthaelt. Ohne 'search' aufrufen, um alle zu sehen."
+        return _shorten(rows)
+
+    if name == "meta_accounts":
+        data = _request("GET", "/api/google-ads/meta/accounts")
+        rows = data.get("konten", []) if isinstance(data, dict) else data
+        needle = (args.get("search") or "").strip().lower()
+        if needle:
+            rows = [r for r in rows if needle in json.dumps(r, ensure_ascii=False).lower()]
+            if not rows:
+                return f"Kein Meta-Werbekonto gefunden, dessen Name '{needle}' enthaelt. Ohne 'search' aufrufen, um alle zu sehen."
         return _shorten(rows)
 
     if spec.get("method") == "POST":
@@ -384,7 +459,7 @@ def main() -> None:
             _result(req_id, {
                 "protocolVersion": PROTOCOL_VERSION,
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": "sumax-google-ads", "version": "1.0.1"},
+                "serverInfo": {"name": "sumax-google-ads", "version": "1.2.0"},
             })
         elif method == "notifications/initialized":
             continue

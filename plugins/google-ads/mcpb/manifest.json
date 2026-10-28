@@ -2,20 +2,30 @@
   "manifest_version": "0.3",
   "name": "sumax-google-ads",
   "display_name": "SUMAX Google Ads",
-  "version": "1.0.1",
-  "description": "Google-Ads-Konten der SUMAX-MCC direkt in Claude analysieren — 27 Werkzeuge, rein lesend.",
-  "long_description": "Liest Kampagnen, Anzeigengruppen, Anzeigen, Keywords, Search Terms, Negativ-Keywords, Conversion-Aktionen und -Zahlen, Budget-Auslastung, Gebotsstrategien, Quality Score, Impression Share, Auction Insights, Kontostruktur, Zielgruppen, Geräte-Split, Shopping-Daten, Änderungshistorie, MCC-Branchen-Benchmarks und Keyword-Planner-Ideen. Es gibt bewusst kein Werkzeug, das etwas ändert: Budget-, Gebots- und Keyword-Änderungen laufen über den Google Ads Agent mit Freigabe-Queue.",
+  "version": "1.2.0",
+  "description": "Google Ads, Meta Ads und den Kanalvergleich je Kunde direkt in Claude analysieren — 36 Werkzeuge, rein lesend.",
+  "long_description": "Liest Kampagnen, Anzeigengruppen, Anzeigen, Keywords, Search Terms, Negativ-Keywords, Conversion-Aktionen und -Zahlen, Budget-Auslastung, Gebotsstrategien, Quality Score, Impression Share, Auction Insights, Kontostruktur, Zielgruppen, Geräte-Split, Shopping-Daten, Änderungshistorie, MCC-Branchen-Benchmarks und Keyword-Planner-Ideen. Dazu Meta Ads (Facebook/Instagram: Konten, Kampagnen, Anzeigengruppen mit Zielgruppen, Anzeigen mit Frequenz, Aufschlüsselung nach Alter, Geschlecht, Platzierung, Gerät, Region) und den Kanalvergleich je Kunde: Google Ads, Meta und GA4 im selben Zeitraum nebeneinander. Es gibt bewusst kein Werkzeug, das etwas ändert: Budget-, Gebots- und Keyword-Änderungen laufen über den Google Ads Agent mit Freigabe-Queue.",
   "author": {
     "name": "SUMAX / Reknova GmbH",
     "email": "c.wuerfel@sumax.de"
   },
-  "keywords": ["google-ads", "sea", "ppc", "analyse", "sumax"],
+  "keywords": [
+    "analyse",
+    "ga4",
+    "google-ads",
+    "meta-ads",
+    "ppc",
+    "sea",
+    "sumax"
+  ],
   "server": {
     "type": "python",
     "entry_point": "server/main.py",
     "mcp_config": {
       "command": "python3",
-      "args": ["${__dirname}/server/main.py"],
+      "args": [
+        "${__dirname}/server/main.py"
+      ],
       "env": {
         "SUMAX_ADS_TOKEN": "${user_config.token}",
         "SUMAX_ADS_GATEWAY_URL": "${user_config.gateway_url}"
@@ -39,6 +49,9 @@
     }
   },
   "compatibility": {
-    "platforms": ["darwin", "win32"]
+    "platforms": [
+      "darwin",
+      "win32"
+    ]
   }
 }
