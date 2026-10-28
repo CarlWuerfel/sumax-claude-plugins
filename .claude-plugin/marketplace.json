@@ -108,7 +108,7 @@
       "name": "google-ads",
       "source": "./plugins/google-ads",
       "description": "Werbe- und Webdaten direkt in Claude analysieren: Google Ads der SUMAX-MCC, Meta Ads, GA4, Search Console und der Kanalvergleich je Kunde. 40 Werkzeuge, strikt lesend. Braucht einen Zugangs-Token (SUMAX_ADS_TOKEN). Mit fertigen Befehlen /google-ads:kontocheck, /google-ads:kanalbericht und /google-ads:praesentation.",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },
@@ -200,7 +200,7 @@
       "name": "linkedin-kunden",
       "source": "./plugins/linkedin-kunden",
       "description": "LinkedIn für Kunden: Strategie, Redaktionsplan, Beiträge schreiben und prüfen, Monatsreport. Aktuelles Wissen zu Algorithmus, Formaten, Benchmarks, Branchen, Ghostwriting für Geschäftsführer und Recht für Agenturen (Stand 15.10.2026, rund 700 Quellen). Läuft lokal, kein Token nötig.",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "author": {
         "name": "SUMAX / Reknova GmbH"
       },

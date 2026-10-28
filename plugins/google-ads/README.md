@@ -112,7 +112,8 @@ ausdrücklich, und der Kanalvergleich zeigt Meta als „nicht eingerichtet“ st
 ## Was es nicht kann (bewusst)
 
 Nichts ändern. Keine Budgets, Gebote, Keywords, Anzeigen, Status. Empfehlungen ja —
-Umsetzung läuft über den `google-ads-agent` mit Freigabe-Queue oder von Hand im Konto.
+Änderungen nehmt ihr derzeit von Hand in der Google-Ads-Oberfläche vor. Ein neues Tool mit
+Freigabe-Posteingang für Änderungen ist in Planung.
 
 ## Technik
 

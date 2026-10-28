@@ -8,8 +8,8 @@ Search Console (`gsc_*`). Dahinter steckt der SUMAX-Gateway (`/api/google-ads/*`
 Caching, damit dieselbe Abfrage nicht doppelt Google-Ads-API-Kontingent kostet.
 
 STRIKT READ-ONLY. Es gibt hier bewusst kein Werkzeug, das Budgets, Gebote,
-Keywords, Anzeigen oder Status aendert. Mutationen laufen ueber den
-`google-ads-agent` mit Freigabe-Queue — nicht aus einer freien Chat-Session.
+Keywords, Anzeigen oder Status aendert. Aenderungen erfolgen derzeit von Hand in der
+Google-Ads-Oberflaeche; ein neues Tool mit Freigabe-Posteingang ist in Planung.
 
 Bewusst OHNE externe Abhaengigkeiten (kein `mcp`-Paket, kein httpx) — laeuft mit
 jedem python3 auf jeder Mitarbeiter-Maschine ohne Installation. Kommuniziert per

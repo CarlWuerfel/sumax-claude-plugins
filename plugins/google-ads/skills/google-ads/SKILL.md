@@ -7,10 +7,11 @@ description: Werbekonten analysieren — Google Ads der SUMAX-MCC (Kampagnen, Ke
 
 Die Werkzeuge `ads_*` lesen live aus unserer Google-Ads-MCC, `meta_*` aus den
 Meta-Werbekonten, `ga4_*` aus Google Analytics 4, `gsc_*` aus der Search Console und `kanaele_*` bringen Google Ads, Meta und GA4 je Kunde zusammen —
-alles über den SUMAX-Gateway. **Alles ist read-only.** Änderungen an Budgets, Geboten, Keywords oder Anzeigen laufen
-über den `google-ads-agent` mit Freigabe-Queue — nie aus einer Chat-Session heraus.
-Wenn jemand um eine Änderung bittet: Empfehlung formulieren, Umsetzung an den Agent
-oder den zuständigen SEA-Verantwortlichen verweisen.
+alles über den SUMAX-Gateway. **Alles ist read-only.** Änderungen an Budgets, Geboten, Keywords oder Anzeigen nehmen
+wir derzeit von Hand in der Google-Ads-Oberfläche vor, nie aus einer Chat-Session heraus. Ein neues Tool mit
+Freigabe-Posteingang für Änderungen ist in Planung.
+Wenn jemand um eine Änderung bittet: Empfehlung formulieren und darauf hinweisen, dass die
+Umsetzung in der Google-Ads-Oberfläche erfolgt (durch die Person selbst oder den zuständigen SEA-Verantwortlichen).
 
 ## Immer so anfangen
 

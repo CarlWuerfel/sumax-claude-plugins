@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "sumax-google-ads",
   "display_name": "SUMAX Google Ads",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Google Ads, Meta Ads, GA4, Search Console und den Kanalvergleich je Kunde direkt in Claude analysieren — 40 Werkzeuge, rein lesend.",
   "long_description": "Liest Kampagnen, Anzeigengruppen, Anzeigen, Keywords, Search Terms, Negativ-Keywords, Conversion-Aktionen und -Zahlen, Budget-Auslastung, Gebotsstrategien, Quality Score, Impression Share, Auction Insights, Kontostruktur, Zielgruppen, Geräte-Split, Shopping-Daten, Änderungshistorie, MCC-Branchen-Benchmarks und Keyword-Planner-Ideen. Dazu Meta Ads (Facebook/Instagram: Konten, Kampagnen, Anzeigengruppen mit Zielgruppen, Anzeigen mit Frequenz, Aufschlüsselung nach Alter, Geschlecht, Platzierung, Gerät, Region) und den Kanalvergleich je Kunde: Google Ads, Meta und GA4 im selben Zeitraum nebeneinander. Es gibt bewusst kein Werkzeug, das etwas ändert: Budget-, Gebots- und Keyword-Änderungen laufen über den Google Ads Agent mit Freigabe-Queue. Dazu GA4-Berichte mit frei wählbaren Dimensionen und Metriken sowie Search-Console-Leistung nach Suchbegriff, Seite, Land, Gerät und Datum.",
   "author": {

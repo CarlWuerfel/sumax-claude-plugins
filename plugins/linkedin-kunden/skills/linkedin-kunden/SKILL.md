@@ -16,7 +16,7 @@ Branchen und Kundenablauf (rund 250 Quellen). Jede Zahl steht mit Quelle, Stichp
 **Wofür:** Das SUMAX-Team plant, schreibt, prüft und wertet LinkedIn-Beiträge **für Kunden** aus:
 Unternehmensseiten und, wenn beauftragt, Profile von Geschäftsführern auf Kundenseite.
 **Nicht wofür:** eigenes Posten der Mitarbeitenden (SUMAX empfiehlt das nicht) und persönliche Profile
-außerhalb der Kundenarbeit. Bezahlte Kampagnen im Detail: Skills `ads-plan`, `ads-creative`, `ads-audit`.
+außerhalb der Kundenarbeit. Bezahlte Kampagnen im Detail: Skills `ads-creative` und `ads-budget`.
 
 **Drei Arbeitsmodi** (Umfang der Ausgabe danach richten):
 - **Entwurf:** Beitrag oder Serie schreiben → Abschnitte 6–9, Prüfliste 15, Ausgabe 16.
@@ -463,7 +463,7 @@ Nie selbst veröffentlichen, liken, kommentieren oder Kontakte einladen.
 | De-Slop | `sumax-deslop` (deutsch; Referenz `writing-de.md` im Plugin-Ordner `sumax-deslop/skills/sumax-deslop/references/`), `avoid-ai-writing` (englisch) |
 | Karussell-PDF, Grafiken, Titelbild | `weasyprint-html2pdf`, `archify`, `ui-ux-pro-max:banner-design` |
 | Positionierung eines Geschäftsführers | `obviously-awesome`, `storybrand-messaging`, `made-to-stick` |
-| Bezahlte LinkedIn-Kampagnen | `ads-plan`, `ads-creative`, `ads-audit` |
+| Bezahlte LinkedIn-Kampagnen | `ads-creative`, `ads-budget` |
 
 Für LinkedIn hat dieser Skill Vorrang vor `social-content` (dessen Hook-, Umfrage- und Scraping-Hinweise
 sind veraltet oder verstoßen gegen die Nutzungsbedingungen).
